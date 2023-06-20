@@ -1,8 +1,8 @@
 #!/bin/bash
 npm install pm2 -g
 npm install pnpm@8 -g
-pnpm client:build
-pnpm server:build
+pnpm build:client
+pnpm build:server
 cd ./server
 # docker 环境下
 pm2-runtime start ecosystem.config.js
