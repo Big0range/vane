@@ -1,0 +1,42 @@
+PORT=9999
+# mysql 配置
+MYSQL_DATABASE = 'demo'
+MYSQL_ALERT = 'true'
+# 支持多个数据库 以空格分隔 请确保个数一致 第一个为主库 其余为从库
+MYSQL_HOST =     'vane-mysql-master vane-mysql-node1 vane-mysql-node2'
+MYSQL_PORT =     '3307              3308             3309'
+MYSQL_USER =     'root              root             root'
+MYSQL_PASSWORD = '******            ******           ****'
+
+# redis 配置
+REDIS_DB = '1'
+REDIS_PORT = '6380'
+REDIS_HOST = 'vane-redis-master'
+REDIS_PASSWORD = '***'
+
+# TODO 未完成主从数据库配置
+
+# session 配置
+SESSION_SECRET = '****'
+# session 过期时间 60s
+SESSION_EXPIRE = 60000
+
+# MD5加密盐
+MD5_SALT='big0range'
+# token 加密私钥
+PRIVATE_KEY = '-----BEGIN RSA PRIVATE KEY-----
+****
+-----END RSA PRIVATE KEY-----'
+
+# token 解密公钥
+PUBLIC_KEY = '-----BEGIN PUBLIC KEY-----
+****
+-----END PUBLIC KEY-----'
+# token type
+TOKEN_TYPE = 'Bearer'
+
+# 腾讯对象存储
+COS_SECRET_ID = '***'
+COS_SECRET_KEY = '***'
+COS_REGION = 'ap-***'
+COS_BUCKET = '***'

@@ -1,0 +1,172 @@
+@import 'src/styles/variables.module';
+@import 'src/styles/element-plus';
+@import './sidebar.scss';
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, Arial, sans-serif;
+}
+.el-overlay {
+  backdrop-filter: blur(8px);
+}
+label {
+  font-weight: 700;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+#app {
+  height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+div:focus {
+  outline: none;
+}
+img,
+svg {
+  display: inline-block;
+}
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: ' ';
+    clear: both;
+    height: 0;
+  }
+}
+
+// main-container global css
+.app-container {
+  padding: 20px;
+}
+
+.search {
+  padding: 18px 0 0 10px;
+  margin-bottom: 10px;
+  box-shadow: var(--el-box-shadow-light);
+  border-radius: var(--el-card-border-radius);
+  border: 1px solid var(--el-card-border-color);
+}
+
+.bg-f7 {
+  background-color: #f7f7f7;
+}
+
+body {
+  background-color: #f6fafe;
+}
+
+.ellipsis-1 {
+  text-overflow: ellipsis; /*让截断的文字显示为点点。还有一个值是clip意截断不显示点点*/
+  white-space: nowrap; /*让文字不换行*/
+  overflow: hidden; /*超出要隐藏*/
+}
+.ellipsis-2 {
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden; //溢出内容隐藏
+  text-overflow: ellipsis; //文本溢出部分用省略号表示
+  display: -webkit-box; //特别显示模式
+  -webkit-line-clamp: 2; //行数
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.ellipsis-3 {
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden; //溢出内容隐藏
+  text-overflow: ellipsis; //文本溢出部分用省略号表示
+  display: -webkit-box; //特别显示模式
+  -webkit-line-clamp: 3; //行数
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.ellipsis-4 {
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden; //溢出内容隐藏
+  text-overflow: ellipsis; //文本溢出部分用省略号表示
+  display: -webkit-box; //特别显示模式
+  -webkit-line-clamp: 4; //行数
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.dialog-form {
+  width: 720px;
+  .el-select {
+    width: 100%;
+  }
+}
+
+.scrollbar::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 5px; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 5px;
+}
+.scrollbar-w-0::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.scrollbar-w-1::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 1px; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 1px;
+}
+.scrollbar::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 10px;
+  background-color: var(--el-color-primary-light-1,#4482ee);
+}
+.scrollbar::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #ededed;
+  /* border-radius: 4px; */
+}
+
+textarea,
+input {
+  &::selection {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    background: #599cff;
+  }
+}
+
+#waterMark {
+  pointer-events: none;
+}
+
+.cell {
+  text-align: center;
+}

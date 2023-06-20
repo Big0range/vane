@@ -1,0 +1,119 @@
+.bi-crop {
+  &-input {
+    display: none;
+  }
+  .dialog-footer {
+    display: flex;
+    justify-content: center;
+  }
+  .bi-crop-container {
+    display: flex;
+    &-left {
+      width: var(--left-width);
+      height: var(--left-height);
+      .cropImg {
+        width: var(--left-width);
+        height: var(--left-height);
+        display: none;
+      }
+    }
+    &-right {
+      flex: 1;
+      text-align: center;
+      .previewBox {
+        box-shadow: 0 0 5px #adadad;
+        width: var(--righ-previewWH);
+        height: var(--righ-previewWH);
+        margin: 0 auto;
+        margin-top: 30px;
+        overflow: hidden; /*这个超出设置为隐藏很重要，否则就会整个显示出来了*/
+      }
+      .previewBoxRound {
+        border-radius: 6px; /*设置为圆形*/
+      }
+      .previewBoxCircle {
+        border-radius: 50%; /*设置为圆形*/
+      }
+    }
+  }
+  button:focus,
+  button:focus-visible {
+    outline: none;
+  }
+  .dialog-footer {
+    display: flex;
+    justify-content: space-between;
+    .left {
+      flex: 1;
+      text-align: center;
+    }
+  }
+  .images {
+    font-size: 0;
+    display: flex;
+    flex-wrap: wrap;
+    .images-item + .images-item {
+      margin-left: 12px;
+    }
+    &-item {
+      position: relative;
+      display: inline-block;
+      border-radius: 6px;
+      overflow: hidden;
+      .mask,
+      .loading {
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        transition: all ease 0.3s;
+        display: flex;
+      }
+      .loading {
+        font-size: 16px;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        .el-icon {
+          animation: xuanzhuan 2s infinite linear;
+        }
+        @keyframes xuanzhuan {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      }
+      .mask {
+        opacity: 0;
+        .left,
+        .right {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      &:hover {
+        .mask {
+          opacity: 1;
+        }
+      }
+    }
+    .upload {
+      background-color: #fafafa;
+      border: 1px dashed #cdd0d6;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+

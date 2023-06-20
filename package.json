@@ -1,0 +1,32 @@
+{
+  "private": true,
+  "name": "vane",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node dev.js",
+    "dev:server": "pnpm run --filter @vane/server dev",
+    "dev:client": "pnpm run --filter @vane/client dev",
+    "build:server": "pnpm run --filter @vane/server build",
+    "build:client": "pnpm run --filter @vane/client build",
+    "start:server": "pnpm run --filter @vane/server start",
+    "lint:server": "pnpm run --filter @vane/server lint",
+    "lint:client": "pnpm run --filter @vane/client lint",
+    "prepare": "husky install",
+    "commit": "git cz"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "commitizen": "^4.3.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
+    "git-cz": "^4.9.0",
+    "husky": "^7.0.0"
+  }
+}

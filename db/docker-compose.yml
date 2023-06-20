@@ -1,0 +1,95 @@
+version: '3.9'
+services:
+  # mysql
+  # 主数据库
+  vane-mysql-master:
+    image: mysql:5.7
+    restart: always
+    container_name: vane-mysql-master
+    networks:
+      my_network:
+        ipv4_address: 172.16.238.2
+    logging:
+      options:
+        max-size: "100m"
+        max-file: "10"
+    environment:
+      MYSQL_ROOT_PASSWORD: 957779
+    ports:
+      - 3307:3307
+    volumes:
+      - "/home/docker-volumes/vane/mysql/master/data:/var/lib/mysql"
+      - "/home/docker-volumes/vane/mysql/master/mysql.cnf:/etc/mysql/my.cnf"
+      - "/home/docker-volumes/vane/mysql/master/logs:/var/log"
+  # mysql从数据库1
+  vane-mysql-node1:
+    image: mysql:5.7
+    depends_on:
+      - vane-mysql-master
+    restart: always
+    container_name: vane-mysql-node1
+    networks:
+      my_network:
+        ipv4_address: 172.16.238.3
+    logging:
+      options:
+        max-size: "100m"
+        max-file: "10"
+    environment:
+      MYSQL_ROOT_PASSWORD: 957779
+    ports:
+      - 3308:3308
+    volumes:
+      - "/home/docker-volumes/vane/mysql/node1/data:/var/lib/mysql"
+      - "/home/docker-volumes/vane/mysql/node1/mysql.cnf:/etc/mysql/my.cnf"
+      - "/home/docker-volumes/vane/mysql/node1/logs:/var/log"
+  # mysql从数据库2
+  vane-mysql-node2:
+    image: mysql:5.7
+    depends_on:
+      - vane-mysql-master
+    restart: always
+    container_name: vane-mysql-node2
+    networks:
+      my_network:
+        ipv4_address: 172.16.238.4
+    logging:
+      options:
+        max-size: "100m"
+        max-file: "10"
+    environment:
+      MYSQL_ROOT_PASSWORD: 957779
+    ports:
+      - 3309:3309
+    volumes:
+      - "/home/docker-volumes/vane/mysql/node2/data:/var/lib/mysql"
+      - "/home/docker-volumes/vane/mysql/node2/mysql.cnf:/etc/mysql/my.cnf"
+      - "/home/docker-volumes/vane/mysql/node2/logs:/var/log"
+  # redis
+  vane-redis-master:
+    image: redis:6.2
+    restart: always
+    container_name: vane-redis-master
+    networks:
+      my_network:
+        ipv4_address: 172.16.238.101
+    logging:
+      options:
+        max-size: "100m"
+        max-file: "10"
+    volumes:
+      - /home/docker-volumes/vane/redis/master/data:/data
+      - /home/docker-volumes/vane/redis/master/redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+    ports:
+      - 6380:6380
+    environment:
+      - TZ="Asia/Shanghai"
+
+networks:
+  my_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24

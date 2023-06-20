@@ -1,0 +1,20 @@
+# API keys and secrets
+yarn-error.log
+# Dependency directory
+node_modules
+
+# Editors
+.idea
+*.iml
+.vscode/settings.json
+.env
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Ignore built ts files
+dist
+/logs
+audit.json
+coverage
+uploads
