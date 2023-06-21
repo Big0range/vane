@@ -15,7 +15,11 @@ export async function authorization(
   next: NextFunction,
 ) {
   const url = `${req.url.split('?')[0]}|:%|${req.method.toLocaleLowerCase()}`;
-
+  console.log(
+    'whiteList.includes(url)',
+    whiteList.includes(url),
+    `${req.url.split('?')[0]}|:%|${req.method.toLocaleLowerCase()}`,
+  );
   if (whiteList.includes(url)) {
     return next();
   }
