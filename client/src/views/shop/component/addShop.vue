@@ -70,7 +70,7 @@ import Cropper from '@/components/Cropper/index.vue';
 import { uploadImg } from '@/api/comm';
 import { ElInput, ElMessage, FormInstance } from 'element-plus';
 import { createShopApi, updateShopInfoApi } from '@/api/shop/index';
-import { isPhoneNumber } from '@vane/utils';
+import { isPhoneNumber } from '@vane/server/src/utils/validate';
 import { TShopForm } from '@/api/shop/types';
 import _ from 'lodash';
 import { CDNURL } from '@/utils/config';

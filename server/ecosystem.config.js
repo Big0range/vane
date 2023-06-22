@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { name } = require('./package.json');
 const path = require('path');
 
