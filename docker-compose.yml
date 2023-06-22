@@ -27,7 +27,8 @@ services:
       - "vane-redis-master:172.16.238.101"
     volumes:
       # 为了外部可以访问日志
-      - /opt/vane/server/logs:/app/server/logs
+      - /home/docker-volumes/vane/logs:/app/server/logs
+      - /home/docker-volumes/vane/logs/.pm2:/root/.pm2/logs
       # 为了nginx可以访问静态资源 下一步会用到
       - /opt/vane/client/dist:/app/client/dist
       # 共享 node_modules 要不每次容器启动都要重新安装依赖 太费时间了
