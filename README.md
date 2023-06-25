@@ -9,11 +9,14 @@ server\
 server进阶\
 `docker`, `docker-componse`, `pm2`
 
+node版本: `^18`\
+pnpm版本: `^8`
+
 ## 配置hosts
 
 如果是windows的话,请在`C:\Windows\System32\drivers\etc\hosts`文件中添加以下内容
 
-请替换为自己真实的ip地址 192.168.31.202仅为示例
+请替换为自己真实的mysql以及redis数据库ip地址, 192.168.31.202仅为示例
 
 ```shell
 192.168.31.202 vane-redis-master
@@ -22,33 +25,50 @@ server进阶\
 192.168.31.202 vane-mysql-node2
 ```
 
+## 安装依赖
+
+`npm install -g pnpm` (也可以指定版本安装pnpm `npm install -g pnpm@8`)\
+`pnpm install`
+
+请勿使用淘宝镜像源,会导致依赖安装失败\
+还原设置: `pnpm config set registry https://registry.npmjs.org/`
+
 ## 启动命令
 
-打包服务端 `pnpm build:server`\
-打包web端 `pnpm build:client`
+### 开发环境
 
-启动服务端(开发环境)`pnpm dev:server`\
-启动web端(开发环境)`pnpm dev:client`\
-全部启动(开发环境)`pnpm dev`\
-启动服务端(正式环境)
+启动服务端: `pnpm dev:server`\
+启动web端: `pnpm dev:client`\
+全部启动: `pnpm dev`\
 
-1. 如果是docker部署的话 会根据Dockerfile文件中配置启动 会执行一个`run.sh`脚本,可按需求修改,**需要自己启动以及配置数据库**
-2. 不是docker的情况下可以运行`pnpm start:server`,**需要自己启动以及配置数据库**
+### 正式环境(`Centos7`)
+
+启动服务端
+
+1. 如果是docker部署的话 会根据Dockerfile文件中配置启动 会执行一个`run.sh`脚本,可按需求修改
+2. 不是docker的情况下可以运行`pnpm start:server`(请先执行打包命令),**需要自己启动以及配置数据库**
 3. docker-componse 一键脚本 `sh docker_start.sh all/server/db` (参数按需选择all或者server或者db,不传入的话默认为server)
     1. db: 启动数据库 如果你是第一次启动的话需要下载GitHub中releases最新版本文件,并解压到`/home/docker-volumes`目录下,正确的目录应该是`/home/docker-volumes/vane`,也可以自己修改`db/docker-compose.yml`文件中的相关配置,自己配置数据库
     2. server: 启动node服务端
     3. all: 数据库以及服务端全部启动
     4. 建议: 数据库如无修改,启动一次即可
 
+### 单独打包
+
+如果你有其他的需求,可以单独打包,打包后的文件在`dist`文件夹下
+
+1. 打包服务端 `pnpm build:server`
+2. 打包web端 `pnpm build:client`
+
 ## 环境配置
 
-### 开发环境
+### 开发环境配置
 
-`node>=18`, `pnpm>=8`, `mysql`, `redis`
+`node>=18`, `pnpm>=8`, `mysql:5.7`, `redis:6.2`
 
 ### 正式环境
 
-`node>=16.14.0`, `mysql`, `redis`, `pnpm>=8,docker(可选)`, `docker-componse(可选)`
+`node>=16.14.0`(如果可以安装18版本的最好,16版本只是能保证基本的安装依赖), `mysql`, `redis`, `pnpm>=8,docker(可选)`, `docker-componse(可选)`
 
 ## 服务端相关
 
