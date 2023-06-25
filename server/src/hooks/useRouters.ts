@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import cluster from 'node:cluster';
 import express, { Router } from 'express';
 import { sysRoutesServe } from '@/serve';
 const dirPath = path.resolve(__dirname, '../routes');
@@ -94,34 +93,50 @@ export const useRouters = async (app: express.Application) => {
   }
   await getAllFiles(dirPath);
   app.use(router);
-
   // 为了不妨碍主进程的启动, 所以这里使用异步 (路由越多启动越慢, 这个不是很重要, 完全可以异步去执行)
-  (async () => {
-    if (cluster.isPrimary) {
-      console.log('主进程, 开始遍历路由列表');
-      const result = await sysRoutesServe.findAll(1, 99999);
-      const dbRoutes = result.rows;
-      // 遍历数据库中的路由列表, 如果本地不存在, 则删除
-      for (const dbRoute of dbRoutes) {
-        const some = routes.some(
-          item => item.url === dbRoute.url && item.methods === dbRoute.methods,
-        );
-        // 不存在 ===> 删除
-        if (!some) {
-          await sysRoutesServe.destroy(dbRoute.id);
+  const func = async (i = 1) => {
+    try {
+      if (
+        process.env.locale_start === 'true' ||
+        process.env.NODE_APP_INSTANCE === '0'
+      ) {
+        console.log('主进程, 开始遍历路由列表');
+        const result = await sysRoutesServe.findAll(1, 99999);
+        const dbRoutes = result.rows;
+        // 遍历数据库中的路由列表, 如果本地不存在, 则删除
+        for (const dbRoute of dbRoutes) {
+          const some = routes.some(
+            item =>
+              item.url === dbRoute.url && item.methods === dbRoute.methods,
+          );
+          // 不存在 ===> 删除
+          if (!some) {
+            await sysRoutesServe.destroy(dbRoute.id);
+          }
         }
-      }
-      for (const route of routes) {
-        // 先判断是否存在, 不存在再创建
-        const some = result.rows.some(
-          item => item.url === route.url && item.methods === route.methods,
-        );
-        // 不存在 ===> 创建
-        if (!some) {
-          await sysRoutesServe.create(route);
+        for (const route of routes) {
+          // 先判断是否存在, 不存在再创建
+          const some = result.rows.some(
+            item => item.url === route.url && item.methods === route.methods,
+          );
+          // 不存在 ===> 创建
+          if (!some) {
+            await sysRoutesServe.create({
+              ...route,
+              match: route.url.replace(/:[^/]+/g, '[^/]+'),
+            });
+          }
         }
+        console.log('主进程, 遍历路由列表结束');
       }
-      console.log('主进程, 遍历路由列表结束');
+    } catch (error) {
+      console.log(error);
+      console.log('主进程, 遍历路由列表失败, 10秒后重试,重试次数:', i);
+      setTimeout(() => {
+        func(i + 1);
+      }, 10 * 1000);
     }
-  })();
+  };
+  // 这个定时器纯粹为了日志输出好看没任何卵用,完全可以直接运行
+  setTimeout(func, 1000);
 };

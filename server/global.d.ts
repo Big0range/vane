@@ -28,6 +28,9 @@ declare namespace NodeJS {
     COS_SECRET_KEY: string;
     COS_REGION: string;
     COS_BUCKET: string;
+    //
+    pm_id: string;
+    NODE_APP_INSTANCE: string;
   }
 }
 interface PageQueryParam {

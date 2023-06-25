@@ -47,7 +47,7 @@ export const resultHandler = (
       message = statusMsg[status] || 'success';
     }
     // 写入日志  如果没有传入log 就用message
-    await addLogs(log, status);
+    await addLogs(log === true ? message : '', status);
     res.status(status);
     if (raw) {
       res.send(data);

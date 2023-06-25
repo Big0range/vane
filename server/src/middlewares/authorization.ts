@@ -1,22 +1,29 @@
 import { sysUserServe } from '../serve/sys/user.serve';
 import { Request, Response, NextFunction } from '../routes/types';
+import { sysRoutesServe } from '@/serve';
 import Token from '../utils/token';
-// 不需要登录验证的api
-const whiteList = [
-  '/user/login|:%|post',
-  '/user/register|:%|post',
-  '/user/code|:%|get',
-  '/demo|:%|get',
-  '/config|:%|get',
-];
+
 export async function authorization(
   req: Request,
   res: Response,
   next: NextFunction,
 ) {
-  const url = `${req.url.split('?')[0]}|:%|${req.method.toLocaleLowerCase()}`;
-  if (whiteList.includes(url)) {
-    return next();
+  const result = await sysRoutesServe.getRouteWhitelistKey();
+  const routeWhiteList = result.map(item => ({
+    url: item.url.replace(/:[^/]+/g, '[^/]+'),
+    methods: item.methods,
+  }));
+  // 正则校验
+  for (let i = 0; i < routeWhiteList.length; i++) {
+    const item = routeWhiteList[i];
+    // 判断请求方式 是否一致 不一致则跳过
+    if (item.methods !== req.method.toLocaleLowerCase()) {
+      continue;
+    }
+    const reg = new RegExp(`^${item.url}$`);
+    if (reg.test(req.url)) {
+      return next();
+    }
   }
   try {
     const authorization = req.headers.authorization;
