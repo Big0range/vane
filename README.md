@@ -9,6 +9,19 @@ server\
 server进阶\
 `docker`, `docker-componse`, `pm2`
 
+## 配置hosts
+
+如果是windows的话,请在`C:\Windows\System32\drivers\etc\hosts`文件中添加以下内容
+
+请替换为自己真实的ip地址 192.168.31.202仅为示例
+
+```shell
+192.168.31.202 vane-redis-master
+192.168.31.202 vane-mysql-master
+192.168.31.202 vane-mysql-node1
+192.168.31.202 vane-mysql-node2
+```
+
 ## 启动命令
 
 打包服务端 `pnpm build:server`\
