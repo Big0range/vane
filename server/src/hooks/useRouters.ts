@@ -1,8 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import cluster from 'node:cluster';
 import express, { Router } from 'express';
+import { sysRoutesServe } from '@/serve';
 const dirPath = path.resolve(__dirname, '../routes');
 const router = Router();
+const routes: { url: string; methods: string }[] = [];
+
 export const useRouters = async (app: express.Application) => {
   async function getAllFiles(root: string) {
     const result: string[] = [];
@@ -77,6 +81,8 @@ export const useRouters = async (app: express.Application) => {
             .replace(/\/+/g, '/');
           // console.log(`\x1b[32mrouter:${realPath}   methods:${methods}\x1b[0m`);
           (router as any)[methods](realPath, ...middleware, routeFn);
+          routes.push({ url: realPath, methods });
+          // await sysRoutesServe.create({ url: realPath, methods });
         } catch (error) {
           console.log('router注册失败', error);
         }
@@ -88,4 +94,34 @@ export const useRouters = async (app: express.Application) => {
   }
   await getAllFiles(dirPath);
   app.use(router);
+
+  // 为了不妨碍主进程的启动, 所以这里使用异步 (路由越多启动越慢, 这个不是很重要, 完全可以异步去执行)
+  (async () => {
+    if (cluster.isPrimary) {
+      console.log('主进程, 开始遍历路由列表');
+      const result = await sysRoutesServe.findAll(1, 99999);
+      const dbRoutes = result.rows;
+      // 遍历数据库中的路由列表, 如果本地不存在, 则删除
+      for (const dbRoute of dbRoutes) {
+        const some = routes.some(
+          item => item.url === dbRoute.url && item.methods === dbRoute.methods,
+        );
+        // 不存在 ===> 删除
+        if (!some) {
+          await sysRoutesServe.destroy(dbRoute.id);
+        }
+      }
+      for (const route of routes) {
+        // 先判断是否存在, 不存在再创建
+        const some = result.rows.some(
+          item => item.url === route.url && item.methods === route.methods,
+        );
+        // 不存在 ===> 创建
+        if (!some) {
+          await sysRoutesServe.create(route);
+        }
+      }
+      console.log('主进程, 遍历路由列表结束');
+    }
+  })();
 };

@@ -33,7 +33,7 @@ module.exports = {
     // 'max-classes-per-file': 'error',
     // 'prefer-template': 'error',
     // '@typescript-eslint/camelcase': 'off',
-    // '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-explicit-any': 'off', // 允许使用any
     // '@typescript-eslint/no-unused-vars': 1,
     // '@typescript-eslint/no-var-requires': 'off',
   },

@@ -7,4 +7,6 @@ export { sysMenuServe } from './sys/menu.serve';
 export { sysRoleServe, TRole } from './sys/role.serve';
 export { sysRoleMenuServe } from './sys/role_menu.serve';
 export { sysLogsServe } from './sys/logs.serve';
-db.sync({ alter: process.env.MYSQL_ALERT === 'true' });
+export { sysRoutesServe } from './sys/routes.serve';
+
+db.sync({ alter: true });

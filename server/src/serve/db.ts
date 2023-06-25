@@ -19,29 +19,41 @@ if (Math.max(...l) !== Math.min(...l)) {
   console.log(`\x1b[31mmysql 配置错误 请检查 .env 文件\x1b[0m`);
   process.exit(1);
 }
+let sequelize: Sequelize;
 // 创建 sequelize 对象，设置连接信息
-const sequelize = new Sequelize({
-  dialect: 'mysql',
-  logging: useMysqlLogger(path.join(__dirname, '../../logs/sql')),
-  timezone: '+08:00', //东八时区
-  replication: {
-    read: mysqlHosts.slice(1).map((item, index) => ({
-      host: mysqlHosts[index + 1],
-      username: mysqlUsers[index + 1],
-      password: mysqlPasswords[index + 1],
-      port: mysqlPorts[index + 1],
-      database: mysqlDatabase,
-    })),
-    write: {
-      host: mysqlHosts[0],
-      username: mysqlUsers[0],
-      password: mysqlPasswords[0],
-      port: mysqlPorts[0],
-      database: mysqlDatabase,
+if (process.env.NODE_ENV === 'production') {
+  sequelize = new Sequelize({
+    dialect: 'mysql',
+    logging: useMysqlLogger(path.join(__dirname, '../../logs/sql')),
+    timezone: '+08:00', //东八时区
+    replication: {
+      read: mysqlHosts.slice(1).map((item, index) => ({
+        host: mysqlHosts[index + 1],
+        username: mysqlUsers[index + 1],
+        password: mysqlPasswords[index + 1],
+        port: mysqlPorts[index + 1],
+        database: mysqlDatabase,
+      })),
+      write: {
+        host: mysqlHosts[0],
+        username: mysqlUsers[0],
+        password: mysqlPasswords[0],
+        port: mysqlPorts[0],
+        database: mysqlDatabase,
+      },
     },
-  },
-});
+  });
+}
 
+if (process.env.NODE_ENV === 'development') {
+  sequelize = new Sequelize(mysqlDatabase, mysqlUsers[0], mysqlPasswords[0], {
+    host: mysqlHosts[0],
+    port: mysqlPorts[0] as any,
+    dialect: 'mysql',
+    logging: useMysqlLogger(path.join(__dirname, '../../logs/sql')),
+    timezone: '+08:00', //东八时区
+  });
+}
 // 测试连接
 sequelize
   .authenticate()
