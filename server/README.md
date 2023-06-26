@@ -1,1 +1,0 @@
-# Express TypeScript template

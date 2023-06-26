@@ -12,7 +12,9 @@ server进阶\
 node版本: `^18`\
 pnpm版本: `^8`
 
-## 配置hosts
+## 服务端
+
+### 配置hosts
 
 如果是windows的话,请在`C:\Windows\System32\drivers\etc\hosts`文件中添加以下内容
 
@@ -25,7 +27,7 @@ pnpm版本: `^8`
 192.168.31.202 vane-mysql-node2
 ```
 
-## 安装依赖
+### 安装依赖
 
 `npm install -g pnpm` (也可以指定版本安装pnpm `npm install -g pnpm@8`)\
 `pnpm install`
@@ -33,50 +35,50 @@ pnpm版本: `^8`
 请勿使用淘宝镜像源,会导致依赖安装失败\
 还原设置: `pnpm config set registry https://registry.npmjs.org/`
 
-## 启动命令
+### 启动命令
 
-### 开发环境
+#### 开发环境
 
 启动服务端: `pnpm dev:server`\
 启动web端: `pnpm dev:client`\
 全部启动: `pnpm dev`\
 
-### 正式环境(`Centos7`)
+#### 正式环境(`Centos`)
 
 启动服务端
 
-1. 如果是docker部署的话 会根据Dockerfile文件中配置启动 会执行一个`run.sh`脚本,可按需求修改
-2. 不是docker的情况下可以运行`pnpm start:server`(请先执行打包命令),**需要自己启动以及配置数据库**
-3. docker-componse 一键脚本 `sh docker_start.sh all/server/db` (参数按需选择all或者server或者db,不传入的话默认为server)
-    1. db: 启动数据库 如果你是第一次启动的话需要下载GitHub中releases最新版本文件,并解压到`/home/docker-volumes`目录下,正确的目录应该是`/home/docker-volumes/vane`,也可以自己修改`db/docker-compose.yml`文件中的相关配置,自己配置数据库
-    2. server: 启动node服务端
+1. 原生docker部署(`不推荐`), 会根据Dockerfile文件中配置启动 会执行一个`run.sh`脚本,可按需求修改
+2. 非docker部署(`极不推荐,需要服务器支持node18,并且较为繁琐`),可以运行`pnpm start:server`(请先执行打包命令),**需要自己启动以及配置数据库,并且node>=18并不支持Centos7,极力推荐使用docker进行部署**
+3. docker-componse部署(`推荐`), 一键脚本 `sh docker_start.sh all/server/db` (参数按需选择all或者server或者db,不传入的话默认为server)
+    1. db: 启动mysql以及redis数据库 如果你是第一次启动的话需要下载GitHub中releases最新版本文件,并解压到`/home/docker-volumes`目录下,正确的目录应该是`/home/docker-volumes/vane`,也可以自己修改`db/docker-compose.yml`文件中的相关配置,自己配置数据库
+    2. server: 启动node服务端和nginx,默认端口映射为80,如果你想修改的话,请自行修改`server/docker-compose.yml`文件中的相关配置
     3. all: 数据库以及服务端全部启动
     4. 建议: 数据库如无修改,启动一次即可
 
-### 单独打包
+#### 单独打包
 
 如果你有其他的需求,可以单独打包,打包后的文件在`dist`文件夹下
 
 1. 打包服务端 `pnpm build:server`
 2. 打包web端 `pnpm build:client`
 
-## 环境配置
+### 环境配置
 
-### 开发环境配置
+#### 开发环境配置
 
 `node>=18`, `pnpm>=8`, `mysql:5.7`, `redis:6.2`
 
-### 正式环境
+#### 正式环境
 
 `node>=16.14.0`(如果可以安装18版本的最好,16版本只是能保证基本的安装依赖), `mysql`, `redis`, `pnpm>=8,docker(可选)`, `docker-componse(可选)`
 
-## 服务端相关
-
-### 配置env文件
+#### 配置env文件
 
 在`server`文件夹下创建`.env`文件,并按照`.env.example`文件中的格式进行配置
 
-### 路由添加
+### 添加接口路由
+
+#### 路由添加
 
 在`server/src/server/routes`文件夹中添加.ts文件即可,路由会根据所在位置以及文件名自动加载,无需显示引入
 
@@ -127,17 +129,148 @@ sql日志会自动记录在`server/logs/sql`文件夹下,文件名为`sql-${日�
 
 本项目使用了腾讯云对象存储,如果您没有腾讯云对象存储的话,请自行修改`server/src/server/routes/upload.ts`文件中的上传逻辑,并修改`client/src/utils/config.ts`文件中的`CDNURL` 远程资源地址
 
-## 代码提交
-
-根目录下执行以下命令\
-`git add .`\
-`pnpm commit`\
-`git push`
-
-## 注意事项
+### 注意事项
 
 1. mysql使用了一主多从集群模式,如果您仅仅使用一个mysql的话,请修改`server/.env`文件中的`mysql`配置,以及`server/src/serve/db.ts`文件中`sequelize`的实例初始化代码
 
 2. 开发环境下, 默认不启动数据库集群模式,如果需要启动集群模式,请修改`server`文件夹下的`nodemon.json`中的NODE_ENV为production
 
 3. 虽然使用了pnpm的workspace的模式,但是由于某些原因服务端在打包后,不能正确解析工作区间内的包名,所以禁止在服务端代码内使用工作区间内的包,但是web端可以使用服务端的
+
+## 前端
+
+如果你用过vue2版本的vue-admin的话,上手应该会非常快,因为本项目的前端是模仿vue-admin的vue3版本,并且使用了typescript,所以如果你不熟悉vue3的话,建议先学习一下vue3的基础知识
+
+目录结构
+
+```
+|-- 🗂️client
+    |-- 🗂️.vscode
+        |-- 📄settings.json
+    |-- 🗂️deploy (一键上传脚本,去掉deploy.config copy.json中的copy,并修改配置)
+        |-- 📄deploy.config copy.json
+        |-- 📄deploy.config.json
+        |-- 📄index.js
+        |-- 📄sysInfo.js
+    |-- 🗂️public
+        |-- 📄favicon.ico
+        |-- 📄logo.png
+    |-- 🗂️src
+        |-- 🗂️api (接口存放目录)
+        |-- 🗂️assets (静态资源存放目录)
+        |-- 🗂️components (公共组件存放目录)
+            |-- 🗂️Breadcrumb
+            |-- 🗂️CountTo
+            |-- 🗂️Cropper
+            |-- 🗂️GithubCorner
+            |-- 🗂️Hamburger
+            |-- 🗂️IconSelect
+            |-- 🗂️LangSelect
+            |-- 🗂️Notice
+            |-- 🗂️Page
+            |-- 🗂️Pagination
+            |-- 🗂️RightPanel
+            |-- 🗂️Screenfull
+            |-- 🗂️ScreenLock
+            |-- 🗂️SizeSelect
+            |-- 🗂️SvgIcon
+            |-- 🗂️UploadFile
+            |-- 🗂️WangEditor
+        |-- 🗂️directive (自定义属性)
+            |-- 🗂️permission
+            |-- 📄index.ts
+        |-- 🗂️hooks (自定义hooks)
+            |-- 📄useForm.ts
+        |-- 🗂️lang (i18,目前还有一些小问题,不影响使用)
+            |-- 📄en.ts
+            |-- 📄index.ts
+            |-- 📄zh-cn.ts
+        |-- 🗂️layout (页面布局组件)
+            |-- 🗂️components
+            |-- 📄index.vue
+        |-- 🗂️router (路由)
+            |-- 📄index.ts
+        |-- 🗂️store (pinia)
+            |-- 🗂️modules
+            |-- 📄index.ts
+        |-- 🗂️styles (公共class样式)
+            |-- 📄element-plus.scss
+            |-- 📄index.scss
+            |-- 📄mixin.scss
+            |-- 📄sidebar.scss
+            |-- 📄tailwind.css
+            |-- 📄variables.module.scss
+        |-- 🗂️theme (主题配色)
+            |-- 📄blue_black.ts
+            |-- 📄default.ts
+            |-- 📄green_black.ts
+            |-- 📄green_white.ts
+            |-- 📄index.ts
+            |-- 📄purple_white.ts
+            |-- 📄red_black.ts
+            |-- 📄red_white.ts
+            |-- 📄violet_dark.ts
+        |-- 🗂️utils (工具方法)
+            |-- 📄addWaterMark.ts
+            |-- 📄config.ts
+            |-- 📄downloadFile.ts
+            |-- 📄encryption.ts
+            |-- 📄filter.ts
+            |-- 📄hospitalOptions.ts
+            |-- 📄i18n.ts
+            |-- 📄index.ts
+            |-- 📄mitter.ts
+            |-- 📄request.ts
+            |-- 📄resize.ts
+            |-- 📄scroll-to.ts
+            |-- 📄storage.ts
+            |-- 📄validate.ts
+        |-- 🗂️views (页面组件存放处)
+            |-- 🗂️component
+            |-- 🗂️dashboard
+            |-- 🗂️demo
+            |-- 🗂️dept
+            |-- 🗂️error-page
+            |-- 🗂️login
+            |-- 🗂️redirect
+            |-- 🗂️shop
+            |-- 🗂️system
+        |-- 📄App.vue
+        |-- 📄components.d.ts
+        |-- 📄env.d.ts
+        |-- 📄main.ts
+        |-- 📄permission.ts (路由鉴权)
+        |-- 📄settings.ts (页面配置)
+    |-- 📄.editorconfig
+    |-- 📄.env (公共的env)
+    |-- 📄.env.development (开发模式独有的env)
+    |-- 📄.env.production (生产模式独有的env)
+    |-- 📄.env.staging (.....)
+    |-- 📄.eslintignore
+    |-- 📄.eslintrc.js
+    |-- 📄.gitignore
+    |-- 📄.prettierignore
+    |-- 📄.prettierrc.js
+    |-- 📄commitlint.config.js
+    |-- 📄components.d.ts
+    |-- 📄global.d.ts (全局ts声明,请不要import引入其他,否则会失效)
+    |-- 📄index.html (模板html)
+    |-- 📄package.json
+    |-- 📄postcss.config.js
+    |-- 📄tailwind.config.js (tailwind 配置文件)
+    |-- 📄tsconfig.json
+    |-- 📄tsconfig.node.json
+    |-- 📄vite.config.ts (vite 配置文件)
+```
+
+### 添加路由
+
+1. 在`src/router/index.ts`中添加路由,并且在`src/views`中添加页面组件
+2. 在`src/views`中添加页面组件, `系统管理=>菜单管理`中添加菜单地址, 并在 `系统管理=>角色管理`为角色分配菜单权限
+
+## 代码提交
+
+根目录下执行以下命令\
+`git add .`\
+`pnpm commit`\
+`git push`

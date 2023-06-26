@@ -3,7 +3,8 @@ import { TUser, sysUserServe } from '@/serve';
 import { isPhoneNumber } from '@/utils/validate';
 
 export default async (req: Request, res: Response) => {
-  const { password, role_id, avatar, phone, shop_id, dept_id, id, username } =
+  // eslint-disable-next-line prefer-const
+  let { password, role_id, avatar, phone, shop_id, dept_id, id, username } =
     req.body as TUser;
   const selfId = req.userInfo.id;
   const userId = id === undefined ? selfId : id;
@@ -16,6 +17,10 @@ export default async (req: Request, res: Response) => {
       username,
       del_flag: 0,
     });
+    if (findUser.username === 'admin') {
+      username = undefined;
+      role_id = undefined;
+    }
     if (findUser && findUser.id !== userId) {
       throw new Error('用户名已存在');
     }

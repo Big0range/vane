@@ -54,18 +54,18 @@ export const constantRoutes: RouteRecordRaw[] = [
         meta: { hidden: true }
       }
     ]
-  }
+  },
   // 外部链接
-  /*{
-        path: '/external-link',
-        component: Layout,
-        children: [
-            {
-                path: 'https://www.cnblogs.com/haoxianrui/',
-                meta: { title: '外部链接', icon: 'link' }
-            }
-        ]
-    }*/
+  {
+    path: '/external-link',
+    component: Layout,
+    children: [
+      {
+        path: 'https://blog.limeichao.cn/',
+        meta: { title: '外部链接', icon: 'link' }
+      } as any
+    ]
+  }
   // 多级嵌套路由
   /* {
          path: '/nested',

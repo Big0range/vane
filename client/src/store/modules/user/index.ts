@@ -1,4 +1,3 @@
-import { CDNURL } from '@/utils/config';
 import { defineStore } from 'pinia';
 import { LoginFormData } from '@/api/system/user/types';
 import { UserState } from './types';
@@ -8,6 +7,7 @@ import { login, getUserInfoApi, logoutApi } from '@/api/system/user';
 import { getMenuListApi } from '@/api/system/menu';
 import { resetRouter } from '@/router';
 import avatarImg from '@/assets/avatar.gif';
+const CDNURL = import.meta.env.VITE_APP_CDNURL;
 const useUserStore = defineStore({
   id: 'user',
   state: (): UserState => ({

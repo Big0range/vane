@@ -23,7 +23,7 @@
             <el-input v-model="options.username" placeholder="请输入">
             </el-input>
           </el-form-item>
-          <el-form-item label="ip" prop="ip">
+          <el-form-item label="IP" prop="ip">
             <el-input v-model="options.ip" placeholder="请输入"> </el-input>
           </el-form-item>
           <el-form-item label="请求路径" prop="url">

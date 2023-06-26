@@ -19,6 +19,7 @@
           <el-input
             v-model="formDate.username"
             maxlength="20"
+            :disabled="isAdmin"
             show-word-limit
             placeholder="请输入用户名"
           />
@@ -28,6 +29,7 @@
             v-model="formDate.role_id"
             class="w-full"
             placeholder="角色"
+            :disabled="isAdmin"
           >
             <el-option
               v-for="item in roleList"
@@ -75,7 +77,7 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { getRoleListApi } from '@/api/system/role';
 import Cropper from '@/components/Cropper/index.vue';
 import { uploadImg } from '@/api/comm';
@@ -84,10 +86,10 @@ import { createUserApi, changeUserInfoApi } from '@/api/system/user';
 import { checkMobileSimple } from '@/utils/validate';
 import { encryption, decrypt } from '@vane/server/src/utils/encryption';
 import _ from 'lodash';
-import { CDNURL } from '@/utils/config';
 export interface IAddApi {
   show: (row?: any) => void;
 }
+const CDNURL = import.meta.env.VITE_APP_CDNURL;
 const avatar = ref<any[]>([]);
 type TRoleList = PromiseReturnType<typeof getRoleListApi>['data']['rows'];
 const props = defineProps<{
@@ -96,9 +98,15 @@ const props = defineProps<{
   dialogType: string;
 }>();
 const dialogVisible = ref(false);
+const isAdmin = ref(false);
 // 初始化显示
 const show = async (row2?: any) => {
   const row = _.cloneDeep(row2);
+  if (row2.username === 'admin') {
+    isAdmin.value = true;
+  } else {
+    isAdmin.value = false;
+  }
   dialogVisible.value = true;
   resetForm(ruleFormRef.value);
   if (row) {

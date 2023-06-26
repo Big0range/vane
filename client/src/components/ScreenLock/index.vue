@@ -71,9 +71,9 @@ import useStore from '@/store';
 import { encryption } from '@vane/server/src/utils/encryption';
 import type { FormInstance, FormRules } from 'element-plus';
 import { useForm } from '@/hooks/useForm';
-import { CDNURL } from '@/utils/config';
 import { changeLockScreenApi } from '@/api/system/user';
 const { user } = useStore();
+const CDNURL = import.meta.env.VITE_APP_CDNURL;
 const bgImages = ref(
   new Array(30)
     .fill(CDNURL)

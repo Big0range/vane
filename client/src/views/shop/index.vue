@@ -119,7 +119,7 @@ import { reactive, ref, toRefs } from 'vue';
 import AddShop, { IAddShopApi } from './component/addShop.vue';
 import { getShopListApi, getShopDeleteApi } from '@/api/shop/index';
 import { ElMessage, FormInstance, FormRules } from 'element-plus';
-import { CDNURL } from '@/utils/config';
+const CDNURL = import.meta.env.VITE_APP_CDNURL;
 const state = reactive({
   loading: false, // 表格加载状态
   tableData: [] as any // 表格数据

@@ -22,7 +22,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, shallowRef, reactive, toRefs, watch } from 'vue';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
-import { CDNURL } from '@/utils/config';
 // API 引用
 import { uploadImg } from '@/api/comm';
 const props = defineProps({
@@ -41,6 +40,7 @@ const emit = defineEmits(['update:modelValue']);
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef();
 console.log('props.modelValue', props.modelValue);
+const CDNURL = import.meta.env.VITE_APP_CDNURL;
 const state = reactive({
   toolbarConfig: {},
   editorConfig: {

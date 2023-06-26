@@ -73,10 +73,10 @@ import { createShopApi, updateShopInfoApi } from '@/api/shop/index';
 import { isPhoneNumber } from '@vane/server/src/utils/validate';
 import { TShopForm } from '@/api/shop/types';
 import _ from 'lodash';
-import { CDNURL } from '@/utils/config';
 export interface IAddShopApi {
   show: (row?: any) => void;
 }
+const CDNURL = import.meta.env.VITE_APP_CDNURL;
 type TRoleList = PromiseReturnType<typeof getRoleListApi>['data']['rows'];
 const props = defineProps<{
   title: any;

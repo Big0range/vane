@@ -18,18 +18,29 @@ export abstract class CommServe<T = any> {
     this.attributes = Object.keys(this.Table.rawAttributes);
   }
 
+  public async findById(id: string | number): Promise<T | null>;
+  public async findById(id: (number | string)[]): Promise<T[]>;
   /**
    * 根据id查找
    * @param id 需要查找的id
    * @returns any
    */
   public async findById(id: (number | string)[] | string | number) {
-    const result = await this.Table.findOne({
-      where: {
-        id,
-      },
-    });
-    return result && (result.dataValues as T);
+    if (typeof id === 'number' || typeof id === 'string') {
+      const result = await this.Table.findOne({
+        where: {
+          id,
+        },
+      });
+      return result && (result.dataValues as T);
+    } else {
+      const result = await this.Table.findAll({
+        where: {
+          id,
+        },
+      });
+      return result && result.map(item => item.dataValues as T);
+    }
   }
 
   public async findAll(options: FindOptions): Promise<{

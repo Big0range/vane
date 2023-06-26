@@ -14,6 +14,7 @@ interface ImportMetaEnv {
   VITE_APP_BASE_API: string;
   VITE_APP_ENV: string;
   VITE_ENV: 'development' | 'production' | 'staging';
+  VITE_APP_CDNURL: string;
 }
 
 interface ImportMeta {

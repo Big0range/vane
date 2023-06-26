@@ -29,8 +29,8 @@ services:
       # 为了外部可以访问日志
       - /home/docker-volumes/vane/logs:/app/server/logs
       - /home/docker-volumes/vane/logs/.pm2:/root/.pm2/logs
-      # 为了nginx可以访问静态资源 下一步会用到
-      - /opt/vane/client/dist:/app/client/dist
+      # 为了nginx可以访问静态资源
+      - /home/docker-volumes/vane/nginx/html:/app/client/dist
       # 共享 node_modules 要不每次容器启动都要重新安装依赖 太费时间了
       - /opt/vane/node_modules:/app/node_modules
       - /opt/vane/server/node_modules:/app/server/node_modules
@@ -54,11 +54,11 @@ services:
       - "vane-server:172.16.238.200"
     volumes:
       # nginx配置文件
-      - "/home/docker-volumes/vane/nginx:/etc/nginx"
+      - "/home/docker-volumes/vane/nginx/conf:/etc/nginx"
       # nginx日志
       - "/home/docker-volumes/vane/nginx/logs:/var/log/nginx"
       # 静态资源
-      - "/opt/vane/client/dist:/usr/share/nginx"
+      - "/home/docker-volumes/vane/nginx/html:/usr/share/nginx"
 networks:
   # db 是数据库docker-compose所在文件夹的名称(就是此项目根目录下的db) my_network 是db自定义网络名称 
   db_my_network:

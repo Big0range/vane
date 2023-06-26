@@ -60,27 +60,12 @@ sequelize
   .then(() => console.log('数据库连接成功'))
   .catch(error => console.error('数据库连接失败', error));
 export default sequelize;
-// 关闭数据库连接
-// sequelize.close()
-//   .then(() => console.log('数据库连接关闭成功'))
-//   .catch(error => console.error('数据库连接关闭失败', error));
 
-// import { Sequelize, Model, DataTypes } from 'sequelize';
-// import { mysqlLog } from '../middlewares';
-
-// // 创建 sequelize 对象，设置连接信息
-// const sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_USER, process.env.MYSQL_PASSWORD, {
-//     host: process.env.MYSQL_HOST,
-//     dialect: 'mysql',
-//     logging: mysqlLog,
+// 单例模式
+// const sequelize = new Sequelize(mysqlDatabase, mysqlUsers[0], mysqlPasswords[0], {
+//   host: mysqlHosts[0],
+//   port: mysqlPorts[0] as any,
+//   dialect: 'mysql',
+//   logging: useMysqlLogger(path.join(__dirname, '../../logs/sql')),
+//   timezone: '+08:00', //东八时区
 // });
-
-// // 测试连接
-// sequelize.authenticate()
-//     .then(() => console.log('数据库连接成功'))
-//     .catch(error => console.error('数据库连接失败', error));
-// export default sequelize;
-// // 关闭数据库连接
-// // sequelize.close()
-// //   .then(() => console.log('数据库连接关闭成功'))
-// //   .catch(error => console.error('数据库连接关闭失败', error));

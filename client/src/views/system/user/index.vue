@@ -75,6 +75,7 @@
               :inactive-value="0"
               active-text="禁用"
               inactive-text="启用"
+              :disabled="scope.row.username === 'admin'"
               @change="changeUserStatus(scope.row.id, scope.$index)"
             />
           </template>
@@ -102,7 +103,13 @@
               @confirm="operation('delete', scope.row)"
             >
               <template #reference>
-                <el-button link :icon="Delete" type="danger">删除</el-button>
+                <el-button
+                  :disabled="scope.row.username === 'admin'"
+                  link
+                  :icon="Delete"
+                  type="danger"
+                  >删除</el-button
+                >
               </template>
             </el-popconfirm>
           </template>
