@@ -1,5 +1,5 @@
 <template>
-  <Page>
+  <Page v-loading="loading">
     <template #top>
       <div class="flex items-center justify-between">
         <el-form
@@ -42,16 +42,10 @@
             />
           </el-form-item>
           <el-form-item label="">
-            <el-button
-              class="ml-80"
-              type="primary"
-              :loading="loading"
-              @click="getList(1)"
+            <el-button class="ml-80" type="primary" @click="getList(1)"
               >搜索</el-button
             >
-            <el-button @click="resetForm(), getList(1)" :loading="loading"
-              >重置</el-button
-            >
+            <el-button @click="resetForm(), getList(1)">重置</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -139,6 +133,7 @@
     </template>
   </Page>
 </template>
+
 <script setup lang="ts">
 import { FormInstance, FormRules } from 'element-plus';
 import { reactive, ref } from 'vue';

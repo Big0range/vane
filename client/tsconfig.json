@@ -13,7 +13,7 @@
     "allowJs": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["./src/*"],
       "@root/*": ["../*"],
     },
     "types": ["vite/client","element-plus/global","./global"],

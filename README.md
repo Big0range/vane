@@ -115,6 +115,16 @@ export const middleware = [()=>{}];
 
 ```
 
+### 接口白名单(不需要登录鉴权)
+
+#### 系统固定白名单(不可修改)
+
+修改`server\src\serve\sys\routes.serve.ts`中的`constantRouteWhiteList`数组, 修改之后需要清空mysql中的`sys_routes`表和redis中的`routeWhitelist`缓存,否则无法生效
+
+#### 自定义白名单(可修改)
+
+启动前端服务,在[http://localhost:4000/vane/system/white-api](http://localhost:4000/vane/system/white-api)中进行配置,无需修改mysql和redis
+
 ### 日志记录
 
 #### api日志

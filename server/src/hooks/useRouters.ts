@@ -4,7 +4,7 @@ import express, { Router } from 'express';
 import { sysRoutesServe } from '@/serve';
 const dirPath = path.resolve(__dirname, '../routes');
 const router = Router();
-const routes: { url: string; methods: string }[] = [];
+const routes: { url: string; method: string }[] = [];
 
 export const useRouters = async (app: express.Application) => {
   async function getAllFiles(root: string) {
@@ -51,7 +51,7 @@ export const useRouters = async (app: express.Application) => {
               ? '/'
               : path.basename(filePath).split('.')[0];
           let basePath = '';
-          let methods = 'get';
+          let method = 'get';
           const methodsAll = ['get', 'post', 'put', 'delete'];
           const infoList = path.basename(filePath).split('.');
           if (infoList.length === 2) {
@@ -63,7 +63,7 @@ export const useRouters = async (app: express.Application) => {
             // 这个变量其实一点用也没有, 但是我懒得改了
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             basePath = infoList[0] === 'index' ? '/' : infoList[0];
-            methods = infoList[1];
+            method = infoList[1];
           } else {
             throw new Error(`路由文件命名错误: ${filePath}`);
           }
@@ -78,10 +78,10 @@ export const useRouters = async (app: express.Application) => {
                 .join('/:')}`;
             })
             .replace(/\/+/g, '/');
-          // console.log(`\x1b[32mrouter:${realPath}   methods:${methods}\x1b[0m`);
-          (router as any)[methods](realPath, ...middleware, routeFn);
-          routes.push({ url: realPath, methods });
-          // await sysRoutesServe.create({ url: realPath, methods });
+          // console.log(`\x1b[32mrouter:${realPath}   method:${method}\x1b[0m`);
+          (router as any)[method](realPath, ...middleware, routeFn);
+          routes.push({ url: realPath, method });
+          // await sysRoutesServe.create({ url: realPath, method });
         } catch (error) {
           console.log('router注册失败', error);
         }
@@ -106,8 +106,7 @@ export const useRouters = async (app: express.Application) => {
         // 遍历数据库中的路由列表, 如果本地不存在, 则删除
         for (const dbRoute of dbRoutes) {
           const some = routes.some(
-            item =>
-              item.url === dbRoute.url && item.methods === dbRoute.methods,
+            item => item.url === dbRoute.url && item.method === dbRoute.method,
           );
           // 不存在 ===> 删除
           if (!some) {
@@ -117,7 +116,7 @@ export const useRouters = async (app: express.Application) => {
         for (const route of routes) {
           // 先判断是否存在, 不存在再创建
           const some = result.rows.some(
-            item => item.url === route.url && item.methods === route.methods,
+            item => item.url === route.url && item.method === route.method,
           );
           // 不存在 ===> 创建
           if (!some) {

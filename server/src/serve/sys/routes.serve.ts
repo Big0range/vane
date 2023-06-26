@@ -1,4 +1,4 @@
-import sequelize, { Model, DataTypes } from 'sequelize';
+import sequelize, { Model, DataTypes, FindOptions } from 'sequelize';
 import db from '../db';
 import { CommServe } from '../comm.serve';
 import redis from '@/utils/redis';
@@ -20,7 +20,7 @@ export const SysRoutesTable = db.define(
       comment: '路由匹配',
       allowNull: false,
     },
-    methods: {
+    method: {
       type: DataTypes.STRING(15),
       comment: '请求方式',
       allowNull: false,
@@ -41,38 +41,80 @@ export const SysRoutesTable = db.define(
 export type TRoutes = {
   id: number;
   url: string;
-  methods: string;
+  method: string;
   auth: string;
   match: string;
 };
 
-class SysRoutesServer extends CommServe<TRoutes> {
+export class SysRoutesServer extends CommServe<TRoutes> {
   static routeWhitelistKey = 'routeWhitelist';
   static constantRouteWhiteList = [
     {
       url: '/user/login',
-      methods: 'post',
+      method: 'post',
     },
     {
       url: '/user/register',
-      methods: 'post',
+      method: 'post',
     },
     {
       url: '/user/code',
-      methods: 'get',
+      method: 'get',
     },
     {
       url: '/demo/:a/:b/:c',
-      methods: 'post',
+      method: 'post',
     },
     {
       url: '/config',
-      methods: 'get',
+      method: 'get',
     },
   ];
-  public async create(data: Omit<TRoutes, 'id' | 'auth'>) {
+  public async create(data: Omit<TRoutes, 'id' | 'auth'> & { auth?: string }) {
+    if (
+      SysRoutesServer.constantRouteWhiteList.some(
+        item => item.url === data.url && item.method === data.method,
+      )
+    ) {
+      data.auth = '0';
+    }
     const result = await this.Table.create(data);
     await redis.del(SysRoutesServer.routeWhitelistKey);
+    return result;
+  }
+  /**
+   * 获取路由列表
+   */
+
+  public async getRouteList(
+    page: number,
+    pageSize: number,
+    options: Pick<TRoutes, 'auth' | 'url' | 'method'>,
+  ) {
+    const where: FindOptions['where'] = {};
+    if (options.auth) {
+      where.auth = options.auth;
+    }
+    if (options.url) {
+      where.url = {
+        [sequelize.Op.like]: `%${options.url}%`,
+      };
+    }
+    if (options.method) {
+      where.method = options.method;
+    }
+    const result = await this.findAll(page, pageSize, { where });
+    const routeWhiteObj: Record<string, boolean> = {};
+    SysRoutesServer.constantRouteWhiteList.forEach(item => {
+      routeWhiteObj[item.url + '|' + item.method] = true;
+    });
+    result.rows = result.rows.map(item => {
+      const route = item;
+      (route as any).sysWhiteApi =
+        routeWhiteObj[route.url + '|' + route.method] || false;
+      (route as any).sysWhiteApi && (route.auth = '0');
+      return route;
+    });
     return result;
   }
   /**
@@ -89,7 +131,7 @@ class SysRoutesServer extends CommServe<TRoutes> {
   /**
    * 获取路由白名单
    */
-  public async getRouteWhitelistKey(): Promise<any[]> {
+  public async getRouteWhitelist(): Promise<any[]> {
     const redisResult = await redis.get(SysRoutesServer.routeWhitelistKey);
     if (redisResult && redisResult !== '[]') {
       return [
@@ -123,10 +165,10 @@ class SysRoutesServer extends CommServe<TRoutes> {
       throw new Error('路由不存在');
     }
     const routeUrl = route.dataValues.url;
-    const routeMethods = route.dataValues.methods;
+    const routeMethods = route.dataValues.method;
     if (
       SysRoutesServer.constantRouteWhiteList.some(
-        item => item.url === routeUrl && item.methods === routeMethods,
+        item => item.url === routeUrl && item.method === routeMethods,
       )
     ) {
       throw new Error('系统路由不允许修改');
@@ -141,6 +183,7 @@ class SysRoutesServer extends CommServe<TRoutes> {
         },
       },
     );
+    await redis.del(SysRoutesServer.routeWhitelistKey);
   }
 }
 export const sysRoutesServe = new SysRoutesServer(SysRoutesTable);

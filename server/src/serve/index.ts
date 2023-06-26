@@ -7,6 +7,6 @@ export { sysMenuServe } from './sys/menu.serve';
 export { sysRoleServe, TRole } from './sys/role.serve';
 export { sysRoleMenuServe } from './sys/role_menu.serve';
 export { sysLogsServe } from './sys/logs.serve';
-export { sysRoutesServe } from './sys/routes.serve';
+export { sysRoutesServe, SysRoutesServer } from './sys/routes.serve';
 
 db.sync({ alter: true });

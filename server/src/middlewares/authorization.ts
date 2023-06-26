@@ -8,16 +8,16 @@ export async function authorization(
   res: Response,
   next: NextFunction,
 ) {
-  const result = await sysRoutesServe.getRouteWhitelistKey();
+  const result = await sysRoutesServe.getRouteWhitelist();
   const routeWhiteList = result.map(item => ({
     url: item.url.replace(/:[^/]+/g, '[^/]+'),
-    methods: item.methods,
+    method: item.method,
   }));
   // 正则校验
   for (let i = 0; i < routeWhiteList.length; i++) {
     const item = routeWhiteList[i];
     // 判断请求方式 是否一致 不一致则跳过
-    if (item.methods !== req.method.toLocaleLowerCase()) {
+    if (item.method !== req.method.toLocaleLowerCase()) {
       continue;
     }
     const reg = new RegExp(`^${item.url}$`);
