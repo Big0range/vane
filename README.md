@@ -1,8 +1,18 @@
 # vane
 
+## 封面
+
+![封面](https://cos.limeichao.cn/images/dalailai.png)
+
 写这个的初衷是因为每次用node写接口的时候总是需要一些写大一堆的东西, 也有些人把很多接口都放在一个js文件内, 看起来很是杂乱, 后来用到nuxt写的时候, 感觉用文件名来命名接口路径很是方便, 无论是query参数还是params参数,都可以通过文件名来命名, 也可以通过文件夹层级清晰的反映出接口之间的关系, 于是就有了这个项目, 能够节省很大一部分时间, 也能够让接口更加清晰, 也能够让接口更加清晰, 也能够让接口更加清晰, 重要的事情说三遍。\
 节省下来的时间用来休息和摸鱼多好(不是让你接着内卷的)。
 如果真的帮到了你的话,觉得这个项目还不错的话, 可以给我一个star, 也可以给我一个star, 也可以给我一个star, 重要的事情说三遍。
+
+[github传送门](https://github.com/Big0range/vane)
+
+![Snipaste_2023-06-26_18-06-59.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/daa93a221e164edcacc6c0bb04a99b3d~tplv-k3u1fbpfcp-watermark.image?)
+
+![Snipaste_2023-06-26_18-07-28.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/377d7e743b2b438cb4d5c16a3e070b1a~tplv-k3u1fbpfcp-watermark.image?)
 
 ## 技术栈
 
