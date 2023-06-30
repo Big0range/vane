@@ -11,7 +11,7 @@ export const SysRoutesTable = db.define(
       autoIncrement: true,
     },
     url: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(100),
       comment: '路由地址',
       allowNull: false,
     },

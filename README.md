@@ -10,6 +10,10 @@
 
 [github传送门](https://github.com/Big0range/vane)
 
+[gitee传送门](https://gitee.com/li_mei_chao/vane)
+
+[接口文档](https://console-docs.apipost.cn/preview/dc179c71d30711dd/f33af9712a7ab774)
+
 ![Snipaste_2023-06-26_18-06-59.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/daa93a221e164edcacc6c0bb04a99b3d~tplv-k3u1fbpfcp-watermark.image?)
 
 ![Snipaste_2023-06-26_18-07-28.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/377d7e743b2b438cb4d5c16a3e070b1a~tplv-k3u1fbpfcp-watermark.image?)
@@ -64,10 +68,16 @@ pnpm版本: `^8`
 1. 原生docker部署(`不推荐`), 会根据Dockerfile文件中配置启动 会执行一个`run.sh`脚本,可按需求修改
 2. 非docker部署(`极不推荐,需要服务器支持node18,并且较为繁琐`),可以运行`pnpm start:server`(请先执行打包命令),**需要自己启动以及配置数据库,并且node>=18并不支持Centos7,极力推荐使用docker进行部署**
 3. docker-componse部署(`推荐`), 一键脚本 `sh docker_start.sh all/server/db` (参数按需选择all或者server或者db,不传入的话默认为server)
-    1. db: 启动mysql以及redis数据库 如果你是第一次启动的话需要下载GitHub中releases最新版本文件,并解压到`/home/docker-volumes`目录下,正确的目录应该是`/home/docker-volumes/vane`,也可以自己修改`db/docker-compose.yml`文件中的相关配置,自己配置数据库
+    1. db: 启动mysql以及redis数据库 如果你是第一次启动的话需要下载[GitHub](https://github.com/Big0range/vane)中releases符合自己本地代码版本的数据库文件(版本可在根目录下package.json中查看),并解压到`/home/docker-volumes`目录下,正确的目录应该是`/home/docker-volumes/vane`,也可以自己修改`db/docker-compose.yml`文件中的相关配置,自己配置数据库
     2. server: 启动node服务端和nginx,默认端口映射为80,如果你想修改的话,请自行修改`server/docker-compose.yml`文件中的相关配置
     3. all: 数据库以及服务端全部启动
     4. 建议: 数据库如无修改,启动一次即可
+
+#### docker 镜像下载问题
+
+1. 如果你的服务器无法下载docker镜像,请尝试修改docker镜像源,具体操作请自行查询(帖子太多了,没必要写在这里.....)
+2. 如果你尝试修改docker镜像源后,仍然无法下载,在网盘中下载对应的压缩包,docker导入镜像,云盘内有使用说明,按照操作即可\
+[网盘地址](https://pan.baidu.com/s/1_WyuCMNGFTUkniuDia7P_g) 提取码: `8gyc`
 
 #### 单独打包
 

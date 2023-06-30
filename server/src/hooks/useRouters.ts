@@ -137,5 +137,5 @@ export const useRouters = async (app: express.Application) => {
     }
   };
   // 这个定时器纯粹为了日志输出好看没任何卵用,完全可以直接运行
-  setTimeout(func, 1000);
+  setTimeout(func, 2000);
 };
