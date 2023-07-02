@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# 重置本地代码
-git checkout .
-
-# 拉取最新代码
-git pull
-echo "Git pull success at $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
-
 function start_db(){
     echo "启动数据库"
     cd db
