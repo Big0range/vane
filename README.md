@@ -4,7 +4,8 @@
 
 ![封面](https://cos.limeichao.cn/images/dalailai.png?imageMogr2/format/webp)
 
-写这个的初衷是因为每次用node写接口的时候总是需要一些写大一堆的东西, 也有些人把很多接口都放在一个js文件内, 看起来很是杂乱, 后来用到nuxt写的时候, 感觉用文件名来命名接口路径很是方便, 无论是query参数还是params参数,都可以通过文件名来命名, 也可以通过文件夹层级清晰的反映出接口之间的关系, 于是就有了这个项目, 能够节省很大一部分时间, 也能够让接口更加清晰, 也能够让接口更加清晰, 也能够让接口更加清晰, 重要的事情说三遍。\
+写这个的初衷是因为每次用node写接口的时候总是需要一些写大一堆的东西, 也有些人把很多接口都放在一个js文件内, 看起来很是杂乱
+后来用到nuxt写的时候, 感觉用文件名来命名接口路径很是方便, 无论是query参数还是params参数,都可以通过文件名来命名, 也可以通过文件夹层级清晰的反映出接口之间的关系(虽然类似nuxt,next这种的框架确实很好, 但是好处同样也是坏处,很难完全的前后端分离, 不能只写前端,或者后端,而且也不需要再去学习相关的知识), 于是就有了这个项目, 能够节省很大一部分时间, 也能够让接口更加清晰, 也能够让接口更加清晰, 也能够让接口更加清晰, 重要的事情说三遍。\
 节省下来的时间用来休息和摸鱼多好(不是让你接着内卷的)。
 如果真的帮到了你的话,觉得这个项目还不错的话, 可以给我一个star, 也可以给我一个star, 也可以给我一个star, 重要的事情说三遍。
 
@@ -31,6 +32,92 @@ node版本: `^18`\
 pnpm版本: `^8`
 
 ## 服务端
+
+目录结构
+
+```
+|-- 🗂️server
+    |-- 🗂️logs (日志)
+        |-- 🗂️api (api 日志)
+            |-- 📄api-20230628.log
+            |-- 📄api-20230629.log
+        |-- 🗂️sql (sql 日志)
+            |-- 📄sql-20230628.log
+            |-- 📄sql-20230629.log
+    |-- 🗂️public (express 公开资源)
+        |-- 📄favicon.ico
+    |-- 🗂️src
+        |-- 🗂️hooks (自定义hook)
+            |-- 📄useLogger.ts (记录日志hook)
+            |-- 📄useRouters.ts (注册路由hook)
+        |-- 🗂️middlewares (中间件)
+            |-- 📄authorization.ts (校验登录状态)
+            |-- 📄errorHandler.ts (错误捕捉)
+            |-- 📄index.ts
+            |-- 📄resultHandler.ts (接口返回数据封装方法)
+            |-- 📄upload.ts (multer 接受上传文件 目前支持的是图片)
+        |-- 🗂️routes (接口路由)
+            |-- 🗂️dept
+            |-- 🗂️logs
+            |-- 🗂️menu
+            |-- 🗂️msg
+            |-- 🗂️mysql-demo
+            |-- 🗂️role
+            |-- 🗂️server-routes
+            |-- 🗂️shop
+            |-- 🗂️upload
+            |-- 🗂️user
+            |-- 📄config.ts
+            |-- 📄demo.ts
+            |-- 📄demo[a,b,c].post.ts
+            |-- 📄index.get.ts
+            |-- 📄index.post.ts
+            |-- 📄types.ts
+            |-- 📄xlsx.post.ts
+        |-- 🗂️serve (数据库相关)
+            |-- 🗂️sys (系统相关)
+            |-- 📄comm.serve.ts (公共类)
+            |-- 📄db.ts (数据库初始化文件)
+            |-- 📄dept.serve.ts (...)
+            |-- 📄employee.serve.ts (...)
+            |-- 📄index.ts 
+            |-- 📄shop.serve.ts (...)
+        |-- 🗂️utils
+            |-- 📄alias.ts (路径别名)
+            |-- 📄encryption.ts (数据加密, 可逆)
+            |-- 📄index.ts
+            |-- 📄isPrivateIP.ts (校验是否是本地ip 没用到....)
+            |-- 📄loadEnv.ts (加载.env)
+            |-- 📄md5.ts (md5加密)
+            |-- 📄redis.ts (redis)
+            |-- 📄sleep.ts (延迟函数)
+            |-- 📄token.ts (token的创建与销毁)
+            |-- 📄validate.ts (数据校验)
+        |-- 📄app.ts
+        |-- 📄server.ts
+    |-- 🗂️views
+        |-- 📄error.pug
+        |-- 📄index.pug
+        |-- 📄layout.pug
+    |-- 📄.env (默认环境变量,无论什么环境都会加载,需要自己创建,为了项目安全,请勿直接保存在代码库中)
+    |-- 📄.env.development (开发测试环境)
+    |-- 📄.env.example (env文件示例)
+    |-- 📄.env.production (生产环境)
+    |-- 📄.eslintignore
+    |-- 📄.eslintrc.js (eslint)
+    |-- 📄.gitignore
+    |-- 📄.prettierignore
+    |-- 📄.prettierrc.js
+    |-- 📄cao_ni_ma.txt (神兽)
+    |-- 📄del_dist.js 
+    |-- 📄ecosystem.config.js (pm2相关配置)
+    |-- 📄global.d.ts
+    |-- 📄nodemon.json (nodemon启动配置)
+    |-- 📄package.json
+    |-- 📄renovate.json
+    |-- 📄tsconfig.json
+```
+
 
 ### 配置hosts
 
@@ -72,6 +159,7 @@ pnpm版本: `^8`
     2. server: 启动node服务端和nginx,默认端口映射为80,如果你想修改的话,请自行修改`server/docker-compose.yml`文件中的相关配置
     3. all: 数据库以及服务端全部启动
     4. 建议: 数据库如无修改,启动一次即可
+    5. 注意事项: 执行时默认会请求最新代码, 如果你不喜欢的话,请删除`docker_start.sh`中第三行至第八行
 
 #### docker 镜像下载问题
 
@@ -125,6 +213,7 @@ export default async function (req: Request, res: Response) {
     res.ok({
       message: '操作成功',
       data: data.Location.split('/images/')[1],
+      log: '上传成功',// 如果你的接口需要记录日志,请在这里传入相关信息(非必填)
     });
   } catch (error) {
     /**
