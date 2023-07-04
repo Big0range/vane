@@ -94,26 +94,19 @@ orderCount.value = 2000;
           </div>
 
           <div class="flex items-center space-x-2">
-            <!-- <el-link
-              target="_blank"
-              type="danger"
-              href="https://www.cnblogs.com/haoxianrui/p/16090029.html"
-              >官方0到1教程</el-link
-            >
-            <el-divider direction="vertical" /> -->
             <el-link
               target="_blank"
               type="primary"
-              href="https://gitee.com/li_mei_chao/vue3-admin"
+              href="https://gitee.com/li_mei_chao/vane"
               >Gitee源码</el-link
             >
-            <!-- <el-divider direction="vertical" />
+            <el-divider direction="vertical" />
             <el-link
               target="_blank"
               type="primary"
-              href="https://github.com/youlaitech/vue3-element-admin"
+              href="https://github.com/Big0range/vane"
               >GitHub源码
-            </el-link> -->
+            </el-link>
           </div>
         </div>
       </el-card>
