@@ -1,3 +1,26 @@
+/// <reference types="vite/client" />
+
+declare module '*.vue' {
+  import { DefineComponent } from 'vue';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+
+// 环境变量 TypeScript的智能提示
+interface ImportMetaEnv {
+  VITE_APP_TITLE: string;
+  VITE_APP_PORT: string;
+  VITE_APP_BASE_API: string;
+  VITE_APP_ENV: string;
+  VITE_ENV: 'development' | 'production' | 'staging';
+  VITE_APP_CDNURL: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
 type PromiseReturnType<T extends (...arg: any) => Promise<unknown>> = Awaited<
   ReturnType<T>
 >;
@@ -31,13 +54,6 @@ type Parameters<T> = T extends (...arg: infer U) => void ? U : never;
 declare namespace marked {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   export function parse(str: string): string {}
-}
-
-declare module '*.vue' {
-  import { DefineComponent } from 'vue';
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  const component: DefineComponent<{}, {}, any>;
-  export default component;
 }
 
 interface Window {

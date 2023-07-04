@@ -55,6 +55,36 @@ export const constantRoutes: RouteRecordRaw[] = [
       }
     ]
   },
+  {
+    path: '/demo',
+    component: Layout,
+    redirect: '/demo/setup',
+    meta: {
+      title: '工具库',
+      icon: 'homepage'
+    },
+    children: [
+      {
+        path: 'setup',
+        component: () => import('@/views/demo/setup/index.vue'),
+        name: 'Setup',
+        meta: {
+          title: 'setup',
+          keepAlive: true,
+          roles: ['admin']
+        }
+      },
+      {
+        path: 'scroll-view',
+        component: () => import('@/views/demo/scroll-view/index.vue'),
+        name: 'ScrollView',
+        meta: {
+          title: 'scroll-view',
+          keepAlive: true
+        }
+      }
+    ]
+  },
   // 外部链接
   {
     path: '/external-link',
@@ -107,32 +137,7 @@ export const constantRoutes: RouteRecordRaw[] = [
          ]
      }*/
 ];
-export const asyncRoutes: RouteRecordRaw[] = [
-  {
-    path: '/setup',
-    component: Layout,
-    redirect: '/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/demo/setup/index.vue'),
-        name: 'Setup',
-        meta: {
-          title: 'setup',
-          icon: 'homepage',
-          keepAlive: true,
-          roles: ['demo'],
-          sort: 1
-        }
-      },
-      {
-        path: '401',
-        component: () => import('@/views/error-page/401.vue'),
-        meta: { hidden: true }
-      }
-    ]
-  }
-];
+export const asyncRoutes: RouteRecordRaw[] = [];
 // 创建路由
 const router = createRouter({
   history: createWebHistory('/vane/'),

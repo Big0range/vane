@@ -7,7 +7,7 @@
     />
     <Sidebar class="sidebar-container" />
     <div :class="{ hasTagsView: needTagsView }" class="main-container">
-      <div :class="{ 'fixed-header': fixedHeader }">
+      <div :class="{ 'fixed-header': fixedHeader }" class="main-top">
         <navbar />
         <tags-view v-if="needTagsView" />
       </div>
