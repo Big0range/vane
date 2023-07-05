@@ -21,7 +21,7 @@ export async function authorization(
       continue;
     }
     const reg = new RegExp(`^${item.url}$`);
-    if (reg.test(req.url)) {
+    if (reg.test(req.url.split('?')[0])) {
       return next();
     }
   }
