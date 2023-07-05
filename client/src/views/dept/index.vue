@@ -8,13 +8,13 @@
         :disabled="noShop"
       >
         <el-form-item
-          :label="t('dept.selectShop')"
+          :label="$t('dept.selectShop')"
           prop="status"
           v-hasPerm="'sys:dept:all_shop'"
         >
           <el-select
             v-model="queryParams.shop_id"
-            :placeholder="t('dept.selectShopPlaceholder')"
+            :placeholder="$t('dept.selectShopPlaceholder')"
           >
             <el-option
               v-for="shop in shopList"
@@ -24,30 +24,30 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item :label="t('dept.name')" prop="name">
+        <el-form-item :label="$t('dept.name')" prop="name">
           <el-input
             v-model="queryParams.name"
-            :placeholder="t('dept.namePlaceholder')"
+            :placeholder="$t('dept.namePlaceholder')"
             @keyup.enter="handleQuery"
           />
         </el-form-item>
 
-        <el-form-item :label="t('dept.status')" prop="status">
+        <el-form-item :label="$t('dept.status')" prop="status">
           <el-select
             v-model="queryParams.status"
-            :placeholder="t('dept.statusPlaceholder')"
+            :placeholder="$t('dept.statusPlaceholder')"
             clearable
           >
-            <el-option :value="0" :label="t('common.normal')" />
-            <el-option :value="1" :label="t('common.forbidden')" />
+            <el-option :value="0" :label="$t('common.normal')" />
+            <el-option :value="1" :label="$t('common.forbidden')" />
           </el-select>
         </el-form-item>
         <el-form-item>
           <el-button class="filter-item" type="primary" @click="handleQuery">
-            {{ t('common.search') }}
+            {{ $t('common.search') }}
           </el-button>
           <el-button @click="resetQuery">
-            {{ t('common.reset') }}
+            {{ $t('common.reset') }}
           </el-button>
         </el-form-item>
       </el-form>
@@ -58,13 +58,13 @@
         :disabled="noShop"
         type="primary"
         @click="openDialog(-1, undefined)"
-        >{{ t('common.add') }}</el-button
+        >{{ $t('common.add') }}</el-button
       >
       <el-button
         type="danger"
         @click="handleDelete()"
         :disabled="ids.length === 0"
-        >{{ t('common.delete') }}
+        >{{ $t('common.delete') }}
       </el-button>
       <div class="pt-16"></div>
       <el-table
@@ -76,19 +76,19 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column prop="name" :label="t('dept.name')" min-width="200" />
-        <el-table-column prop="desc" :label="t('dept.desc')" min-width="200" />
-        <el-table-column prop="status" :label="t('dept.status')" width="100">
+        <el-table-column prop="name" :label="$t('dept.name')" min-width="200" />
+        <el-table-column prop="desc" :label="$t('dept.desc')" min-width="200" />
+        <el-table-column prop="status" :label="$t('dept.status')" width="100">
           <template #default="scope">
             <el-tag v-if="scope.row.status == 0" type="success">{{
-              t('common.normal')
+              $t('common.normal')
             }}</el-tag>
-            <el-tag v-else type="info">{{ t('common.forbidden') }}</el-tag>
+            <el-tag v-else type="info">{{ $t('common.forbidden') }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="sort" :label="t('common.sort')" width="100" />
+        <el-table-column prop="sort" :label="$t('common.sort')" width="100" />
         <el-table-column
-          :label="t('common.operate')"
+          :label="$t('common.operate')"
           fixed="right"
           align="left"
           width="200"
@@ -99,7 +99,7 @@
               link
               size="small"
               @click.stop="openDialog(scope.row.id, undefined)"
-              >{{ t('common.add') }}
+              >{{ $t('common.add') }}
             </el-button>
             <el-button
               type="primary"
@@ -108,7 +108,7 @@
               @click.stop="
                 openDialog(scope.row.parent_id, scope.row.id, scope.row)
               "
-              >{{ t('common.edit') }}
+              >{{ $t('common.edit') }}
             </el-button>
             <el-button
               type="primary"
@@ -116,7 +116,7 @@
               size="small"
               @click.stop="handleDelete(scope.row.id)"
             >
-              {{ t('common.delete') }}
+              {{ $t('common.delete') }}
             </el-button>
           </template>
         </el-table-column>
@@ -134,29 +134,29 @@
           :rules="rules"
           label-width="80px"
         >
-          <el-form-item :label="t('dept.parentDept')" prop="parent_id">
+          <el-form-item :label="$t('dept.parentDept')" prop="parent_id">
             <el-tree-select
               v-model="formData.parent_id"
-              :placeholder="t('dept.parentDeptPlaceholder')"
+              :placeholder="$t('dept.parentDeptPlaceholder')"
               :data="deptOptions"
               filterable
               check-strictly
               :render-after-expand="false"
             />
           </el-form-item>
-          <el-form-item :label="t('dept.name')" prop="name">
+          <el-form-item :label="$t('dept.name')" prop="name">
             <el-input
               v-model="formData.name"
-              :placeholder="t('dept.namePlaceholder')"
+              :placeholder="$t('dept.namePlaceholder')"
             />
           </el-form-item>
-          <el-form-item :label="t('dept.desc')" prop="desc">
+          <el-form-item :label="$t('dept.desc')" prop="desc">
             <el-input
               v-model="formData.desc"
-              :placeholder="t('dept.descPlaceholder')"
+              :placeholder="$t('dept.descPlaceholder')"
             />
           </el-form-item>
-          <el-form-item :label="t('common.sort')" prop="sort">
+          <el-form-item :label="$t('common.sort')" prop="sort">
             <el-input-number
               v-model="formData.sort"
               controls-position="right"
@@ -164,10 +164,10 @@
               :min="0"
             />
           </el-form-item>
-          <el-form-item :label="t('dept.status')">
+          <el-form-item :label="$t('dept.status')">
             <el-radio-group v-model="formData.status">
-              <el-radio :label="0">{{ t('common.normal') }}</el-radio>
-              <el-radio :label="1">{{ t('common.forbidden') }}</el-radio>
+              <el-radio :label="0">{{ $t('common.normal') }}</el-radio>
+              <el-radio :label="1">{{ $t('common.forbidden') }}</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-form>
@@ -175,10 +175,10 @@
         <template #footer>
           <div class="dialog-footer">
             <el-button type="primary" @click="handleSubmit"
-              >{{ t('common.confirm') }}
+              >{{ $t('common.confirm') }}
             </el-button>
             <el-button @click="closeDialog">
-              {{ t('common.cancel') }}
+              {{ $t('common.cancel') }}
             </el-button>
           </div>
         </template>

@@ -5,7 +5,7 @@
     <el-card>
       <template #header>
         <el-button type="primary" :icon="Plus" @click="handleAdd">{{
-          t('system.menu.add')
+          $t('system.menu.add')
         }}</el-button>
       </template>
 
@@ -19,7 +19,7 @@
         border
         default-expand-all
       >
-        <el-table-column :label="t('system.menu.name')">
+        <el-table-column :label="$t('system.menu.name')">
           <template #default="scope">
             <svg-icon
               :icon-class="
@@ -31,22 +31,22 @@
         </el-table-column>
 
         <el-table-column
-          :label="t('system.menu.type')"
+          :label="$t('system.menu.type')"
           align="center"
           width="150"
         >
           <template #default="scope">
             <el-tag v-if="scope.row.type === 'CATALOG'" type="warning">{{
-              t('system.menu.types', 0)
+              $t('system.menu.types', 0)
             }}</el-tag>
             <el-tag v-if="scope.row.type === 'MENU'" type="success">{{
-              t('system.menu.types', 1)
+              $t('system.menu.types', 1)
             }}</el-tag>
             <el-tag v-if="scope.row.type === 'BUTTON'" type="danger">{{
-              t('system.menu.types', 2)
+              $t('system.menu.types', 2)
             }}</el-tag>
             <el-tag v-if="scope.row.type === 'EXTLINK'" type="info">{{
-              t('system.menu.types', 3)
+              $t('system.menu.types', 3)
             }}</el-tag>
           </template>
         </el-table-column>
@@ -58,26 +58,26 @@
         />
 
         <el-table-column
-          :label="t('system.menu.status')"
+          :label="$t('system.menu.status')"
           align="center"
           width="150"
         >
           <template #default="scope">
             <el-tag v-if="scope.row.hidden === 0" type="success">{{
-              t('common.show')
+              $t('common.show')
             }}</el-tag>
             <el-tag v-else type="info">{{ t('common.hidden') }}</el-tag>
           </template>
         </el-table-column>
 
         <el-table-column
-          :label="t('common.sort')"
+          :label="$t('common.sort')"
           align="center"
           width="150"
           prop="sort"
         />
 
-        <el-table-column :label="t('common.operate')" align="center">
+        <el-table-column :label="$t('common.operate')" align="center">
           <template #default="scope">
             <el-button
               type="success"
@@ -117,10 +117,10 @@
         :rules="rules"
         label-width="140px"
       >
-        <el-form-item :label="t('system.menu.parentMenu')" prop="parent_id">
+        <el-form-item :label="$t('system.menu.parentMenu')" prop="parent_id">
           <el-tree-select
             v-model="formData.parent_id"
-            :placeholder="t('system.menu.parentMenu')"
+            :placeholder="$t('system.menu.parentMenu')"
             :data="menuOptions"
             filterable
             check-strictly
@@ -128,53 +128,55 @@
           />
         </el-form-item>
 
-        <el-form-item :label="t('system.menu.name')" prop="title">
+        <el-form-item :label="$t('system.menu.name')" prop="title">
           <el-input
             v-model="formData.title"
-            :placeholder="t('system.menu.namePlaceholder')"
+            :placeholder="$t('system.menu.namePlaceholder')"
           />
         </el-form-item>
         <el-form-item
-          :label="t('system.menu.vueName')"
+          :label="$t('system.menu.vueName')"
           prop="name"
           v-if="formData.type == 'CATALOG' || formData.type == 'MENU'"
         >
           <el-input
             v-model="formData.name"
-            :placeholder="t('system.menu.vueNamePlaceholder')"
+            :placeholder="$t('system.menu.vueNamePlaceholder')"
           />
         </el-form-item>
-        <el-form-item :label="t('system.menu.type')" prop="type">
+        <el-form-item :label="$t('system.menu.type')" prop="type">
           <el-radio-group
             v-model="formData.type"
             @change="handleMenuTypeChange"
           >
-            <el-radio label="CATALOG">{{ t('system.menu.types', 0) }}</el-radio>
-            <el-radio label="MENU">{{ t('system.menu.types', 1) }}</el-radio>
-            <el-radio label="BUTTON">{{ t('system.menu.types', 2) }}</el-radio>
+            <el-radio label="CATALOG">{{
+              $t('system.menu.types', 0)
+            }}</el-radio>
+            <el-radio label="MENU">{{ $t('system.menu.types', 1) }}</el-radio>
+            <el-radio label="BUTTON">{{ $t('system.menu.types', 2) }}</el-radio>
           </el-radio-group>
         </el-form-item>
 
         <el-form-item
           v-if="formData.type == 'EXTLINK'"
-          :label="t('system.menu.types', 3)"
+          :label="$t('system.menu.types', 3)"
           prop="path"
         >
           <el-input
             v-model="formData.path"
-            :placeholder="t('system.menu.extlinkPlaceholder')"
+            :placeholder="$t('system.menu.extlinkPlaceholder')"
           />
         </el-form-item>
 
         <el-form-item
-          :label="t('system.menu.path')"
+          :label="$t('system.menu.path')"
           prop="path"
           v-if="formData.type == 'CATALOG' || formData.type == 'MENU'"
         >
           <el-input
             v-if="formData.type == 'CATALOG'"
             v-model="formData.path"
-            :placeholder="t('system.menu.pathPlaceholder')"
+            :placeholder="$t('system.menu.pathPlaceholder')"
           />
           <el-input v-else v-model="formData.path" placeholder="user" />
         </el-form-item>
@@ -182,7 +184,7 @@
         <!-- 组件页面完整路径 -->
         <el-form-item
           v-if="formData.type == 'MENU'"
-          :label="t('system.menu.component')"
+          :label="$t('system.menu.component')"
           prop="component"
         >
           <el-input
@@ -207,7 +209,7 @@
         </el-form-item>
 
         <el-form-item
-          :label="t('system.menu.icon')"
+          :label="$t('system.menu.icon')"
           prop="icon"
           v-if="formData.type !== 'BUTTON'"
         >
@@ -220,7 +222,7 @@
             <template #reference>
               <el-input
                 v-model="formData.icon"
-                :placeholder="t('system.menu.iconPlaceholder')"
+                :placeholder="$t('system.menu.iconPlaceholder')"
                 clearable
                 readonly
                 @click="iconSelectVisible = true"
@@ -240,24 +242,24 @@
         </el-form-item>
 
         <el-form-item
-          :label="t('common.status')"
+          :label="$t('common.status')"
           v-if="formData.type !== 'BUTTON'"
         >
           <el-radio-group v-model="formData.hidden">
-            <el-radio :label="0">{{ t('common.show') }}</el-radio>
-            <el-radio :label="1">{{ t('common.hidden') }}</el-radio>
+            <el-radio :label="0">{{ $t('common.show') }}</el-radio>
+            <el-radio :label="1">{{ $t('common.hidden') }}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item
-          :label="t('system.menu.keepalive')"
+          :label="$t('system.menu.keepalive')"
           v-if="formData.type == 'CATALOG' || formData.type == 'MENU'"
         >
           <el-radio-group v-model="formData.keep_alive">
-            <el-radio :label="0">{{ t('common.no') }}</el-radio>
-            <el-radio :label="1">{{ t('common.yes') }}</el-radio>
+            <el-radio :label="0">{{ $t('common.no') }}</el-radio>
+            <el-radio :label="1">{{ $t('common.yes') }}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item :label="t('common.sort')" prop="sort">
+        <el-form-item :label="$t('common.sort')" prop="sort">
           <el-input-number
             v-model="formData.sort"
             style="width: 100px"
@@ -270,9 +272,9 @@
       <template #footer>
         <div class="dialog-footer">
           <el-button type="primary" @click="submitForm">{{
-            t('common.confirm')
+            $t('common.confirm')
           }}</el-button>
-          <el-button @click="cancel">{{ t('common.cancel') }}</el-button>
+          <el-button @click="cancel">{{ $t('common.cancel') }}</el-button>
         </div>
       </template>
     </el-dialog>

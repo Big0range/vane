@@ -55,10 +55,10 @@
         <template #dropdown>
           <el-dropdown-menu>
             <router-link to="/">
-              <el-dropdown-item>{{ t('navbar.dashboard') }}</el-dropdown-item>
+              <el-dropdown-item>{{ $t('navbar.dashboard') }}</el-dropdown-item>
             </router-link>
             <el-dropdown-item divided @click="logout">
-              {{ t('navbar.logout') }}
+              {{ $t('navbar.logout') }}
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
