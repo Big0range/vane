@@ -11,7 +11,7 @@ const excludeDir = ['node_modules', '.git', '.husky', 'dist']
 // 忽略文件
 const excludeFile = [exitFileName]
 // 不进行深度递归的文件夹名称
-const nodeep = ['api', 'assets']
+const nodeep = ['api', 'assets', 'logs']
 
 // 根目录路径
 const rootPath = path.resolve(__dirname, '../')

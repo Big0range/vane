@@ -56,10 +56,5 @@ msgList.push(
     (freeMem / 1024 / 1024 / 1024).toFixed(2) +
     'G'
 );
-const { writeFile } = require('fs/promises');
-(async () => {
-  await writeFile('./dist/build-info.txt', msgList.join('\n'), {
-    encoding: 'utf-8'
-  });
-})();
+
 module.exports = msgList;

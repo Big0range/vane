@@ -116,7 +116,9 @@ const useUserStore = defineStore({
       const result = await getUserInfoApi();
       const { username, avatar, phone, screen_lock } = result.data;
       this.username = username;
-      this.avatar = avatar ? CDNURL + avatar : avatarImg;
+      this.avatar = avatar
+        ? CDNURL + avatar + '?imageMogr2/format/webp/quality/50'
+        : avatarImg;
       this.phone = phone;
       this.screenLock = screen_lock;
       // this.roles = ['admin'];

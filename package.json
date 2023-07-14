@@ -13,6 +13,8 @@
     "start:server": "pnpm run --filter @vane/server start",
     "lint:server": "pnpm run --filter @vane/server lint",
     "lint:client": "pnpm run --filter @vane/client lint",
+    "tree": "node tree/index.js",
+    "lines": "node lineCount/index.js",
     "prepare": "husky install",
     "commit": "git cz"
   },
