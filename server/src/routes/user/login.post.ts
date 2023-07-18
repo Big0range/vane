@@ -36,11 +36,11 @@ export default async function (req: Request, res: Response) {
       username,
       password,
     );
-    if (user.status === 1) {
-      throw new Error('账号已被禁用');
-    }
     if (!user) {
       throw new Error('账号或密码错误');
+    }
+    if (user.status === 1) {
+      throw new Error('账号已被禁用');
     }
     const userInfo = {
       id: user.id,

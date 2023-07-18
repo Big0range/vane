@@ -61,6 +61,7 @@ export const resultHandler = (
   };
   // 失败的方法
   res.fail = async (arg = {}) => {
+    console.log('res.fail', arg);
     const { status = 500, data, log } = arg;
     let message = arg.message;
     if (message === undefined) {

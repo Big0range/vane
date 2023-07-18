@@ -10,6 +10,7 @@ export const errorHandler = (
 ): void => {
   res.locals.message = err.message;
   res.locals.error = err;
+  console.log('errorHandler', err);
   res.status(err.status || 500);
   res.send({ message: err.message, status: err.status || 500, data: err.data });
 };
