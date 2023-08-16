@@ -38,9 +38,10 @@ const showLogo = computed(() => setting.sidebarLogo);
 const isCollapse = computed(() => !app.sidebar.opened);
 
 const isShow = (r: any) => {
-  const children: any[] = r.children || [];
-  const someShow = children.some(item => !item?.meta?.hidden);
-  return someShow;
+  // const children: any[] = r.children || [];
+  // const someShow = children.some(item => !item?.meta?.hidden);
+  // return someShow;
+  return true;
 };
 const activeMenu = computed(() => {
   const { meta, path } = route;
