@@ -1,6 +1,7 @@
 @import 'src/styles/variables.module';
 @import 'src/styles/element-plus';
 @import './sidebar.scss';
+@import '@/styles/fonts/index.scss';
 body {
   margin: 0;
   padding: 0;
@@ -8,7 +9,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+  font-family: PingFang SC, Helvetica Neue, Helvetica,  Hiragino Sans GB,
     Microsoft YaHei, Arial, sans-serif;
 }
 .el-overlay {
