@@ -391,7 +391,7 @@ sql日志会自动记录在`server/logs/sql`文件夹下,文件名为`sql-${日�
 
 ### 字体问题
 
-项目中默认使用的为PingFang字体, 字体文件放置在`client/public/fonts`文件夹下,如果你的项目中没有使用到该字体,请自行删除,并且取消`client/src/styles/index.scss`文件的引用(`styles/index中`),否则会导致打包后的文件过大\
+项目中默认使用的为PingFang(苹方)字体,已经做了切片处理,无需担心加载过慢问题,字体文件放置在`client/public/fonts`文件夹下,如果你的项目中没有使用到该字体,请自行删除,并且取消`client/src/styles/index.scss`文件的引用(`styles/index中`),否则会导致打包后的文件过大\
 强烈建议您在使用此字体的时候,把字体文件放置在对象存储或CDN上,否则会加大服务器流量的压力,当您放置在对象存储或CDN上时请修改`client/src/styles/fonts/*.scss`文件中的url地址为自己的地址
 
 ### 添加路由
