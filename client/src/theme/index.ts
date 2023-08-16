@@ -1,6 +1,6 @@
 import defaultTheme from './default';
 import greenTheme from './green_white';
-import violet_dark from './violet_dark';
+import purpleDark from './purple_dark';
 import redWhite from './red_white';
 import redBlack from './red_black';
 import purpleWhite from './purple_white';
@@ -78,7 +78,7 @@ export default [
     name: '紫黑',
     value: 'violet_dark',
     json: {
-      ...violet_dark,
+      ...purpleDark,
       ...drak
     }
   },

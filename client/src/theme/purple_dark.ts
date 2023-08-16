@@ -26,6 +26,7 @@ export default {
   '--el-color-primary-light-3': '#9687f5',
   '--el-color-primary-light-2': '#8776f3',
   '--el-color-primary-light-1': '#7865f2',
+  '--el-color-primary-dark-2': '#5c49d7',
   '--el-color-primary': '#6954f0',
   '--el-color-black': '#515a6e',
   '--el-color-grey': 'rgba(0, 0, 0, 0.65)'
