@@ -30,6 +30,7 @@ export default async function (req: Request, res: Response): Promise<void> {
         dayjs(item.create_time).format('YYYY-MM-DD HH:mm:ss'),
       ]);
     });
+    console.log(data);
     const sheetOptions = {
       // eslint-disable-next-line prettier/prettier
       '!cols': [{ wch: 6 }, { wch: 7 }, { wch: 6 }, { wch: 15 }, { wch: 15 }, { wch: 10 }, { wch: 20 }, { wch: 15 }, { wch: 15 }, { wch: 10 }, { wch: 20 }],
