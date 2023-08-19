@@ -19,7 +19,7 @@ export interface Response extends ExpressResponse {
     message?: string;
     data?: any;
     /**日志记录信息 如果传入true则默认用message中的信息 */
-    log?: string | true;
+    log?: string;
     /**是否返回原始数据 不经过data包装 */
     raw?: boolean;
   }) => void;

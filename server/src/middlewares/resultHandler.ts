@@ -9,6 +9,7 @@ export const resultHandler = (
   next: NextFunction,
 ) => {
   const addLogs = async (logMsg: string, status: number) => {
+    console.log('addLogs', logMsg, status);
     if (!logMsg) return;
     const ip = req.ip.replace('::ffff:', '');
     // if (isPrivateIP(ip)) return;
@@ -46,8 +47,8 @@ export const resultHandler = (
     if (message === undefined) {
       message = statusMsg[status] || 'success';
     }
-    // 写入日志  如果没有传入log 就用message
-    await addLogs(log === true ? message : '', status);
+    // 写入日志  如果log不为空 则记录日志
+    log && (await addLogs(log, status));
     res.status(status);
     if (raw) {
       res.send(data);
@@ -69,8 +70,8 @@ export const resultHandler = (
     }
     // 为了能让logger中间件获取到message
     res.locals.message = message;
-    // 写入日志  如果没有传入log 就用message
-    await addLogs(log, status);
+    // 写入日志  如果log不为空 则记录日志
+    log && (await addLogs(log, status));
     res.status(status).send({
       code: status === 200 ? 0 : status,
       message,

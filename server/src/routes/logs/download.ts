@@ -8,7 +8,7 @@ export default async function (req: Request, res: Response): Promise<void> {
     ['状态码', '用户', '角色', 'msg','IP','请求方式','请求路径','请求参数','请求体','响应时间','创建时间'],
   ];
   try {
-    const query = { ...req.query };
+    const query = req.query as Record<string, any>;
     query.pageSize = query.pageSize || '99999999999';
 
     if (query.type === 'selected') {
