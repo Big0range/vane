@@ -138,7 +138,7 @@ class SysLogsServe extends CommServe<TLos> {
         [sequelize.Op.like]: `%${params.url || ''}%`,
       },
       create_time: {
-        [sequelize.Op.lt]: new Date(params.end_time || '9999-12-31 23:59:59'),
+        [sequelize.Op.lt]: new Date(params.end_time || '2980-12-31 23:59:59'),
         [sequelize.Op.gt]: new Date(params.start_time || '1970-01-01 00:00:00'),
       },
     };

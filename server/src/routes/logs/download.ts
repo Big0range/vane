@@ -9,7 +9,7 @@ export default async function (req: Request, res: Response): Promise<void> {
   ];
   try {
     const query = req.query as Record<string, any>;
-    query.pageSize = query.pageSize || '99999999999';
+    query.pageSize = query.pageSize || 999999999;
 
     if (query.type === 'selected') {
       query.id = (query.ids as string).split(',');
@@ -30,7 +30,6 @@ export default async function (req: Request, res: Response): Promise<void> {
         dayjs(item.create_time).format('YYYY-MM-DD HH:mm:ss'),
       ]);
     });
-    console.log(data);
     const sheetOptions = {
       // eslint-disable-next-line prettier/prettier
       '!cols': [{ wch: 6 }, { wch: 7 }, { wch: 6 }, { wch: 15 }, { wch: 15 }, { wch: 10 }, { wch: 20 }, { wch: 15 }, { wch: 15 }, { wch: 10 }, { wch: 20 }],

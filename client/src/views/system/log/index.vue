@@ -227,8 +227,10 @@ const clear = async () => {
 </script>
 <style lang="scss" scoped>
 :deep() {
-  .el-input__wrapper {
-    width: 220px;
+  .el-form-item__content,
+  .el-input__wrapper,
+  .el-input {
+    width: 240px;
   }
 }
 </style>
