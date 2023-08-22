@@ -33,6 +33,7 @@ module.exports = {
     'vue/no-unused-vars': 1,
     'no-async-promise-executor': 0,
     '@typescript-eslint/no-non-null-assertion': 0,
-    'no-undef': 0
+    'no-undef': 0,
+    '@typescript-eslint/no-unused-vars': 1
   }
 };
