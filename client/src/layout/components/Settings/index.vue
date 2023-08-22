@@ -84,7 +84,6 @@ import { ColdDrink } from '@element-plus/icons-vue';
 import useStore from '@/store';
 
 const { setting } = useStore();
-
 const formData = reactive({
   fixedHeader: setting.fixedHeader,
   tagsView: setting.tagsView,
@@ -102,7 +101,13 @@ watch(
 watch(
   () => formData.theme,
   value => {
-    setting.changeSetting({ key: 'theme', value: value });
+    if ((document as any).startViewTransition) {
+      (document as any).startViewTransition(() => {
+        setting.changeSetting({ key: 'theme', value: value });
+      });
+    } else {
+      setting.changeSetting({ key: 'theme', value: value });
+    }
   }
 );
 
@@ -128,6 +133,24 @@ watch(
 );
 </script>
 
+<style>
+::view-transition-old(*) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(*) {
+  mix-blend-mode: normal;
+  animation: clip 0.5s ease-in;
+}
+@keyframes clip {
+  from {
+    clip-path: circle(0% at 0 0);
+  }
+  to {
+    clip-path: circle(100% at 0 0);
+  }
+}
+</style>
 <style lang="scss" scoped>
 .drawer-container {
   padding: 24px;
