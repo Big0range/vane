@@ -11,6 +11,21 @@ module.exports = {
       exec_mode: 'cluster',
       autorestart: true,
       args: '--no-daemon',
+      // 合并日志
+      merge_logs: true,
+      // // 日志文件
+      // log_file: path.resolve(__dirname, './logs/combined.log'),
+      // // 错误日志文件
+      // error_file: path.resolve(__dirname, './logs/err.log'),
+      // 日志最大大小
+      max_size: '100M',
+      // 日志最大数量
+      max_file: 10,
+      // 日志日期格式
+      date_format: 'YYYY-MM-DD HH:mm:ss',
+      // 最大重启次数
+      max_restarts: 10,
+      // 环境变量
       env: {
         NODE_ENV: 'production',
       },
