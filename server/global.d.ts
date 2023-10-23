@@ -1,4 +1,5 @@
 type WebError = Error & { status?: number; data?: any };
+declare module 'xlsx-writestream';
 declare namespace NodeJS {
   interface ProcessEnv {
     NODE_ENV: 'development' | 'production';
