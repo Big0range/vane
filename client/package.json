@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite serve --mode development",
-    "build": "vue-tsc --noEmit && vite build --mode production",
+    "version": "node version.js",
+    "build": "pnpm run version && vue-tsc --noEmit && vite build --mode production",
     "serve": "vite preview",
     "deploy": "pnpm run build && node ./deploy/index.js",
-    "lint": "eslint src/**/*.{ts,js,vue} --fix",
+    "lint": "vue-tsc --noEmit && eslint src/**/*.{ts,js,vue} --fix",
     "prettier": "prettier --write .",
     "commit": "git cz"
   },
@@ -45,6 +46,7 @@
     "path-browserify": "^1.0.1",
     "path-to-regexp": "^6.2.1",
     "pinia": "^2.1.4",
+    "prompts": "^2.4.2",
     "qrcode": "^1.5.3",
     "qrcode.vue": "^3.4.0",
     "qs": "^6.11.2",

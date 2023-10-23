@@ -102,7 +102,7 @@ const isAdmin = ref(false);
 // 初始化显示
 const show = async (row2?: any) => {
   const row = _.cloneDeep(row2);
-  if (row2.username === 'admin') {
+  if (row2?.username === 'admin') {
     isAdmin.value = true;
   } else {
     isAdmin.value = false;

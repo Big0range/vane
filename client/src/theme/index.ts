@@ -1,12 +1,13 @@
 import defaultTheme from './default';
-import greenTheme from './green_white';
+import greenLight from './green_light';
 import purpleDark from './purple_dark';
-import redWhite from './red_white';
-import redBlack from './red_black';
-import purpleWhite from './purple_white';
-import greenBlack from './green_black';
-import blue_black from './blue_black';
-const white = {
+import redLight from './red_light';
+import redDark from './red_dark';
+import purpleLight from './purple_light';
+import greenDark from './green_dark';
+import blueDark from './blue_dark';
+import crimsonDark from './crimson_dark';
+const light = {
   // 左边整体的背景色
   '--el-menu-bg-color': '#ffffff',
   // 左边菜单激活的文字颜色
@@ -48,31 +49,31 @@ export default [
     value: 'default',
     json: {
       ...defaultTheme,
-      ...white
+      ...light
     }
   },
   {
     name: '蓝黑',
-    value: 'blue_black',
+    value: 'blue_dark',
     json: {
-      ...blue_black,
+      ...blueDark,
       ...drak
     }
   },
   {
     name: '绿白',
     value: 'green',
-    json: { ...greenTheme, ...white }
+    json: { ...greenLight, ...light }
   },
   {
     name: '绿黑',
-    value: 'green_black',
-    json: { ...greenBlack, ...drak }
+    value: 'green_dark',
+    json: { ...greenDark, ...drak }
   },
   {
     name: '紫白',
-    value: 'purple_white',
-    json: { ...purpleWhite, ...white }
+    value: 'purple_light',
+    json: { ...purpleLight, ...light }
   },
   {
     name: '紫黑',
@@ -84,12 +85,20 @@ export default [
   },
   {
     name: '红白',
-    value: 'red_white',
-    json: { ...redWhite, ...white }
+    value: 'red_light',
+    json: { ...redLight, ...light }
   },
   {
     name: '红黑',
-    value: 'red_black',
-    json: { ...redBlack, ...drak }
+    value: 'red_dark',
+    json: { ...redDark, ...drak }
+  },
+  {
+    name: '深红黑',
+    value: 'crimson_dark',
+    json: {
+      ...crimsonDark,
+      ...drak
+    }
   }
 ];
