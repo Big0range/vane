@@ -1,5 +1,4 @@
 import request from '@/utils/request';
-import { IResult } from '../baseTypes';
 export function uploadImg(data: FormData): Promise<IResult & { data: string }> {
   return request({
     headers: {

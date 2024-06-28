@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import express, { Router } from 'express';
 import { sysRoutesServe } from '@/serve';
+import { isMaster } from '@/utils/isMaster';
 const dirPath = path.resolve(__dirname, '../routes');
 const router = Router();
 const routes: { url: string; method: string }[] = [];
@@ -96,10 +97,7 @@ export const useRouters = async (app: express.Application) => {
   // 为了不妨碍主进程的启动, 所以这里使用异步 (路由越多启动越慢, 这个不是很重要, 完全可以异步去执行)
   const func = async (i = 1) => {
     try {
-      if (
-        process.env.locale_start === 'true' ||
-        process.env.NODE_APP_INSTANCE === '0'
-      ) {
+      if (isMaster) {
         console.log('主进程, 开始遍历路由列表');
         const result = await sysRoutesServe.findAll(1, 99999);
         const dbRoutes = result.rows;

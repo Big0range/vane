@@ -4,11 +4,12 @@ declare namespace NodeJS {
   interface ProcessEnv {
     NODE_ENV: 'development' | 'production';
     PORT: string;
+    JOB_PORT: string;
     // md5 加密盐
     MD5_SALT: string;
     // mysql 配置
     MYSQL_DATABASE: string;
-    MYSQL_COMM_ALERT: string;
+    MYSQL_ALERT: string;
     MYSQL_HOST: string;
     MYSQL_PORT: string;
     MYSQL_USER: string;

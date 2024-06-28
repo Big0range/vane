@@ -9,4 +9,4 @@ export { sysRoleMenuServe } from './sys/role_menu.serve';
 export { sysLogsServe, SysLosTable } from './sys/logs.serve';
 export { sysRoutesServe, SysRoutesServer } from './sys/routes.serve';
 
-db.sync({ alter: true });
+db.sync({ alter: process.env.MYSQL_ALERT === 'true' });

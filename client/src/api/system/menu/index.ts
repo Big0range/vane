@@ -1,5 +1,4 @@
 import request from '@/utils/request';
-import { IResult, TIds } from '@/api/baseTypes';
 import { TMenuFormData, IMenuListResult } from './types';
 
 export function fetchMenuTreeApi(): Promise<IMenuListResult> {

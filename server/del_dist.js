@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // Desc: 删除dist文件夹
 const fs = require('fs');
 const path = require('path');

@@ -59,3 +59,22 @@ declare namespace marked {
 interface Window {
   waterMarkFrame?: number;
 }
+
+interface PageQueryParam {
+  page: number;
+  pageSize: number;
+}
+
+interface PageResult<T> {
+  rows: T;
+  total: number;
+  page: number;
+  pageSize: number;
+}
+
+interface IResult {
+  code: number;
+  msg: string;
+}
+
+type TIds = (string | number)[] | number | string;

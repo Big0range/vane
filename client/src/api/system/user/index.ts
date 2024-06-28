@@ -5,7 +5,6 @@ import {
   IGetUserInfoResult,
   ILoginResult
 } from './types';
-import { IResult, PageQueryParam } from '@/api/baseTypes';
 import { encryption } from '@vane/server/src/utils';
 /** 用户登录 */
 export function login(
