@@ -12,5 +12,5 @@
       "@/*": ["src/*"],
     }
   },
-  "include": ["src/**/*", "global.d.ts"]
+  "include": ["src/**/*", "src-job/**/*", "global.d.ts"]
 }

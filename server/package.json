@@ -6,6 +6,7 @@
     "scripts": {
         "start": "cross-env NODE_ENV=production node dist/server.js",
         "dev": "nodemon",
+        "dev:job": "nodemon --config nodemon-job.json",
         "build": "node del_dist.js && tsc",
         "lint": "eslint src/**/*.{ts,js} --fix",
         "typecheck": "tsc --noEmit",

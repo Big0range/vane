@@ -8,6 +8,7 @@
     "dev": "node dev.js",
     "dev:server": "pnpm run --filter @vane/server dev",
     "dev:client": "pnpm run --filter @vane/client dev",
+    "dev:job": "pnpm run --filter @vane/server dev:job",
     "build:server": "pnpm run --filter @vane/server build",
     "build:client": "pnpm run --filter @vane/client build",
     "start:server": "pnpm run --filter @vane/server start",
