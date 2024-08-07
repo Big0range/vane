@@ -50,7 +50,9 @@ class SysRoleMenuServe extends CommServe<TRoleMenu> {
   //   const result = await this.Table.create(data);
   //   return result;
   // }
-
+  async clearRedis(roleId: number) {
+    redis.del(`menu:${roleId}`);
+  }
   public async deleteByRoleId(roleId: number) {
     const result = await this.Table.destroy({
       where: { role_id: roleId },

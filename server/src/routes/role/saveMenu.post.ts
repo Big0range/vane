@@ -11,6 +11,7 @@ export default async (req: Request, res: Response) => {
     });
     await sysRoleMenuServe.deleteByRoleId(roleId);
     await sysRoleMenuServe.bulkCreate(list);
+    await sysRoleMenuServe.clearRedis(roleId);
     res.ok();
   } catch (error) {
     res.fail(error);

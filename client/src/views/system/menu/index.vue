@@ -200,11 +200,12 @@
         </el-form-item>
 
         <!-- 权限标识 -->
-        <el-form-item
+        <!-- <el-form-item
           v-if="formData.type == 'BUTTON'"
           label="权限标识"
           prop="permission"
-        >
+        > -->
+        <el-form-item label="权限标识" prop="permission">
           <el-input v-model="formData.permission" placeholder="sys:user:add" />
         </el-form-item>
 
