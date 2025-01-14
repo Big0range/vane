@@ -1,5 +1,0 @@
-{
-  "watch": ["src-job"],
-  "ext": "ts",
-  "exec": "cross-env NODE_ENV=development  ts-node --project ./tsconfig.json --files src-job/app.ts"
-}
