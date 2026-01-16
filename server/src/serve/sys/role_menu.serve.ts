@@ -73,7 +73,6 @@ class SysRoleMenuServe extends CommServe<TRoleMenu> {
     // 如果存在，直接返回
     const redisMenu = await redis.get(`menu:${roleId}`);
     if (redisMenu) {
-      console.log('redisMenu');
       return JSON.parse(redisMenu);
     }
 
@@ -90,7 +89,6 @@ class SysRoleMenuServe extends CommServe<TRoleMenu> {
         },
       ],
     });
-    console.log('result', result);
 
     const menus = result
       .map(item => ({
@@ -111,7 +109,6 @@ class SysRoleMenuServe extends CommServe<TRoleMenu> {
     });
     const afterMenus = menus.filter(item => item.parent_id === -1);
     redis.set(`menu:${roleId}`, JSON.stringify(afterMenus));
-    console.log('mysql');
     return afterMenus;
   }
 }

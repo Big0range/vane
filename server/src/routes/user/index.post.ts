@@ -1,9 +1,10 @@
 import { Request, Response } from '@/routes/types';
 import { TUser, sysUserServe } from '@/serve';
 import { encryption } from '@/utils/encryption';
+import { logger } from '@/utils/useLogger';
 import { isPhoneNumber } from '@/utils/validate';
 export default async function (req: Request, res: Response) {
-  console.log(req.body);
+  logger.debug(req.body);
   try {
     // eslint-disable-next-line prefer-const
     let { username, password, role_id, avatar, phone, shop_id, dept_id } =

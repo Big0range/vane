@@ -4,7 +4,8 @@ import session from 'express-session';
 import RedisStore from 'connect-redis';
 import redis from './utils/redis';
 // import cookieParser from 'cookie-parser';
-import { useApiLogger } from './hooks/useLogger';
+import { logger } from './utils/useLogger';
+
 import {
   errorHandler,
   errorNotFoundHandler,
@@ -41,7 +42,7 @@ export async function useApp() {
   app.set('views', path.join(__dirname, '../views'));
   app.set('view engine', 'pug');
 
-  useApiLogger(app, path.join(__dirname, '../logs/api/'));
+  // useApiLogger(app, path.join(__dirname, '../logs/api/'));
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
