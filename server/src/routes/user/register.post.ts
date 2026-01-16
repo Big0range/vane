@@ -1,9 +1,10 @@
 import { Request, Response } from '@/routes/types';
 import { sysUserServe } from '@/serve';
 import Token from '@/utils/token';
+import { logger } from '@/utils/useLogger';
 
 export default async function (req: Request, res: Response) {
-  console.log(req.body);
+  logger.debug(req.body);
   try {
     const { username, password } = req.body;
     if (!username) {
@@ -23,7 +24,7 @@ export default async function (req: Request, res: Response) {
       username,
       password: password,
     });
-    console.log({
+    logger.debug({
       id: createResult.id,
       username: createResult.username,
     });

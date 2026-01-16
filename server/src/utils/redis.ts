@@ -1,4 +1,5 @@
 import Redis from 'ioredis';
+import { logger } from './useLogger';
 
 const redis = new Redis({
   port: Number(process.env.REDIS_PORT), // Redis port
@@ -8,7 +9,7 @@ const redis = new Redis({
 });
 
 redis.on('connection', () => {
-  console.log('redis连接成功');
+  logger.info('redis连接成功');
 });
 
 export default redis;

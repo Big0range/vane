@@ -6,6 +6,7 @@ import { ShopTable } from '../shop.serve';
 import { DeptTable } from '../dept.serve';
 import Token from '../../utils/token';
 import redis from '../../utils/redis';
+import { logger } from '@/utils/useLogger';
 export const SysUserTable = db.define(
   'sys_user',
   {
@@ -83,10 +84,10 @@ export const SysUserTable = db.define(
         // 角色变更时 退出登录
         if (instance.previous().role_id !== undefined) {
           await Token.logout(instance.get('id') as string);
-          console.log(`redis ===> userInfo:${instance.get('id')} 已踢下线`);
+          logger.debug(`redis ===> userInfo:${instance.get('id')} 已踢下线`);
         }
         await redis.del(`userInfo:${instance.get('id')}`);
-        console.log(`redis ===> userInfo:${instance.get('id')} 已删除`);
+        logger.debug(`redis ===> userInfo:${instance.get('id')} 已删除`);
       },
     },
   },

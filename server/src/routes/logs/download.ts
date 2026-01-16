@@ -2,10 +2,23 @@ import { Request, Response } from '@/routes/types';
 import xlsx from 'node-xlsx';
 import dayjs from 'dayjs';
 import { sysLogsServe } from '@/serve';
+import { logger } from '@/utils/useLogger';
 export default async function (req: Request, res: Response): Promise<void> {
   const data = [
     // eslint-disable-next-line prettier/prettier
-    ['状态码', '用户', '角色', 'msg','IP','请求方式','请求路径','请求参数','请求体','响应时间','创建时间'],
+    [
+      '状态码',
+      '用户',
+      '角色',
+      'msg',
+      'IP',
+      '请求方式',
+      '请求路径',
+      '请求参数',
+      '请求体',
+      '响应时间',
+      '创建时间',
+    ],
   ];
   try {
     const query = req.query as Record<string, any>;
@@ -32,14 +45,26 @@ export default async function (req: Request, res: Response): Promise<void> {
     });
     const sheetOptions = {
       // eslint-disable-next-line prettier/prettier
-      '!cols': [{ wch: 6 }, { wch: 7 }, { wch: 6 }, { wch: 15 }, { wch: 15 }, { wch: 10 }, { wch: 20 }, { wch: 15 }, { wch: 15 }, { wch: 10 }, { wch: 20 }],
+      '!cols': [
+        { wch: 6 },
+        { wch: 7 },
+        { wch: 6 },
+        { wch: 15 },
+        { wch: 15 },
+        { wch: 10 },
+        { wch: 20 },
+        { wch: 15 },
+        { wch: 15 },
+        { wch: 10 },
+        { wch: 20 },
+      ],
     };
     const buffer = xlsx.build([
       { name: 'logs', data: data, options: sheetOptions },
     ]);
     res.ok({ data: buffer, raw: true, log: '日志下载成功' });
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     res.fail({
       ...error,
       log: '日志下载失败',

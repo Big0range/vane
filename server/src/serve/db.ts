@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 import * as path from 'path';
-import { useMysqlLogger } from '../hooks/useLogger';
+import { logger, useMysqlLogger } from '../utils/useLogger';
 function split(str: string) {
   return str.split(' ').filter(item => item.trim());
 }
@@ -16,7 +16,7 @@ const l = [
   mysqlPorts.length,
 ];
 if (Math.max(...l) !== Math.min(...l)) {
-  console.log(`\x1b[31mmysql 配置错误 请检查 .env 文件\x1b[0m`);
+  logger.error(`\x1b[31mmysql 配置错误 请检查 .env 文件\x1b[0m`);
   process.exit(1);
 }
 let sequelize: Sequelize;
@@ -24,7 +24,7 @@ let sequelize: Sequelize;
 if (process.env.NODE_ENV === 'production') {
   sequelize = new Sequelize({
     dialect: 'mysql',
-    logging: useMysqlLogger(path.join(__dirname, '../../logs/sql')),
+    logging: useMysqlLogger(),
     timezone: '+08:00', //东八时区
     replication: {
       read: mysqlHosts.slice(1).map((item, index) => ({
@@ -50,15 +50,15 @@ if (process.env.NODE_ENV === 'development') {
     host: mysqlHosts[0],
     port: mysqlPorts[0] as any,
     dialect: 'mysql',
-    logging: useMysqlLogger(path.join(__dirname, '../../logs/sql')),
+    logging: useMysqlLogger(),
     timezone: '+08:00', //东八时区
   });
 }
 // 测试连接
 sequelize
   .authenticate()
-  .then(() => console.log('数据库连接成功'))
-  .catch(error => console.error('数据库连接失败', error));
+  .then(() => logger.info('数据库连接成功'))
+  .catch(error => logger.error('数据库连接失败', error));
 export default sequelize;
 
 // 单例模式

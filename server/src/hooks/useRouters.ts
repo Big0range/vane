@@ -3,6 +3,7 @@ import path from 'path';
 import express, { Router } from 'express';
 import { sysRoutesServe } from '@/serve';
 import { isMaster } from '@/utils/isMaster';
+import { logger } from '../utils/useLogger';
 const dirPath = path.resolve(__dirname, '../routes');
 const router = Router();
 const routes: { url: string; method: string }[] = [];
@@ -84,7 +85,7 @@ export const useRouters = async (app: express.Application) => {
           routes.push({ url: realPath, method });
           // await sysRoutesServe.create({ url: realPath, method });
         } catch (error) {
-          console.log('router注册失败', error);
+          logger.error('router注册失败: ' + error);
         }
 
         result.push(filePath);
@@ -98,7 +99,7 @@ export const useRouters = async (app: express.Application) => {
   const func = async (i = 1) => {
     try {
       if (isMaster) {
-        console.log('主进程, 开始遍历路由列表');
+        logger.info('主进程, 开始遍历路由列表');
         const result = await sysRoutesServe.findAll(1, 99999);
         const dbRoutes = result.rows;
         // 遍历数据库中的路由列表, 如果本地不存在, 则删除
@@ -124,11 +125,11 @@ export const useRouters = async (app: express.Application) => {
             });
           }
         }
-        console.log('主进程, 遍历路由列表结束');
+        logger.info('主进程, 遍历路由列表结束');
       }
     } catch (error) {
-      console.log(error);
-      console.log('主进程, 遍历路由列表失败, 10秒后重试,重试次数:', i);
+      logger.error(error);
+      logger.info(`主进程, 遍历路由列表失败, 10秒后重试,重试次数:${i}`);
       setTimeout(() => {
         func(i + 1);
       }, 10 * 1000);

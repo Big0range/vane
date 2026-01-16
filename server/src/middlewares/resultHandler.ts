@@ -1,3 +1,4 @@
+import { logger } from '@/utils/useLogger';
 import { Response, NextFunction, Request } from '../routes/types';
 import { sysLogsServe } from '../serve';
 import { isPrivateIP } from '../utils/isPrivateIP';
@@ -9,7 +10,6 @@ export const resultHandler = (
   next: NextFunction,
 ) => {
   const addLogs = async (logMsg: string, status: number) => {
-    console.log('addLogs', logMsg, status);
     if (!logMsg) return;
     const ip = req.ip.replace('::ffff:', '');
     // if (isPrivateIP(ip)) return;
@@ -62,14 +62,12 @@ export const resultHandler = (
   };
   // 失败的方法
   res.fail = async (arg = {}) => {
-    console.log('res.fail', arg);
+    logger.debug('res.fail: ' + arg);
     const { status = 500, data, log } = arg;
     let message = arg.message;
     if (message === undefined) {
       message = statusMsg[status] || 'fail';
     }
-    // 为了能让logger中间件获取到message
-    res.locals.message = message;
     // 写入日志  如果log不为空 则记录日志
     log && (await addLogs(log, status));
     res.status(status).send({
