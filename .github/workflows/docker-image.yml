@@ -16,7 +16,7 @@ jobs:
           if [ -z "${{ secrets.ALIYUN_USERNAME }}" ]; then
             echo "USERNAME is EMPTY"
           else
-            echo "USERNAME OK"
+            echo "USERNAME OKK"
           fi
       
           if [ -z "${{ secrets.ALIYUN_PASSWORD }}" ]; then
