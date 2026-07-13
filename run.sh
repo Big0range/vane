@@ -1,10 +1,4 @@
 #!/bin/bash
-npm install pm2 -g
-npm install pnpm@8 -g
-pnpm build:client
-pnpm build:server
-cd ./server
-# docker 环境下
-pm2-runtime start ecosystem.config.js
-# 如果不使用pm2的话，请注释上一行 可以使用下面的命令
-# yarn start
+cd ./apps/server
+pnpm run start
+# 不用pm2了  没什么作用 而且直接运行ts文件  pm2-runtime 会和最新node(大概)有兼容性问题

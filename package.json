@@ -1,36 +1,56 @@
 {
-  "private": true,
   "name": "vane",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node dev.js",
-    "dev:server": "pnpm run --filter @vane/server dev",
-    "dev:client": "pnpm run --filter @vane/client dev",
-    "dev:job": "pnpm run --filter @vane/server dev:job",
-    "build:server": "pnpm run --filter @vane/server build",
-    "build:client": "pnpm run --filter @vane/client build",
-    "start:server": "pnpm run --filter @vane/server start",
+    "dev": "node dev.ts",
+    "dev:server": "pnpm --filter @vane/server dev",
+    "dev:client": "pnpm --filter @vane/client dev",
+    "build:server": "echo 无需打包  node原生运行",
+    "build:client": "pnpm --filter @vane/client build",
+    "start:server": "pnpm --filter @vane/server start",
     "lint:server": "pnpm run --filter @vane/server lint",
     "lint:client": "pnpm run --filter @vane/client lint",
-    "deploy:client": "pnpm run --filter @vane/client deploy",
-    "tree": "node tree/index.js",
-    "lines": "node lineCount/index.js",
-    "prepare": "husky install",
-    "commit": "git cz"
+    "prepare": "husky",
+    "commit": "cz",
+    "lineCount": "node scripts/lineCount/index.ts"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git",
+      "useEmoji": true
+    }
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "chalk": "^5.2.0",
-    "commitizen": "^4.3.0"
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.1.2",
+      "onFail": "download"
+    }
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=26",
+    "pnpm": ">=11"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.5",
-    "@commitlint/config-conventional": "^17.6.5",
-    "git-cz": "^4.9.0",
-    "husky": "^7.0.0"
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
+    "@eslint/js": "^9.39.4",
+    "commitizen": "^4.3.1",
+    "cz-git": "^1.13.1",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "eslint-plugin-vue": "^10.9.1",
+    "globals": "^17.6.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.3",
+    "typescript-eslint": "^8.60.0"
   }
 }

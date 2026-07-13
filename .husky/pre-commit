@@ -1,4 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-pnpm run lint:server
-pnpm run lint:client
+#!/usr/bin/env sh
+
+node scripts/pre-commit.ts

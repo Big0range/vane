@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 services:
   # mysql
   # 主数据库
@@ -18,9 +18,9 @@ services:
     ports:
       - 3307:3307
     volumes:
-      - "/home/docker-volumes/vane/mysql/master/data:/var/lib/mysql"
-      - "/home/docker-volumes/vane/mysql/master/mysql.cnf:/etc/mysql/my.cnf"
-      - "/home/docker-volumes/vane/mysql/master/logs:/var/log"
+      - "/data/docker/vane/mysql/master/data:/var/lib/mysql"
+      - "/data/docker/vane/mysql/master/mysql.cnf:/etc/mysql/my.cnf"
+      - "/data/docker/vane/mysql/master/logs:/var/log"
   # mysql从数据库1
   vane-mysql-node1:
     image: mysql:5.7
@@ -40,9 +40,9 @@ services:
     ports:
       - 3308:3308
     volumes:
-      - "/home/docker-volumes/vane/mysql/node1/data:/var/lib/mysql"
-      - "/home/docker-volumes/vane/mysql/node1/mysql.cnf:/etc/mysql/my.cnf"
-      - "/home/docker-volumes/vane/mysql/node1/logs:/var/log"
+      - "/data/docker/vane/mysql/node1/data:/var/lib/mysql"
+      - "/data/docker/vane/mysql/node1/mysql.cnf:/etc/mysql/my.cnf"
+      - "/data/docker/vane/mysql/node1/logs:/var/log"
   # mysql从数据库2
   vane-mysql-node2:
     image: mysql:5.7
@@ -62,9 +62,9 @@ services:
     ports:
       - 3309:3309
     volumes:
-      - "/home/docker-volumes/vane/mysql/node2/data:/var/lib/mysql"
-      - "/home/docker-volumes/vane/mysql/node2/mysql.cnf:/etc/mysql/my.cnf"
-      - "/home/docker-volumes/vane/mysql/node2/logs:/var/log"
+      - "/data/docker/vane/mysql/node2/data:/var/lib/mysql"
+      - "/data/docker/vane/mysql/node2/mysql.cnf:/etc/mysql/my.cnf"
+      - "/data/docker/vane/mysql/node2/logs:/var/log"
   # redis
   vane-redis-master:
     image: redis:6.2
@@ -78,9 +78,9 @@ services:
         max-size: "100m"
         max-file: "10"
     volumes:
-      - /home/docker-volumes/vane/redis/master/data:/data
-      - /home/docker-volumes/vane/redis/master/redis.conf:/usr/local/etc/redis/redis.conf
-    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+      - /data/docker/vane/redis/master/data:/data
+      - /data/docker/vane/redis/master/redis.conf:/usr/local/etc/redis/redis.conf
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
     ports:
       - 6380:6380
     environment:

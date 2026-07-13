@@ -1,13 +1,11 @@
 version: '3.9'
+
 services:
-# node 服务
+  # node 服务
   vane-server:
-    build: .
-    # depends_on:
-    #   - mysql-master
-    #   - mysql-node1
-    #   - mysql-node2
-    #   - redis-master
+    build:
+      context: .
+      dockerfile: Dockerfile.server
     restart: always
     container_name: vane-server
     networks:
@@ -15,28 +13,25 @@ services:
         ipv4_address: 172.16.238.200
     logging:
       options:
-        max-size: "100m"
-        max-file: "10"
+        max-size: '100m'
+        max-file: '10'
     image: vane-server
     ports:
       - 9999:9999
     extra_hosts:
-      - "vane-mysql-master:172.16.238.2"
-      - "vane-mysql-node1:172.16.238.3"
-      - "vane-mysql-node2:172.16.238.4"
-      - "vane-redis-master:172.16.238.101"
+      - 'vane-mysql-master:172.16.238.2'
+      - 'vane-mysql-node1:172.16.238.3'
+      - 'vane-mysql-node2:172.16.238.4'
+      - 'vane-redis-master:172.16.238.101'
     volumes:
       # 为了外部可以访问日志
-      - /home/docker-volumes/vane/logs:/app/server/logs
-      - /home/docker-volumes/vane/logs/.pm2:/root/.pm2/logs
-      # 为了nginx可以访问静态资源
-      - /home/docker-volumes/vane/nginx/html:/app/client/dist
-      # 共享 node_modules 要不每次容器启动都要重新安装依赖 太费时间了
-      - /opt/vane/node_modules:/app/node_modules
-      - /opt/vane/server/node_modules:/app/server/node_modules
-      - /opt/vane/client/node_modules:/app/client/node_modules
+      - /data/docker/vane/logs/server:/app/apps/server/logs
+      - /data/docker/vane/logs/.pm2:/root/.pm2/logs
   web:
-    image: nginx
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    image: vane-nginx
     depends_on:
       - vane-server
     restart: always
@@ -46,20 +41,16 @@ services:
         ipv4_address: 172.16.238.201
     logging:
       options:
-        max-size: "100m"
-        max-file: "10"
+        max-size: '100m'
+        max-file: '10'
     ports:
-      - 80:80
+      - 8007:80
     extra_hosts:
-      - "vane-server:172.16.238.200"
+      - 'vane-server:172.16.238.200'
     volumes:
-      # nginx配置文件
-      - "/home/docker-volumes/vane/nginx/conf:/etc/nginx"
       # nginx日志
-      - "/home/docker-volumes/vane/nginx/logs:/var/log/nginx"
-      # 静态资源
-      - "/home/docker-volumes/vane/nginx/html:/usr/share/nginx"
+      - '/data/docker/vane/nginx/logs:/var/log/nginx'
 networks:
-  # db 是数据库docker-compose所在文件夹的名称(就是此项目根目录下的db) my_network 是db自定义网络名称 
+  # db 是数据库docker-compose所在文件夹的名称(就是此项目根目录下的db) my_network 是db自定义网络名称
   db_my_network:
     external: true

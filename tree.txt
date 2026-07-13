@@ -1,220 +1,108 @@
 |-- 🗂️.vscode
     |-- 📄settings.json
-|-- 🗂️client
-    |-- 🗂️deploy
-        |-- 📄deploy.config copy.json
-        |-- 📄deploy.config.json
-        |-- 📄index.js
-        |-- 📄sysInfo.js
-    |-- 🗂️public
-        |-- 📄favicon.ico
-        |-- 📄logo.png
-    |-- 🗂️src
-        |-- 🗂️api
-        |-- 🗂️assets
-        |-- 🗂️components
-            |-- 🗂️Breadcrumb
-            |-- 🗂️CountTo
-            |-- 🗂️Cropper
-            |-- 🗂️GithubCorner
-            |-- 🗂️Hamburger
-            |-- 🗂️IconSelect
-            |-- 🗂️LangSelect
-            |-- 🗂️Notice
-            |-- 🗂️Page
-            |-- 🗂️Pagination
-            |-- 🗂️RightPanel
-            |-- 🗂️Screenfull
-            |-- 🗂️ScreenLock
-            |-- 🗂️ScrollView
-            |-- 🗂️SizeSelect
-            |-- 🗂️SvgIcon
-            |-- 🗂️UploadFile
-            |-- 🗂️WangEditor
-        |-- 🗂️directive
-            |-- 🗂️permission
-            |-- 📄index.ts
-        |-- 🗂️hooks
-            |-- 📄useForm.ts
-        |-- 🗂️lang
-            |-- 📄en.ts
-            |-- 📄index.ts
-            |-- 📄zh-cn.ts
-        |-- 🗂️layout
+|-- 🗂️apps
+    |-- 🗂️client
+        |-- 🗂️public
+            |-- 🗂️fonts
+            |-- 📄favicon.svg
+            |-- 📄icons.svg
+            |-- 📄logo.png
+        |-- 🗂️src
+            |-- 🗂️api
+            |-- 🗂️assets
             |-- 🗂️components
-            |-- 📄index.vue
-        |-- 🗂️router
-            |-- 📄index.ts
-        |-- 🗂️store
-            |-- 🗂️modules
-            |-- 📄index.ts
-        |-- 🗂️styles
-            |-- 📄element-plus.scss
-            |-- 📄index.scss
-            |-- 📄mixin.scss
-            |-- 📄sidebar.scss
-            |-- 📄tailwind.css
-            |-- 📄variables.module.scss
-        |-- 🗂️theme
-            |-- 📄blue_black.ts
-            |-- 📄default.ts
-            |-- 📄green_black.ts
-            |-- 📄green_white.ts
-            |-- 📄index.ts
-            |-- 📄purple_white.ts
-            |-- 📄red_black.ts
-            |-- 📄red_white.ts
-            |-- 📄violet_dark.ts
-        |-- 🗂️utils
-            |-- 📄360.ts
-            |-- 📄addWaterMark.ts
-            |-- 📄config.ts
-            |-- 📄downloadFile.ts
-            |-- 📄encryption.ts
-            |-- 📄filter.ts
-            |-- 📄hospitalOptions.ts
-            |-- 📄i18n.ts
-            |-- 📄index.ts
-            |-- 📄mitter.ts
-            |-- 📄request.ts
-            |-- 📄resize.ts
-            |-- 📄scroll-to.ts
-            |-- 📄storage.ts
-            |-- 📄validate.ts
-        |-- 🗂️views
-            |-- 🗂️component
-            |-- 🗂️dashboard
-            |-- 🗂️demo
-            |-- 🗂️dept
-            |-- 🗂️error-page
-            |-- 🗂️login
-            |-- 🗂️redirect
-            |-- 🗂️shop
-            |-- 🗂️system
-        |-- 📄App.vue
-        |-- 📄components.d.ts
-        |-- 📄global.d.ts
-        |-- 📄main.ts
-        |-- 📄permission.ts
-        |-- 📄settings.ts
-    |-- 📄.editorconfig
-    |-- 📄.env
-    |-- 📄.env.development
-    |-- 📄.env.production
-    |-- 📄.env.staging
-    |-- 📄.eslintignore
-    |-- 📄.eslintrc.js
-    |-- 📄.gitignore
-    |-- 📄.prettierignore
-    |-- 📄.prettierrc.js
-    |-- 📄commitlint.config.js
-    |-- 📄demo.js
-    |-- 📄index.html
-    |-- 📄package.json
-    |-- 📄postcss.config.js
-    |-- 📄tailwind.config.js
-    |-- 📄tsconfig.json
-    |-- 📄tsconfig.node.json
-    |-- 📄vite.config.ts
+            |-- 🗂️directive
+            |-- 🗂️hooks
+            |-- 🗂️layout
+            |-- 🗂️router
+            |-- 🗂️store
+            |-- 🗂️styles
+            |-- 🗂️theme
+            |-- 🗂️utils
+            |-- 🗂️views
+            |-- 📄App.vue
+            |-- 📄global.d.ts
+            |-- 📄main.ts
+            |-- 📄mount.vue
+            |-- 📄permission.ts
+            |-- 📄settings.ts
+            |-- 📄style.css
+        |-- 📄.env
+        |-- 📄.env.development
+        |-- 📄.env.production
+        |-- 📄.env.staging
+        |-- 📄.gitignore
+        |-- 📄.gitignore copy
+        |-- 📄.prettierignore
+        |-- 📄index.html
+        |-- 📄package-lock.json
+        |-- 📄package.json
+        |-- 📄README.md
+        |-- 📄tsconfig.app.json
+        |-- 📄tsconfig.json
+        |-- 📄tsconfig.node.json
+        |-- 📄vite.config.ts
+        |-- 📄yarn.lock
+    |-- 🗂️server
+        |-- 🗂️logs
+        |-- 🗂️public
+            |-- 📄favicon.ico
+        |-- 🗂️src
+            |-- 🗂️hooks
+            |-- 🗂️middlewares
+            |-- 🗂️routes
+            |-- 🗂️serve
+            |-- 🗂️types
+            |-- 🗂️utils
+            |-- 📄app copy.ts
+            |-- 📄app.ts
+            |-- 📄server.ts
+        |-- 🗂️uploads
+            |-- 🗂️images
+        |-- 📄.env
+        |-- 📄.env.development
+        |-- 📄.env.example
+        |-- 📄.env.production
+        |-- 📄.gitignore
+        |-- 📄cao_ni_ma.txt
+        |-- 📄demo.ts
+        |-- 📄ecosystem.config.js
+        |-- 📄nodemon.json
+        |-- 📄package.json
+        |-- 📄prettier.config.js
+        |-- 📄tsconfig.json
 |-- 🗂️db
     |-- 📄docker-compose.yml
-|-- 🗂️lineCount
-    |-- 📄config.js
-    |-- 📄index.js
-|-- 🗂️server
-    |-- 🗂️logs
-    |-- 🗂️public
-        |-- 📄favicon.ico
-    |-- 🗂️src
-        |-- 🗂️hooks
-            |-- 📄useLogger.ts
-            |-- 📄useRouters.ts
-        |-- 🗂️middlewares
-            |-- 📄authorization.ts
-            |-- 📄errorHandler.ts
-            |-- 📄index.ts
-            |-- 📄resultHandler.ts
-            |-- 📄upload.ts
-        |-- 🗂️routes
-            |-- 🗂️dept
-            |-- 🗂️logs
-            |-- 🗂️menu
-            |-- 🗂️msg
-            |-- 🗂️mysql-demo
-            |-- 🗂️role
-            |-- 🗂️server-routes
-            |-- 🗂️shop
-            |-- 🗂️upload
-            |-- 🗂️user
-            |-- 📄config.ts
-            |-- 📄demo.ts
-            |-- 📄demo[a,b,c].post.ts
-            |-- 📄index.get.ts
-            |-- 📄index.post.ts
-            |-- 📄types.ts
-            |-- 📄xlsx.post.ts
-        |-- 🗂️serve
-            |-- 🗂️sys
-            |-- 📄comm.serve.ts
-            |-- 📄db.ts
-            |-- 📄dept.serve.ts
-            |-- 📄employee.serve.ts
-            |-- 📄index.ts
-            |-- 📄shop.serve.ts
-        |-- 🗂️utils
-            |-- 📄alias.ts
+|-- 🗂️packages
+    |-- 🗂️utils
+        |-- 🗂️src
             |-- 📄encryption.ts
-            |-- 📄index.ts
             |-- 📄isPrivateIP.ts
-            |-- 📄loadEnv.ts
-            |-- 📄md5.ts
-            |-- 📄redis.ts
             |-- 📄sleep.ts
-            |-- 📄token.ts
             |-- 📄validate.ts
-        |-- 📄app.ts
-        |-- 📄demo.html
-        |-- 📄server.ts
-    |-- 🗂️uploads
-        |-- 🗂️images
-    |-- 🗂️views
-        |-- 📄error.pug
-        |-- 📄index.pug
-        |-- 📄layout.pug
-    |-- 📄.env
-    |-- 📄.env.development
-    |-- 📄.env.example
-    |-- 📄.env.production
-    |-- 📄.eslintignore
-    |-- 📄.eslintrc.js
-    |-- 📄.gitignore
-    |-- 📄.prettierignore
-    |-- 📄.prettierrc.js
-    |-- 📄audit.json
-    |-- 📄cao_ni_ma.txt
-    |-- 📄del_dist.js
-    |-- 📄ecosystem.config.js
-    |-- 📄global.d.ts
-    |-- 📄nodemon.json
-    |-- 📄package.json
-    |-- 📄renovate.json
-    |-- 📄tsconfig.json
-|-- 🗂️tree
-    |-- 📄config.js
-    |-- 📄index.js
-|-- 📄.dockerignore
+        |-- 📄.eslintignore
+        |-- 📄eslint.config.js
+        |-- 📄index.ts
+        |-- 📄package-lock.json
+        |-- 📄package.json
+        |-- 📄tsconfig.json
+|-- 🗂️scripts
+    |-- 🗂️lineCount
+        |-- 📄config.ts
+        |-- 📄index.ts
+    |-- 🗂️tree
+        |-- 📄config.ts
+        |-- 📄index.ts
+    |-- 📄pre-commit.ts
 |-- 📄.gitignore
-|-- 📄commitlint.config.js
-|-- 📄demo.sh
-|-- 📄dev.js
+|-- 📄.npmrc
+|-- 📄.prettierrc.js
+|-- 📄commitlint.config.cjs
+|-- 📄dev.ts
 |-- 📄docker-compose.yml
-|-- 📄Dockerfile
 |-- 📄docker_start.sh
-|-- 📄LICENSE
+|-- 📄eslint.config.ts
 |-- 📄lineCount.txt
 |-- 📄package.json
 |-- 📄pnpm-lock.yaml
 |-- 📄pnpm-workspace.yaml
-|-- 📄README.md
-|-- 📄run.sh
-|-- 📄yarn.lock

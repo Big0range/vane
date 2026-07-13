@@ -1,0 +1,110 @@
+#app {
+  .sidebar {
+    .n-scrollbar {
+      background-color: var(--app-menu-bg-color);
+    }
+  }
+
+  .main-container {
+    min-height: 100%;
+    transition: margin-left 0.28s;
+    margin-left: var(--app-left-menu-width);
+    position: relative;
+  }
+
+  .sidebar-container {
+    transition: width 0.28s;
+    width: var(--app-left-menu-width) !important;
+    // background-color: var(--el-menu-bg-color);
+    border-right-width: var(--app-logo-border-width);
+    border-right-color: var(--app-logo-border-color);
+    height: 100%;
+    position: fixed;
+    font-size: 0px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 98;
+    overflow: hidden;
+
+    .n-menu-item-content--child-active {
+      // color: var(--app-text-color);
+    }
+
+    &.has-logo {
+      .el-scrollbar {
+        height: calc(100% - 50px);
+      }
+    }
+
+    .is-horizontal {
+      display: none;
+    }
+
+    a {
+      display: inline-block;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .svg-icon {
+      margin-right: 6px;
+    }
+
+    .sub-el-icon {
+      margin-right: 12px;
+      margin-left: -2px;
+    }
+
+    .el-menu {
+      border: none;
+      height: 100%;
+      width: 100% !important;
+    }
+
+    .el-menu-item {
+      // line-height: var(--el-menu-item-height);
+      // background-color: red;
+    }
+  }
+
+  .hideSidebar {
+    .sidebar-container {
+      width: 54px !important;
+      .svg-icon {
+        margin-right: 0px;
+      }
+    }
+
+    .main-container {
+      margin-left: 54px;
+    }
+  }
+
+  // mobile responsive
+  .mobile {
+    .main-container {
+      margin-left: 0px;
+    }
+
+    .sidebar-container {
+      transition: transform 0.28s;
+      width: var(--app-left-menu-width) !important;
+    }
+
+    &.hideSidebar {
+      .sidebar-container {
+        pointer-events: none;
+        transition-duration: 0.3s;
+        transform: translate3d(calc(var(--app-left-menu-width) * -1), 0, 0);
+      }
+    }
+  }
+
+  .withoutAnimation {
+    .main-container,
+    .sidebar-container {
+      transition: none;
+    }
+  }
+}

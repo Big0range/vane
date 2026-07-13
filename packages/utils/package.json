@@ -1,0 +1,29 @@
+{
+  "name": "@vane/utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "prettier": "prettier --write src/**/*.{js,jsx,ts,tsx,vue,json,css,scss,md,yaml,yml}"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/node": "^25.9.1",
+    "crypto-js": "^4.2.0",
+    "dayjs": "^1.11.21",
+    "eslint": "^9.39.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "typescript-eslint": "^8.60.0"
+  }
+}

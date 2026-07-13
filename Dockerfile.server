@@ -1,0 +1,17 @@
+FROM node:26.0.0-alpine
+
+WORKDIR /app
+RUN npm install -g pnpm@11
+
+# 单独复制 是为了让docker知道什么时候可以调用缓存  什么时候重新下载依赖
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/server/package.json apps/server/
+COPY apps/client/package.json apps/client/
+COPY packages/utils/package.json packages/utils/
+
+RUN --mount=type=cache,id=vane-pnpm,target=/root/.local/share/pnpm/store pnpm install --filter  @vane/server... --frozen-lockfile
+
+COPY . .
+
+# 启动服务
+CMD ["sh", "run.sh"]

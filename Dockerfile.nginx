@@ -1,0 +1,25 @@
+# 第一阶段：编译前端
+FROM node:26.0.0-alpine AS builder
+
+WORKDIR /app
+
+RUN npm install -g pnpm@11
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/server/package.json apps/server/
+COPY apps/client/package.json apps/client/
+COPY packages/utils/package.json packages/utils/
+
+RUN --mount=type=cache,id=vane-pnpm,target=/root/.local/share/pnpm/store pnpm install --filter @vane/client... --frozen-lockfile
+
+COPY . .
+
+RUN pnpm build:client
+
+
+# 第二阶段：nginx
+FROM nginx:alpine
+
+COPY --from=builder /app/apps/client/dist /usr/share/nginx
+
+COPY nginx.conf /etc/nginx/nginx.conf

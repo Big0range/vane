@@ -1,1 +1,8 @@
-**/node_modules
+*.md
+!README.md
+*/node_modules
+.git
+.agents
+.claude
+.husky
+.vscode

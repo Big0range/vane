@@ -1,0 +1,13 @@
+import { formServe } from '#/serve/index.ts';
+import type { Request, Response } from 'express';
+import type { Form } from '#/serve/index.ts';
+export default async function (req: Request, res: Response): Promise<void> {
+  try {
+    const code = req.query.code as string;
+    const { title, desc } = req.body as Form;
+    await formServe.updateBase(code, { title, desc });
+    res.ok();
+  } catch (error: any) {
+    res.fail(error);
+  }
+}

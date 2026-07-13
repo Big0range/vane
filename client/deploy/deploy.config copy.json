@@ -1,9 +1,0 @@
-{
-  "host": "***********",
-  "port": 22,
-  "username": "root",
-  "password": "***********",
-  "remotePath": "/opt/vane-admin",
-  "remoteBackupPath":"/opt/vane-admin-backup",
-  "localPath": "./dist"
-}

@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+@theme {
+  --spacing: 1px;
+  --color-primary: var(--app-primary-color);
+}

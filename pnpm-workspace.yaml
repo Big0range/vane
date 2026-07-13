@@ -1,5 +1,10 @@
 packages:
-  - "packages/**"
-  - "client"
-  - "server"
-  - "utils"
+  - 'apps/*'
+  - 'packages/*'
+allowBuilds:
+  '@parcel/watcher': true
+  es5-ext: true
+  esbuild: true
+  json-editor-vue: true
+  unrs-resolver: true
+  vue-demi: true

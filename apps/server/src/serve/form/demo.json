@@ -1,0 +1,219 @@
+[
+  {
+    "id": 14,
+    "type": "treeSelect",
+    "field": "parent_id",
+    "props": {
+      "options": [
+        {
+          "id": 11,
+          "label": "1",
+          "value": 1,
+          "item_id": 14,
+          "form_code": "demo",
+          "update_time": { "fn": "NOW", "args": [] }
+        },
+        {
+          "id": 12,
+          "label": "2",
+          "value": 2,
+          "item_id": 14,
+          "form_code": "demo",
+          "update_time": { "fn": "NOW", "args": [] }
+        }
+      ],
+      "keyField": "value",
+      "clearable": true,
+      "filterable": true,
+      "labelField": "label",
+      "placeholder": "上级菜单",
+      "childrenField": "children",
+      "defaultExpandAll": true
+    },
+    "title": "上级菜单",
+    "effect": { "loadData": { "to": "props.options", "attr": "menuOptions" } },
+    "form_id": 2,
+    "validate": [
+      { "type": "number", "message": "请选择上级菜单", "trigger": "blur", "required": true }
+    ],
+    "form_code": "demo",
+    "update_time": { "fn": "NOW", "args": [] }
+  },
+  {
+    "id": 15,
+    "type": "input",
+    "field": "title",
+    "props": { "placeholder": "请输入菜单名称" },
+    "title": "菜单名称",
+    "form_id": 2,
+    "form_code": "demo",
+    "update_time": { "fn": "NOW", "args": [] }
+  },
+  {
+    "id": 16,
+    "type": "radio",
+    "field": "type",
+    "title": "菜单类型",
+    "control": [
+      {
+        "rule": [
+          {
+            "id": 17,
+            "type": "input",
+            "field": "name",
+            "props": { "placeholder": "请输入页面name" },
+            "title": "页面name",
+            "form_id": 2,
+            "form_code": "demo"
+          },
+          {
+            "id": 18,
+            "type": "input",
+            "field": "component",
+            "title": "菜单组件",
+            "form_id": 2,
+            "validate": [{ "message": "请输入组件完整路径", "trigger": "blur", "required": true }],
+            "form_code": "demo"
+          }
+        ],
+        "value": "MENU",
+        "condition": "=="
+      },
+      {
+        "rule": [
+          {
+            "id": 19,
+            "type": "input",
+            "field": "path",
+            "props": { "placeholder": "请输入外链地址" },
+            "title": "外链地址",
+            "form_id": 2,
+            "form_code": "demo"
+          }
+        ],
+        "value": "EXTLINK",
+        "condition": "=="
+      },
+      {
+        "rule": [
+          {
+            "id": 20,
+            "type": "input",
+            "field": "path",
+            "props": { "placeholder": "" },
+            "title": "菜单路径",
+            "form_id": 2,
+            "form_code": "demo"
+          },
+          {
+            "id": 21,
+            "type": "radio",
+            "field": "keep_alive",
+            "title": "是否缓存",
+            "form_id": 2,
+            "options": [
+              { "id": 13, "label": "否", "value": 0 },
+              { "id": 14, "label": "是", "value": 1 }
+            ],
+            "form_code": "demo"
+          }
+        ],
+        "value": ["CATALOG", "MENU"],
+        "condition": "in"
+      },
+      {
+        "rule": [
+          {
+            "id": 22,
+            "type": "input",
+            "field": "permission",
+            "props": { "placeholder": "比如: sys:user:add" },
+            "title": "权限标识",
+            "form_id": 2,
+            "form_code": "demo"
+          }
+        ],
+        "value": "BUTTON",
+        "condition": "=="
+      },
+      {
+        "rule": [
+          { "id": 23, "field": "icon", "title": "菜单图标", "form_id": 2, "form_code": "demo" },
+          {
+            "id": 24,
+            "type": "radio",
+            "field": "hidden",
+            "title": "是否隐藏",
+            "form_id": 2,
+            "options": [
+              { "id": 15, "label": "显示", "value": 0 },
+              { "id": 16, "label": "隐藏", "value": 1 }
+            ],
+            "form_code": "demo"
+          }
+        ],
+        "value": "BUTTON",
+        "condition": "!="
+      }
+    ],
+    "form_id": 2,
+    "options": [
+      {
+        "id": 17,
+        "label": "目录",
+        "value": "CATALOG",
+        "item_id": 16,
+        "form_code": "demo",
+        "update_time": { "fn": "NOW", "args": [] }
+      },
+      {
+        "id": 18,
+        "label": "菜单",
+        "value": "MENU",
+        "item_id": 16,
+        "form_code": "demo",
+        "update_time": { "fn": "NOW", "args": [] }
+      },
+      {
+        "id": 19,
+        "label": "按钮",
+        "value": "BUTTON",
+        "item_id": 16,
+        "form_code": "demo",
+        "update_time": { "fn": "NOW", "args": [] }
+      },
+      {
+        "id": 20,
+        "label": "外链",
+        "value": "EXTLINK",
+        "item_id": 16,
+        "form_code": "demo",
+        "update_time": { "fn": "NOW", "args": [] }
+      }
+    ],
+    "validate": [{ "message": "请选择菜单类型", "trigger": "blur", "required": true }],
+    "form_code": "demo",
+    "update_time": { "fn": "NOW", "args": [] }
+  },
+  {
+    "id": 25,
+    "type": "input",
+    "field": "redirect",
+    "props": { "placeholder": "请输入重定向路径" },
+    "title": "重定向",
+    "form_id": 2,
+    "form_code": "demo",
+    "update_time": { "fn": "NOW", "args": [] }
+  },
+  {
+    "id": 26,
+    "type": "input-number",
+    "field": "sort",
+    "props": { "min": 0, "placeholder": "请输入排序" },
+    "style": "width: 100px",
+    "title": "排序",
+    "form_id": 2,
+    "form_code": "demo",
+    "update_time": { "fn": "NOW", "args": [] }
+  }
+]

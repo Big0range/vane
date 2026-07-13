@@ -4,12 +4,10 @@
 
 ## 封面
 
-![封面](http://www.limeichao.cn:7791/i/2024/06/27/667d111e6085f.png)
+![封面](https://www.limeichao.cn:7791/i/2026/07/06/6a4b286217ba9.webp)
 
-写这个的初衷是因为每次用node写接口的时候总是需要一些写大一堆的东西, 也有些人把很多接口都放在一个js文件内, 看起来很是杂乱
-后来用到nuxt写的时候, 感觉用文件名来命名接口路径很是方便, 无论是query参数还是params参数,都可以通过文件名来命名, 也可以通过文件夹层级清晰的反映出接口之间的关系(虽然类似nuxt,next这种的框架确实很好, 但是好处同样也是坏处,很难完全的前后端分离, 不能只写前端,或者后端,而且也不需要再去学习相关的知识), 于是就有了这个项目, 能够节省很大一部分时间, 也能够让接口更加清晰, 也能够让接口更加清晰, 也能够让接口更加清晰, 重要的事情说三遍。\
-节省下来的时间用来休息和摸鱼多好(不是让你接着内卷的)。
-如果真的帮到了你的话,觉得这个项目还不错的话, 可以给我一个star, 也可以给我一个star, 也可以给我一个star, 重要的事情说三遍。
+写这个的初衷是因为每次用node写接口的时候总是需要一些写大一堆的东西, 也有些人把很多接口都放在一个js文件内, 看起来很是杂乱后来用到nuxt写的时候, 感觉用文件名来命名接口路径很是方便, 无论是query参数还是params参数,都可以通过文件名来命名, 也可以通过文件夹层级清晰的反映出接口之间的关系(虽然类似nuxt,next这种的框架确实很好, 但是好处同样也是坏处,很难完全的前后端分离, 不能只写前端,或者后端,而且也不需要再去学习相关的知识), 于是就有了这个项目, 能够节省很大一部分时间, 也能够让接口更加清晰, 也能够让接口更加清晰, 也能够让接口更加清晰, 重要的事情说三遍。\
+节省下来的时间用来休息和摸鱼多好(不是让你接着内卷的)。如果真的帮到了你的话,觉得这个项目还不错的话, 可以给我一个star, 也可以给我一个star, 也可以给我一个star, 重要的事情说三遍。
 
 [github传送门](https://github.com/Big0range/vane)
 
@@ -24,102 +22,127 @@
 ## 技术栈
 
 web\
-`Vue3`, `TypeScript`, `Vite` `node`\
+`Vue3`, `TypeScript`, `Vite`, `naive-ui`\
 server\
 `node`, `TypeScript`, `express`, `sequelize`, `mysql`, `redis`\
 server进阶\
 `docker`, `docker-componse`, `pm2`
 
-node版本: `^18`\
-pnpm版本: `^8`
+node版本: `^26`\
+pnpm版本: `^11`
+
+**_注意: 本项目采用了pnpm workspace的模式, 所以在项目根目录下执行命令时, 请使用`pnpm`命令, 而不是`npm`命令_**
+
+## 目录结构
+
+```
+|-- 🗂️apps
+    |-- 🗂️client(web客户端)
+        |-- 🗂️public
+            |-- 🗂️fonts(苹方字体文件)
+            |-- 📄favicon.svg
+            |-- 📄icons.svg
+            |-- 📄logo.png
+        |-- 🗂️src(业务代码)
+            |-- 🗂️api(接口相关)
+            |-- 🗂️assets(静态资源)
+            |-- 🗂️components(公共组件)
+            |-- 🗂️directive(自定义vue3指令)
+            |-- 🗂️hooks(自定义hook)
+            |-- 🗂️layout(页面整体布局)
+            |-- 🗂️router(路由配置)
+            |-- 🗂️store(pinia)
+            |-- 🗂️styles(公共样式)
+            |-- 🗂️theme(主题样式)
+            |-- 🗂️utils(公共工具)
+            |-- 🗂️views(页面组件)
+            |-- 📄App.vue
+            |-- 📄global.d.ts(全局ts类型定义)
+            |-- 📄main.ts
+            |-- 📄mount.vue(window挂载)
+            |-- 📄permission.ts(路由权限)
+            |-- 📄settings.ts(配置)
+            |-- 📄style.css(全局样式)
+        |-- 📄.env
+        |-- 📄.env.development
+        |-- 📄.env.production
+        |-- 📄.env.staging
+        |-- 📄.gitignore
+        |-- 📄.gitignore copy
+        |-- 📄.prettierignore
+        |-- 📄index.html
+        |-- 📄package-lock.json
+        |-- 📄package.json
+        |-- 📄README.md
+        |-- 📄tsconfig.app.json
+        |-- 📄tsconfig.json
+        |-- 📄tsconfig.node.json
+        |-- 📄vite.config.ts
+    |-- 🗂️server(服务端)
+        |-- 🗂️logs(日志)
+        |-- 🗂️public(静态资源)
+            |-- 📄favicon.ico
+        |-- 🗂️src(业务代码)
+            |-- 🗂️hooks(自定义hook)
+            |-- 🗂️middlewares(中间件)
+            |-- 🗂️routes(路由配置)
+            |-- 🗂️serve(数据库相关)
+            |-- 🗂️types(一些全局ts类型)
+            |-- 🗂️utils(公共工具)
+            |-- 📄app.ts
+            |-- 📄server.ts
+        |-- 🗂️uploads
+            |-- 🗂️images
+        |-- 📄.env
+        |-- 📄.env.development
+        |-- 📄.env.example
+        |-- 📄.env.production
+        |-- 📄.gitignore
+        |-- 📄cao_ni_ma.txt
+        |-- 📄ecosystem.config.js(已废弃  node直接启动)
+        |-- 📄nodemon.json(dev启动时相关配置)
+        |-- 📄package.json
+        |-- 📄prettier.config.js
+        |-- 📄tsconfig.json
+|-- 🗂️db(docker-compose 启动数据库)
+    |-- 📄docker-compose.yml
+|-- 🗂️packages(公共工具包)
+    |-- 🗂️utils
+        |-- 🗂️src
+            |-- 📄encryption.ts(已废弃  启用md5加盐加密)
+            |-- 📄isPrivateIP.ts
+            |-- 📄sleep.ts
+            |-- 📄validate.ts
+        |-- 📄.eslintignore
+        |-- 📄eslint.config.js
+        |-- 📄index.ts
+        |-- 📄package-lock.json
+        |-- 📄package.json
+        |-- 📄tsconfig.json
+|-- 🗂️scripts(其他的一些小脚本)
+    |-- 🗂️lineCount(统计代码行数-审计还是啥来着可能会用到)
+        |-- 📄config.ts
+        |-- 📄index.ts
+    |-- 🗂️tree(生成文件树)
+        |-- 📄config.ts
+        |-- 📄index.ts
+    |-- 📄pre-commit.ts
+|-- 📄.gitignore
+|-- 📄.npmrc
+|-- 📄.prettierrc.js
+|-- 📄commitlint.config.cjs
+|-- 📄dev.ts
+|-- 📄docker-compose.yml
+|-- 📄docker_start.sh
+|-- 📄eslint.config.ts
+|-- 📄lineCount.txt
+|-- 📄package.json
+|-- 📄pnpm-lock.yaml
+|-- 📄pnpm-workspace.yaml
+
+```
 
 ## 服务端
-
-目录结构
-
-```
-|-- 🗂️server
-    |-- 🗂️logs (日志)
-        |-- 🗂️api (api 日志)
-            |-- 📄api-20230628.log
-            |-- 📄api-20230629.log
-        |-- 🗂️sql (sql 日志)
-            |-- 📄sql-20230628.log
-            |-- 📄sql-20230629.log
-    |-- 🗂️public (express 公开资源)
-        |-- 📄favicon.ico
-    |-- 🗂️src
-        |-- 🗂️hooks (自定义hook)
-            |-- 📄useLogger.ts (记录日志hook)
-            |-- 📄useRouters.ts (注册路由hook)
-        |-- 🗂️middlewares (中间件)
-            |-- 📄authorization.ts (校验登录状态)
-            |-- 📄errorHandler.ts (错误捕捉)
-            |-- 📄index.ts
-            |-- 📄resultHandler.ts (接口返回数据封装方法)
-            |-- 📄upload.ts (multer 接受上传文件 目前支持的是图片)
-        |-- 🗂️routes (接口路由)
-            |-- 🗂️dept
-            |-- 🗂️logs
-            |-- 🗂️menu
-            |-- 🗂️msg
-            |-- 🗂️mysql-demo
-            |-- 🗂️role
-            |-- 🗂️server-routes
-            |-- 🗂️shop
-            |-- 🗂️upload
-            |-- 🗂️user
-            |-- 📄config.ts
-            |-- 📄demo.ts
-            |-- 📄demo[a,b,c].post.ts
-            |-- 📄index.get.ts
-            |-- 📄index.post.ts
-            |-- 📄types.ts
-            |-- 📄xlsx.post.ts
-        |-- 🗂️serve (数据库相关)
-            |-- 🗂️sys (系统相关)
-            |-- 📄comm.serve.ts (公共类)
-            |-- 📄db.ts (数据库初始化文件)
-            |-- 📄dept.serve.ts (...)
-            |-- 📄employee.serve.ts (...)
-            |-- 📄index.ts 
-            |-- 📄shop.serve.ts (...)
-        |-- 🗂️utils
-            |-- 📄alias.ts (路径别名)
-            |-- 📄encryption.ts (数据加密, 可逆)
-            |-- 📄index.ts
-            |-- 📄isPrivateIP.ts (校验是否是本地ip 没用到....)
-            |-- 📄loadEnv.ts (加载.env)
-            |-- 📄md5.ts (md5加密)
-            |-- 📄redis.ts (redis)
-            |-- 📄sleep.ts (延迟函数)
-            |-- 📄token.ts (token的创建与销毁)
-            |-- 📄validate.ts (数据校验)
-        |-- 📄app.ts
-        |-- 📄server.ts
-    |-- 🗂️views
-        |-- 📄error.pug
-        |-- 📄index.pug
-        |-- 📄layout.pug
-    |-- 📄.env (默认环境变量,无论什么环境都会加载,需要自己创建,为了项目安全,请勿直接保存在代码库中)
-    |-- 📄.env.development (开发测试环境)
-    |-- 📄.env.example (env文件示例)
-    |-- 📄.env.production (生产环境)
-    |-- 📄.eslintignore
-    |-- 📄.eslintrc.js (eslint)
-    |-- 📄.gitignore
-    |-- 📄.prettierignore
-    |-- 📄.prettierrc.js
-    |-- 📄cao_ni_ma.txt (神兽)
-    |-- 📄del_dist.js 
-    |-- 📄ecosystem.config.js (pm2相关配置)
-    |-- 📄global.d.ts
-    |-- 📄nodemon.json (nodemon启动配置)
-    |-- 📄package.json
-    |-- 📄renovate.json
-    |-- 📄tsconfig.json
-```
-
 
 ### 配置hosts
 
@@ -136,7 +159,7 @@ pnpm版本: `^8`
 
 ### 安装依赖
 
-`npm install -g pnpm` (也可以指定版本安装pnpm `npm install -g pnpm@8`)\
+`npm install -g pnpm` (也可以指定版本安装pnpm `npm install -g pnpm@11`)\
 `pnpm install`
 
 请勿使用淘宝镜像源,会导致依赖安装失败\
@@ -148,43 +171,43 @@ pnpm版本: `^8`
 
 启动服务端: `pnpm dev:server`\
 启动web端: `pnpm dev:client`\
-全部启动: `pnpm dev`\
+全部启动: `pnpm dev`\\
 
 #### 正式环境(`Centos`)
 
 启动服务端
 
 1. 原生docker部署(`不推荐`), 会根据Dockerfile文件中配置启动 会执行一个`run.sh`脚本,可按需求修改
-2. 非docker部署(`极不推荐,需要服务器支持node18,并且较为繁琐`),可以运行`pnpm start:server`(请先执行打包命令),**需要自己启动以及配置数据库,并且node>=18并不支持Centos7,极力推荐使用docker进行部署**
+2. 非docker部署(`极不推荐,需要服务器支持node26,并且较为繁琐`),可以运行`pnpm start:server`(无需打包 node原生运行),**需要自己启动以及配置数据库,并且node>=26并不支持Centos7,极力推荐使用docker进行部署**
 3. docker-componse部署(`推荐`), 一键脚本 `sh docker_start.sh all/server/db` (参数按需选择all或者server或者db,不传入的话默认为server)
-    1. db: 启动mysql以及redis数据库 如果你是第一次启动的话需要下载[GitHub](https://github.com/Big0range/vane)中releases符合自己本地代码版本的数据库文件(版本可在根目录下package.json中查看),并解压到`/home/docker-volumes`目录下,正确的目录应该是`/home/docker-volumes/vane`,也可以自己修改`db/docker-compose.yml`文件中的相关配置,自己配置数据库
-    2. server: 启动node服务端和nginx,默认端口映射为80,如果你想修改的话,请自行修改`server/docker-compose.yml`文件中的相关配置
-    3. all: 数据库以及服务端全部启动
-    4. 建议: 数据库如无修改,启动一次即可
-    5. 注意事项: 执行时默认会请求最新代码, 如果你不喜欢的话,请删除`docker_start.sh`中第三行至第八行
+   1. db: 启动mysql以及redis数据库 如果你是第一次启动的话需要下载[GitHub](https://github.com/Big0range/vane)中releases符合自己本地代码版本的数据库文件(版本可在根目录下package.json中查看),并解压到`/home/docker-volumes`目录下,正确的目录应该是`/home/docker-volumes/vane`,也可以自己修改`db/docker-compose.yml`文件中的相关配置,自己配置数据库
+   2. server: 启动node服务端和nginx,默认端口映射为80,如果你想修改的话,请自行修改`server/docker-compose.yml`文件中的相关配置
+   3. all: 数据库以及服务端全部启动
+   4. 建议: 数据库如无修改,启动一次即可
+   5. 注意事项: 执行时默认会请求最新代码, 如果你不喜欢的话,请删除`docker_start.sh`中第三行至第八行
 
 #### docker 镜像下载问题
 
 1. 如果你的服务器无法下载docker镜像,请尝试修改docker镜像源,具体操作请自行查询(帖子太多了,没必要写在这里.....)
 2. 如果你尝试修改docker镜像源后,仍然无法下载,在网盘中下载对应的压缩包,docker导入镜像,云盘内有使用说明,按照操作即可\
-[网盘地址](https://pan.baidu.com/s/1_WyuCMNGFTUkniuDia7P_g) 提取码: `8gyc`
+   [网盘地址](https://pan.baidu.com/s/1_WyuCMNGFTUkniuDia7P_g) 提取码: `8gyc`
 
 #### 单独打包
 
 如果你有其他的需求,可以单独打包,打包后的文件在`dist`文件夹下
 
-1. 打包服务端 `pnpm build:server`
+1. 打包服务端 `无需打包`
 2. 打包web端 `pnpm build:client`
 
 ### 环境配置
 
 #### 开发环境配置
 
-`node>=18`, `pnpm>=8`, `mysql:5.7`, `redis:6.2`
+`node>=26`, `pnpm>=11`, `mysql:5.7`, `redis:6.2`
 
 #### 正式环境
 
-`node>=16.14.0`(如果可以安装18版本的最好,16版本只是能保证基本的安装依赖), `mysql`, `redis`, `pnpm>=8,docker(可选)`, `docker-componse(可选)`
+`node>=26`, `mysql`, `redis`, `pnpm>=11,docker(可选)`, `docker-componse(可选)`
 
 #### 配置env文件
 
@@ -215,7 +238,7 @@ export default async function (req: Request, res: Response) {
     res.ok({
       message: '操作成功',
       data: data.Location.split('/images/')[1],
-      log: '上传成功',// 如果你的接口需要记录日志,请在这里传入相关信息(非必填)
+      log: '上传成功', // 如果你的接口需要记录日志,请在这里传入相关信息(非必填)
     });
   } catch (error) {
     /**
@@ -226,8 +249,7 @@ export default async function (req: Request, res: Response) {
 }
 
 // 中间件 非必填
-export const middleware = [()=>{}];
-
+export const middleware = [() => {}];
 ```
 
 ### 接口白名单(不需要登录鉴权)
@@ -238,160 +260,34 @@ export const middleware = [()=>{}];
 
 #### 自定义白名单(可修改)
 
-启动前端服务,在[http://localhost:4000/vane/system/white-api](http://localhost:4000/vane/system/white-api)中进行配置,无需修改mysql和redis
+启动前端服务,在<http://localhost:4000/vane/system/white-api>中进行配置,无需修改mysql和redis
 
 ### 日志记录
 
 #### api日志
 
-接口日志会自动记录在`server/logs/api`文件夹下,文件名为`access-${日期}.log`
+接口日志会自动记录在`apps/server/logs/app`文件夹下,文件名为`${日期}.log`
 
 #### sql日志
 
-sql日志会自动记录在`server/logs/sql`文件夹下,文件名为`sql-${日期}.log`
+sql日志会自动记录在`apps/server/logs/sql`文件夹下,文件名为`${日期}.log`
 
 ### 文件上传
 
-本项目使用了腾讯云对象存储,如果您没有腾讯云对象存储的话,请自行修改`server/src/server/routes/upload.ts`文件中的上传逻辑,并修改`client/src/utils/config.ts`文件中的`CDNURL` 远程资源地址
+本项目使用了腾讯云对象存储,如果您没有腾讯云对象存储的话,请自行修改`apps/server/src/server/routes/upload.ts`文件中的上传逻辑,并修改`client/src/utils/config.ts`文件中的`CDNURL` 远程资源地址
 
 ### 注意事项
 
-1. mysql使用了一主多从集群模式,如果您仅仅使用一个mysql的话,请修改`server/.env`文件中的`mysql`配置,以及`server/src/serve/db.ts`文件中`sequelize`的实例初始化代码
+1. env中 如果mysql填写了多个,则启动主从模式,第一个为主,其他为从数据库
+2. 虽然使用了pnpm的workspace的模式,但是由于某些原因服务端在打包后,不能正确解析工作区间内的包名,所以禁止在服务端代码内使用工作区间内的包,但是web端可以使用服务端的
 
-2. 开发环境下, 默认不启动数据库集群模式,如果需要启动集群模式,请修改`server`文件夹下的`nodemon.json`中的NODE_ENV为production
-
-3. 虽然使用了pnpm的workspace的模式,但是由于某些原因服务端在打包后,不能正确解析工作区间内的包名,所以禁止在服务端代码内使用工作区间内的包,但是web端可以使用服务端的
-
-## 前端
+## web客户端
 
 如果你用过vue2版本的vue-admin的话,上手应该会非常快,因为本项目的前端是模仿vue-admin的vue3版本,并且使用了typescript,所以如果你不熟悉vue3的话,建议先学习一下vue3的基础知识
 
-目录结构
-
-```
-|-- 🗂️client
-    |-- 🗂️.vscode
-        |-- 📄settings.json
-    |-- 🗂️deploy (一键上传脚本,去掉deploy.config copy.json中的copy,并修改配置)
-        |-- 📄deploy.config copy.json
-        |-- 📄deploy.config.json
-        |-- 📄index.js
-        |-- 📄sysInfo.js
-    |-- 🗂️public
-        |-- 📄favicon.ico
-        |-- 🗂️fonts (字体文件)
-        |-- 📄logo.png
-    |-- 🗂️src
-        |-- 🗂️api (接口存放目录)
-        |-- 🗂️assets (静态资源存放目录)
-        |-- 🗂️components (公共组件存放目录)
-            |-- 🗂️Breadcrumb
-            |-- 🗂️CountTo
-            |-- 🗂️Cropper
-            |-- 🗂️GithubCorner
-            |-- 🗂️Hamburger
-            |-- 🗂️IconSelect
-            |-- 🗂️LangSelect
-            |-- 🗂️Notice
-            |-- 🗂️Page
-            |-- 🗂️Pagination
-            |-- 🗂️RightPanel
-            |-- 🗂️Screenfull
-            |-- 🗂️ScreenLock
-            |-- 🗂️SizeSelect
-            |-- 🗂️SvgIcon
-            |-- 🗂️UploadFile
-            |-- 🗂️WangEditor
-        |-- 🗂️directive (自定义属性)
-            |-- 🗂️permission
-            |-- 📄index.ts
-        |-- 🗂️hooks (自定义hooks)
-            |-- 📄useForm.ts
-        |-- 🗂️lang (i18,目前还有一些小问题,不影响使用)
-            |-- 📄en.ts
-            |-- 📄index.ts
-            |-- 📄zh-cn.ts
-        |-- 🗂️layout (页面布局组件)
-            |-- 🗂️components
-            |-- 📄index.vue
-        |-- 🗂️router (路由)
-            |-- 📄index.ts
-        |-- 🗂️store (pinia)
-            |-- 🗂️modules
-            |-- 📄index.ts
-        |-- 🗂️styles (公共class样式)
-            |-- 📄element-plus.scss
-            |-- 📄index.scss
-            |-- 📄mixin.scss
-            |-- 📄sidebar.scss
-            |-- 📄tailwind.css
-            |-- 📄variables.module.scss
-        |-- 🗂️theme (主题配色)
-            |-- 📄blue_black.ts
-            |-- 📄default.ts
-            |-- 📄green_black.ts
-            |-- 📄green_white.ts
-            |-- 📄index.ts
-            |-- 📄purple_white.ts
-            |-- 📄red_black.ts
-            |-- 📄red_white.ts
-            |-- 📄violet_dark.ts
-        |-- 🗂️utils (工具方法)
-            |-- 📄addWaterMark.ts
-            |-- 📄config.ts
-            |-- 📄downloadFile.ts
-            |-- 📄encryption.ts
-            |-- 📄filter.ts
-            |-- 📄hospitalOptions.ts
-            |-- 📄i18n.ts
-            |-- 📄index.ts
-            |-- 📄mitter.ts
-            |-- 📄request.ts
-            |-- 📄resize.ts
-            |-- 📄scroll-to.ts
-            |-- 📄storage.ts
-            |-- 📄validate.ts
-        |-- 🗂️views (页面组件存放处)
-            |-- 🗂️component
-            |-- 🗂️dashboard
-            |-- 🗂️demo
-            |-- 🗂️dept
-            |-- 🗂️error-page
-            |-- 🗂️login
-            |-- 🗂️redirect
-            |-- 🗂️shop
-            |-- 🗂️system
-        |-- 📄App.vue
-        |-- 📄components.d.ts
-        |-- 📄env.d.ts
-        |-- 📄main.ts
-        |-- 📄permission.ts (路由鉴权)
-        |-- 📄settings.ts (页面配置)
-    |-- 📄.editorconfig
-    |-- 📄.env (公共的env)
-    |-- 📄.env.development (开发模式独有的env)
-    |-- 📄.env.production (生产模式独有的env)
-    |-- 📄.env.staging (.....)
-    |-- 📄.eslintignore
-    |-- 📄.eslintrc.js
-    |-- 📄.gitignore
-    |-- 📄.prettierignore
-    |-- 📄.prettierrc.js
-    |-- 📄commitlint.config.js
-    |-- 📄components.d.ts
-    |-- 📄global.d.ts (全局ts声明,请不要import引入其他,否则会失效)
-    |-- 📄index.html (模板html)
-    |-- 📄package.json
-    |-- 📄postcss.config.js
-    |-- 📄tailwind.config.js (tailwind 配置文件)
-    |-- 📄tsconfig.json
-    |-- 📄tsconfig.node.json
-    |-- 📄vite.config.ts (vite 配置文件)
-```
-
 ### 字体问题
 
-项目中默认使用的为PingFang(苹方)字体,已经做了切片处理,无需担心加载过慢问题,字体文件放置在`client/public/fonts`文件夹下,如果你的项目中没有使用到该字体,请自行删除,并且取消`client/src/styles/index.scss`文件的引用(`styles/index中`),否则会导致打包后的文件过大\
+项目中默认使用的为PingFang(苹方)字体,已经做了切片处理,无需担心加载过慢问题,字体文件放置在`apps/client/public/fonts`文件夹下,如果你的项目中没有使用到该字体,请自行删除,并且取消`apps/client/src/styles/index.scss`文件的引用(`styles/index中`),否则会导致打包后的文件过大\
 强烈建议您在使用此字体的时候,把字体文件放置在对象存储或CDN上,否则会加大服务器流量的压力,当您放置在对象存储或CDN上时请修改`client/src/styles/fonts/*.scss`文件中的url地址为自己的地址
 
 ### 添加路由
@@ -423,7 +319,15 @@ password: `Vane888888`
 
 ## 代码提交
 
-根目录下执行以下命令\
-`git add .`\
-`pnpm commit`\
-`git push`
+执行以下命令\
+`git add .`(添加文件)\
+`pnpm commit`(commit前会自动执行eslint以及prettier,并将代码格式化**scripts中的pre-commit.ts脚本**,只会格式化暂存区的代码,不用担心性能问题,不建议用其他的格式化工具,太臃肿)\
+`git push`(推送代码)
+
+## AI agents
+
+项目内包含codeX agents 以及claude agents,每个agents包含三个skills(项目内包含codeX和claude的功能相同)
+
+1. FormCreate使用助手 用于帮助生成可用于formcreate的JSON配置
+2. naive-ui-skills 用于帮助生成naive-ui的代码, 自动生成的不准确时可以调用此skill
+3. server 用于帮助生成服务端的代码, 尽可能的保留当前项目代码风格
