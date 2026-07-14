@@ -79,7 +79,8 @@ jobs:
           script: |
             cd /opt/vane
             docker-compose down
-            docker rmi crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-nginx:latest
-            docker rmi crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-server:latest
             docker-compose pull
             docker-compose up -d
+            echo "删除悬空镜像"
+            docker images "crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-server" --filter "dangling=true" -q | xargs -r docker rmi
+            docker images "crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-nginx" --filter "dangling=true" -q | xargs -r docker rmi
