@@ -29,7 +29,7 @@ server进阶\
 `docker`, `docker-componse`, `pm2`
 
 node版本: `^26`\
-pnpm版本: `^11`
+pnpm版本: `11.12.0`
 
 **_注意: 本项目采用了pnpm workspace的模式, 所以在项目根目录下执行命令时, 请使用`pnpm`命令, 而不是`npm`命令_**
 
@@ -197,11 +197,11 @@ pnpm版本: `^11`
 
 #### 开发环境配置
 
-`node>=26`, `pnpm>=11`, `mysql:5.7`, `redis:6.2`
+`node>=26`, `pnpm=11.12.0`, `mysql:5.7`, `redis:6.2`
 
 #### 正式环境
 
-`node>=26`, `mysql`, `redis`, `pnpm>=11,docker(可选)`, `docker-componse(可选)`
+`node>=26`, `mysql`, `redis`, `pnpm=11.12.0`, `docker(可选)`, `docker-componse(可选)`
 
 #### 配置env文件
 
