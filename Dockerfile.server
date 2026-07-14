@@ -9,8 +9,7 @@ COPY apps/server/package.json apps/server/
 COPY apps/client/package.json apps/client/
 COPY packages/utils/package.json packages/utils/
 
-# RUN --mount=type=cache,id=vane-pnpm,target=/root/.local/share/pnpm/store pnpm install --filter  @vane/server... --frozen-lockfile
-RUN pnpm install --filter  @vane/server... --frozen-lockfile
+RUN --mount=type=cache,id=vane-pnpm,target=/root/.local/share/pnpm/store pnpm install --filter  @vane/server... --frozen-lockfile
 
 COPY . .
 

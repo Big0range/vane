@@ -3,7 +3,7 @@ FROM node:26.0.0-alpine AS builder
 
 WORKDIR /app
 
-RUN npm install -g pnpm@11
+RUN npm install -g pnpm@11.12.0
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/server/package.json apps/server/
