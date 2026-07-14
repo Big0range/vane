@@ -1,6 +1,11 @@
 # 第一阶段：编译前端
 FROM node:26.0.0-alpine AS builder
 
+ENV TZ=Asia/Shanghai
+RUN apk add --no-cache tzdata \
+    && cp /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo $TZ > /etc/timezone
+
 WORKDIR /app
 
 RUN npm install -g pnpm@11.12.0
@@ -19,6 +24,11 @@ RUN pnpm build:client
 
 # 第二阶段：nginx
 FROM nginx:alpine
+
+ENV TZ=Asia/Shanghai
+RUN apk add --no-cache tzdata \
+    && cp /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo $TZ > /etc/timezone
 
 COPY --from=builder /app/apps/client/dist /usr/share/nginx
 
