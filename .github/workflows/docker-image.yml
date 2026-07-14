@@ -4,31 +4,24 @@ on:
   push:
     branches:
       - master
+env:
+  # 镜像仓库配置
+  REGISTRY: crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com
+  NAMESPACE: big0range-demo
+
+  # 镜像名称
+  IMAGE_SERVER: vane-server
+  IMAGE_CLIENT: vane-nginx
+
+  # 完整镜像名（用于部署脚本）
+  FULL_IMAGE_SERVER: crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-server
+  FULL_IMAGE_CLIENT: crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-nginx
 
 jobs:
   docker:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Check Secrets
-      #   run: |
-      #     if [ -z "${{ secrets.ALIYUN_USERNAME }}" ]; then
-      #       echo "USERNAME is EMPTY"
-      #     else
-      #       echo "USERNAME OKK"
-      #     fi
-
-      #     if [ -z "${{ secrets.ALIYUN_PASSWORD }}" ]; then
-      #       echo "PASSWORD is EMPTY"
-      #     else
-      #       echo "PASSWORD OK"
-      #     fi
-
-      #     if [ -z "${{ secrets.ALIYUN_REGISTRY }}" ]; then
-      #       echo "REGISTRY is EMPTY"
-      #     else
-      #       echo "REGISTRY OK"
-      #     fi
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -57,8 +50,8 @@ jobs:
           file: Dockerfile.server
           push: true
           tags: |
-            crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-server:${{ steps.vane.outputs.VERSION }}
-            crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-server:latest
+            ${{ env.FULL_IMAGE_SERVER }}:${{ steps.vane.outputs.VERSION }}
+            ${{ env.FULL_IMAGE_SERVER }}:latest
 
       # Build Client
       - name: Build Client
@@ -68,8 +61,8 @@ jobs:
           file: Dockerfile.nginx
           push: true
           tags: |
-            crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-nginx:${{ steps.vane.outputs.VERSION }}
-            crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-nginx:latest
+            ${{ env.FULL_IMAGE_CLIENT }}:${{ steps.vane.outputs.VERSION }}
+            ${{ env.FULL_IMAGE_CLIENT }}:latest
       - name: Deploy
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -82,5 +75,5 @@ jobs:
             docker-compose pull
             docker-compose up -d
             echo "删除悬空镜像"
-            docker images "crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-server" --filter "dangling=true" -q | xargs -r docker rmi
-            docker images "crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-nginx" --filter "dangling=true" -q | xargs -r docker rmi
+            docker images "${{ env.FULL_IMAGE_SERVER }}" --filter "dangling=true" -q | xargs -r docker rmi
+            docker images "${{ env.FULL_IMAGE_CLIENT }}" --filter "dangling=true" -q | xargs -r docker rmi
