@@ -79,7 +79,7 @@ jobs:
           script: |
             cd /opt/vane
             docker-compose down
-            docker-compose pull
             docker rmi crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-nginx:latest
             docker rmi crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-server:latest
+            docker-compose pull
             docker-compose up -d
