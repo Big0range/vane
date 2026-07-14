@@ -11,23 +11,7 @@ import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 import removeConsole from 'vite-plugin-remove-console';
 import { webUpdateNotice } from '@plugin-web-update-notification/vite';
 import dayjs from 'dayjs';
-import { execSync } from 'node:child_process';
 
-function git(cmd: string): string {
-  try {
-    return execSync(cmd, { encoding: 'utf8' }).trim();
-  } catch {
-    return 'unknown';
-  }
-}
-
-const buildInfo = {
-  branch: git('git rev-parse --abbrev-ref HEAD'),
-  commit: git('git rev-parse --short HEAD'),
-  author: git('git log -1 --pretty=%an'),
-  message: git('git log -1 --pretty=%s'),
-  date: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-};
 // https://vite.dev/config/
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, process.cwd());
@@ -69,10 +53,9 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       removeConsole(),
       webUpdateNotice({
         versionType: 'custom',
-        customVersion: buildInfo.date,
+        customVersion: dayjs().format('YYYY-MM-DD HH:mm:ss'),
         logVersion: version => {
           console.log('version', version);
-          console.log(buildInfo);
         },
         checkInterval: 20 * 60 * 1000,
         notificationProps: {
