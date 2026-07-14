@@ -13,7 +13,7 @@
 
 [gitee传送门](https://gitee.com/li_mei_chao/vane)
 
-[接口文档](https://console-docs.apipost.cn/preview/dc179c71d30711dd/f33af9712a7ab774)
+[接口文档(最新的还未上传)](https://console-docs.apipost.cn/preview/dc179c71d30711dd/f33af9712a7ab774)
 
 ![Snipaste_2023-06-26_18-06-59.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/daa93a221e164edcacc6c0bb04a99b3d~tplv-k3u1fbpfcp-watermark.image?)
 
@@ -159,7 +159,7 @@ pnpm版本: `^11`
 
 ### 安装依赖
 
-`npm install -g pnpm` (也可以指定版本安装pnpm `npm install -g pnpm@11`)\
+`npm install -g pnpm@11`\
 `pnpm install`
 
 请勿使用淘宝镜像源,会导致依赖安装失败\
@@ -171,26 +171,20 @@ pnpm版本: `^11`
 
 启动服务端: `pnpm dev:server`\
 启动web端: `pnpm dev:client`\
-全部启动: `pnpm dev`\\
+全部启动: `pnpm dev`\
 
 #### 正式环境(`Centos`)
 
 启动服务端
 
-1. 原生docker部署(`不推荐`), 会根据Dockerfile文件中配置启动 会执行一个`run.sh`脚本,可按需求修改
-2. 非docker部署(`极不推荐,需要服务器支持node26,并且较为繁琐`),可以运行`pnpm start:server`(无需打包 node原生运行),**需要自己启动以及配置数据库,并且node>=26并不支持Centos7,极力推荐使用docker进行部署**
+1. 原生docker部署(`不推荐`)
+2. 非docker部署(`极不推荐,需要服务器支持node26,并且较为繁琐`),可以运行`pnpm start:server`(无需打包 node原生运行),**需要自己启动以及配置数据库,并且node>=26并不支持Centos7,推荐使用docker-componse进行部署**
 3. docker-componse部署(`推荐`), 一键脚本 `sh docker_start.sh all/server/db` (参数按需选择all或者server或者db,不传入的话默认为server)
    1. db: 启动mysql以及redis数据库 如果你是第一次启动的话需要下载[GitHub](https://github.com/Big0range/vane)中releases符合自己本地代码版本的数据库文件(版本可在根目录下package.json中查看),并解压到`/home/docker-volumes`目录下,正确的目录应该是`/home/docker-volumes/vane`,也可以自己修改`db/docker-compose.yml`文件中的相关配置,自己配置数据库
-   2. server: 启动node服务端和nginx,默认端口映射为80,如果你想修改的话,请自行修改`server/docker-compose.yml`文件中的相关配置
+   2. server: 启动node服务端和nginx,默认端口映射为80,如果你想修改的话,请自行修改`apps/server/docker-compose.yml`文件中的相关配置
    3. all: 数据库以及服务端全部启动
    4. 建议: 数据库如无修改,启动一次即可
-   5. 注意事项: 执行时默认会请求最新代码, 如果你不喜欢的话,请删除`docker_start.sh`中第三行至第八行
-
-#### docker 镜像下载问题
-
-1. 如果你的服务器无法下载docker镜像,请尝试修改docker镜像源,具体操作请自行查询(帖子太多了,没必要写在这里.....)
-2. 如果你尝试修改docker镜像源后,仍然无法下载,在网盘中下载对应的压缩包,docker导入镜像,云盘内有使用说明,按照操作即可\
-   [网盘地址](https://pan.baidu.com/s/1_WyuCMNGFTUkniuDia7P_g) 提取码: `8gyc`
+4. github添加actions, 配置`.github\workflows\docker-image.yml` 所需的环境变量, 自动docker镜像打包,自动连接服务器拉取最近镜像部署 **fork的仓库 可能无法自动执行**
 
 #### 单独打包
 
@@ -211,20 +205,20 @@ pnpm版本: `^11`
 
 #### 配置env文件
 
-在`server`文件夹下创建`.env`文件,并按照`.env.example`文件中的格式进行配置
+在`apps/server`文件夹下创建`.env`文件,并按照`.env.example`文件中的格式进行配置
 
 ### 添加接口路由
 
 #### 路由添加
 
-在`server/src/routes`文件夹中添加.ts文件即可,路由会根据所在位置以及文件名自动加载,无需显示引入
+在`apps/server/src/routes`文件夹中添加.ts文件即可,路由会根据所在位置以及文件名自动加载,无需显示引入
 
 #### 文件名示例
 
 `routes/user/list.ts` => `http://localhost:9999/user/list`(get请求)\
 `routes/user/index.ts` => `http://localhost:9999/user`(get请求)\
 `routes/user/list.post.ts` => `http://localhost:9999/user/list`(post请求)\
-`routes/user/list[a,b].post.ts` => `http://localhost:9999/user/list`(post请求,并req.params中带有a和b两个参数)
+`routes/user/list/[a,b].post.ts` => `http://localhost:9999/user/list/a/b`(post请求,并req.params中带有a和b两个参数)
 
 #### 文件内容示例
 
@@ -238,7 +232,7 @@ export default async function (req: Request, res: Response) {
     res.ok({
       message: '操作成功',
       data: data.Location.split('/images/')[1],
-      log: '上传成功', // 如果你的接口需要记录日志,请在这里传入相关信息(非必填)
+      log: '上传成功', // 如果你的接口需要记录日志,请在这里传入相关信息(非必填) 如果为true 则记录message中的内容
     });
   } catch (error) {
     /**
@@ -256,30 +250,23 @@ export const middleware = [() => {}];
 
 #### 系统固定白名单(不可修改)
 
-修改`server\src\serve\sys\routes.serve.ts`中的`constantRouteWhiteList`数组, 修改之后需要清空mysql中的`sys_routes`表和redis中的`routeWhitelist`缓存,否则无法生效
+修改`apps/server\src\serve\sys\routes.serve.ts`中的`constantRouteWhiteList`数组, 修改之后需要清空redis中的`routeWhitelist`缓存,否则无法生效
 
 #### 自定义白名单(可修改)
 
-启动前端服务,在<http://localhost:4000/vane/system/white-api>中进行配置,无需修改mysql和redis
+启动前端服务,在<http://localhost:4000/system/white-api>中进行配置,无需修改mysql和redis
 
 ### 日志记录
 
-#### api日志
-
-接口日志会自动记录在`apps/server/logs/app`文件夹下,文件名为`${日期}.log`
-
-#### sql日志
-
-sql日志会自动记录在`apps/server/logs/sql`文件夹下,文件名为`${日期}.log`
+接口日志会自动记录在`apps/server/logs/*/*.log`文件夹下,文件名为`${日期}.log`
 
 ### 文件上传
 
-本项目使用了腾讯云对象存储,如果您没有腾讯云对象存储的话,请自行修改`apps/server/src/server/routes/upload.ts`文件中的上传逻辑,并修改`client/src/utils/config.ts`文件中的`CDNURL` 远程资源地址
+本项目使用了腾讯云对象存储,如果您没有腾讯云对象存储的话,请自行修改`apps/server/src/server/routes/upload.ts`文件中的上传逻辑,并修改`apps/client/src/utils/config.ts`文件中的`CDNURL` 远程资源地址
 
 ### 注意事项
 
 1. env中 如果mysql填写了多个,则启动主从模式,第一个为主,其他为从数据库
-2. 虽然使用了pnpm的workspace的模式,但是由于某些原因服务端在打包后,不能正确解析工作区间内的包名,所以禁止在服务端代码内使用工作区间内的包,但是web端可以使用服务端的
 
 ## web客户端
 
@@ -288,27 +275,25 @@ sql日志会自动记录在`apps/server/logs/sql`文件夹下,文件名为`${日
 ### 字体问题
 
 项目中默认使用的为PingFang(苹方)字体,已经做了切片处理,无需担心加载过慢问题,字体文件放置在`apps/client/public/fonts`文件夹下,如果你的项目中没有使用到该字体,请自行删除,并且取消`apps/client/src/styles/index.scss`文件的引用(`styles/index中`),否则会导致打包后的文件过大\
-强烈建议您在使用此字体的时候,把字体文件放置在对象存储或CDN上,否则会加大服务器流量的压力,当您放置在对象存储或CDN上时请修改`client/src/styles/fonts/*.scss`文件中的url地址为自己的地址
+强烈建议您在使用此字体的时候,把字体文件放置在对象存储或CDN上,否则会加大服务器流量的压力,当您放置在对象存储或CDN上时请修改`apps/client/src/styles/fonts/*.scss`文件中的url地址为自己的地址
 
 ### 添加路由
 
 1. 在`src/router/index.ts`中添加路由,并且在`src/views`中添加页面组件
-2. 在`src/views`中添加页面组件, `系统管理=>菜单管理`中添加菜单地址, 并在 `系统管理=>角色管理`为角色分配菜单权限
+2. 在`src/views`中添加页面组件, `系统管理=>菜单管理`中添加菜单地址并绑定所需使用的接口, 并在 `系统管理=>角色管理`为角色分配菜单权限
 
 ### package.json 脚本说明
 
 1. `dev` 启动服务端以及web端开发模式
 2. `dev:server` 启动服务端开发模式
 3. `dev:client` 启动web端开发模式
-4. `build:server` 打包服务端
-5. `build:client` 打包web端
-6. `start:server` 启动打包后的服务端(非docker启动模式下使用)
-7. `lint:server` 格式化服务端代码
-8. `lint:client` 格式化web端代码
-9. `deploy:client` 一键部署web端
-10. `tree` 生成目录结构树
-11. `lines` 统计源代码行数(好像是软著还是啥来着的需要)
-12. `commit` 提交代码
+4. `build:client` 打包web端
+5. `start:server` 启动服务端(非docker启动模式下使用)
+6. `lint:server` 格式化服务端代码
+7. `lint:client` 格式化web端代码
+8. `tree` 生成目录结构树
+9. `lines` 统计源代码行数(好像是软著还是啥来着的需要)
+10. `commit` 提交代码
 
 ## admin账号
 
