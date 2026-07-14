@@ -5,7 +5,7 @@ const selfOverrides: GlobalThemeOverrides = {
 };
 
 export default {
-  name: '亮',
+  name: '默认',
   value: 'light',
   theme: lightTheme,
   overrides: selfOverrides,

@@ -30,7 +30,7 @@ const selfOverrides: GlobalThemeOverrides = {
 };
 
 export default {
-  name: '暗',
+  name: '暗黑',
   value: 'dark',
   theme: darkTheme,
   overrides: selfOverrides,
