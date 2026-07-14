@@ -14,7 +14,7 @@
     "lint:client": "pnpm run --filter @vane/client lint",
     "prepare": "husky",
     "commit": "cz",
-    "lineCount": "node scripts/lineCount/index.ts"
+    "lines": "node scripts/lineCount/index.ts"
   },
   "config": {
     "commitizen": {

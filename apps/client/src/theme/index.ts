@@ -23,8 +23,8 @@ const defaultOverrides: GlobalThemeOverrides = {
   },
 };
 export default [
-  dark,
   light,
+  dark,
   purple_dark,
   purple_light,
   red_light,

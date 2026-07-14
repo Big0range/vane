@@ -9,24 +9,21 @@ services:
     restart: always
     container_name: vane-server
     networks:
-      db_my_network:
+      db_vane_network:
         ipv4_address: 172.16.238.200
     logging:
       options:
         max-size: '100m'
         max-file: '10'
     image: vane-server
-    ports:
-      - 9999:9999
     extra_hosts:
       - 'vane-mysql-master:172.16.238.2'
       - 'vane-mysql-node1:172.16.238.3'
       - 'vane-mysql-node2:172.16.238.4'
       - 'vane-redis-master:172.16.238.101'
     volumes:
-      # 为了外部可以访问日志
+      # 映射服务端日志
       - /data/docker/vane/logs/server:/app/apps/server/logs
-      - /data/docker/vane/logs/.pm2:/root/.pm2/logs
   web:
     build:
       context: .
@@ -37,7 +34,7 @@ services:
     restart: always
     container_name: vane-nginx
     networks:
-      db_my_network:
+      db_vane_network:
         ipv4_address: 172.16.238.201
     logging:
       options:
@@ -48,9 +45,9 @@ services:
     extra_hosts:
       - 'vane-server:172.16.238.200'
     volumes:
-      # nginx日志
+      # 映射nginx日志
       - '/data/docker/vane/nginx/logs:/var/log/nginx'
 networks:
   # db 是数据库docker-compose所在文件夹的名称(就是此项目根目录下的db) my_network 是db自定义网络名称
-  db_my_network:
+  db_vane_network:
     external: true
