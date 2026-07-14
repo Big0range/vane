@@ -7,7 +7,6 @@ on:
 
 jobs:
   docker:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -18,13 +17,13 @@ jobs:
       #     else
       #       echo "USERNAME OKK"
       #     fi
-      
+
       #     if [ -z "${{ secrets.ALIYUN_PASSWORD }}" ]; then
       #       echo "PASSWORD is EMPTY"
       #     else
       #       echo "PASSWORD OK"
       #     fi
-      
+
       #     if [ -z "${{ secrets.ALIYUN_REGISTRY }}" ]; then
       #       echo "REGISTRY is EMPTY"
       #     else
@@ -81,4 +80,6 @@ jobs:
             cd /opt/vane
             docker-compose down
             docker-compose pull
+            docker rmi crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-nginx:latest
+            docker rmi crpi-vit1t6doo4kal24v.cn-beijing.personal.cr.aliyuncs.com/big0range-demo/vane-server:latest
             docker-compose up -d
