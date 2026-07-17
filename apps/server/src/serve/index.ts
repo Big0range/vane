@@ -24,6 +24,7 @@ export {
   type FormDataJson,
 } from './form/form_data_json.serve.ts';
 export { formDataServe, FormDataTable, type FormData } from './form/form_data.serve.ts';
+export { formStatServe } from './form/form_stat.serve.ts';
 export {
   formCommOptionsServe,
   FormCommOptionsTable,
