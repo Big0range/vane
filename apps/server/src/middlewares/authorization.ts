@@ -52,8 +52,8 @@ export async function authorization(req: Request, res: Response, next: NextFunct
         message: '用户不存在',
       });
     }
-    // 校验角色是否有这个路由的权限 不是admin的用户校验
-    if (!(req.userInfo.role_id === 1 && req.userInfo.username === 'admin')) {
+    // 校验角色是否有这个路由的权限 角色admin放行
+    if (!(req.userInfo.role_id === 1)) {
       const roleRoutes = await sysMenuRoutesServe.getFullRouteByRoleId(req.userInfo.role_id);
       if (routeIsPass(req, roleRoutes)) {
         return next();

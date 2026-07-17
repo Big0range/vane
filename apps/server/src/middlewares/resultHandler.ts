@@ -6,25 +6,25 @@ const excludeUrl: string[] = [];
 export const resultHandler = (req: Request, res: Response, next: NextFunction) => {
   const addLogs = async (logMsg: string, status: number) => {
     if (!logMsg) return;
-    const ip = req.ip!.replace('::ffff:', '');
+    const ip = (req.headers['x-forwarded-for'] as string) || req.ip!.replace('::ffff:', '');
     // if (isPrivateIP(ip)) return;
     // url + method
     const um = `${req.url.split('?')[0]}:${req.method.toLocaleLowerCase()}`;
     // 如果是排除的url 就不记录日志
     if (excludeUrl.includes(um)) return;
     // 写入数据库
-    console.log({
-      ip: ip,
-      status,
-      response_time: Date.now() - req.startTime,
-      msg: logMsg || statusMsg[status],
-      user_id: req?.userInfo?.id,
-      role_id: req?.userInfo?.role_id,
-      url: req.url.split('?')[0],
-      method: req.method.toLocaleLowerCase(),
-      query: JSON.stringify(req.query),
-      body: JSON.stringify(req.body),
-    });
+    // console.log({
+    //   ip: ip,
+    //   status,
+    //   response_time: Date.now() - req.startTime,
+    //   msg: logMsg || statusMsg[status],
+    //   user_id: req?.userInfo?.id,
+    //   role_id: req?.userInfo?.role_id,
+    //   url: req.url.split('?')[0],
+    //   method: req.method.toLocaleLowerCase(),
+    //   query: JSON.stringify(req.query),
+    //   body: JSON.stringify(req.body),
+    // });
     await sysLogsServe.create({
       ip: ip,
       status,

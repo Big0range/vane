@@ -96,3 +96,76 @@ interface GetMySubmitFormDataListParams extends PageQueryParam {
 }
 
 type GetMySubmitFormDataListResult = PageResult<FormDataJson>;
+
+interface GetFormStatListParams extends PageQueryParam {
+  title?: string;
+  username?: string;
+}
+
+interface FormStatRow {
+  form_code: string;
+  version: number;
+  title: string;
+  submit_count: number;
+  user_count: number;
+  latest_submit_time: string | null;
+}
+
+type GetFormStatListResult = PageResult<FormStatRow>;
+
+interface GetFormQuestionStatsParams {
+  form_code: string;
+  version: number;
+  username?: string;
+}
+
+interface FormQuestionOptionStat {
+  label: string;
+  value: string;
+  count: number;
+  percent: number;
+}
+
+interface FormQuestionStatItem {
+  item_id: number;
+  title: string;
+  type: string;
+  field: string;
+  has_options: boolean;
+  total_submissions: number;
+  answered_count: number;
+  empty_count: number;
+  options: FormQuestionOptionStat[];
+}
+
+interface FormQuestionStatsResultData {
+  summary: {
+    form_code: string;
+    version: number;
+    title: string;
+    total_submissions: number;
+    user_count: number;
+    latest_submit_time: string | null;
+  };
+  questions: FormQuestionStatItem[];
+}
+
+type GetFormQuestionStatsResult = Result<FormQuestionStatsResultData>;
+
+interface GetFormStatSubmissionsParams extends PageQueryParam {
+  form_code: string;
+  version: number;
+  username?: string;
+}
+
+interface FormStatSubmissionRow {
+  id: number;
+  form_code: string;
+  version: number;
+  user_id: number;
+  username?: string;
+  create_time: string;
+  update_time: string;
+}
+
+type GetFormStatSubmissionsResult = PageResult<FormStatSubmissionRow>;

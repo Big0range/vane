@@ -130,6 +130,45 @@ export function getMySubmitFormDataDetailApi(
   });
 }
 
+export function getFormStatListApi(
+  params: GetFormStatListParams,
+): Promise<GetFormStatListResult> {
+  return request({
+    url: '/form/stat/list',
+    method: 'get',
+    params,
+  });
+}
+
+export function getFormQuestionStatsApi(
+  params: GetFormQuestionStatsParams,
+): Promise<GetFormQuestionStatsResult> {
+  return request({
+    url: '/form/stat/questions',
+    method: 'get',
+    params,
+  });
+}
+
+export function getFormStatSubmissionsApi(
+  params: GetFormStatSubmissionsParams,
+): Promise<GetFormStatSubmissionsResult> {
+  return request({
+    url: '/form/stat/submissions',
+    method: 'get',
+    params,
+  });
+}
+
+export function getFormStatSubmissionDetailApi(
+  id: number,
+): Promise<Result<FormDataJson | null>> {
+  return request({
+    url: `/form/stat/submission/${id}`,
+    method: 'get',
+  });
+}
+
 export function getFormCommOptionsListApi(
   params: GetFormCommOptionsListParams,
 ): Promise<GetFormCommOptionsListResult> {

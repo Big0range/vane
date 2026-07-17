@@ -10,6 +10,7 @@ export default async (req: Request, res: Response) => {
       // background: '#eee', // 验证码图片背景颜色
       width: 150, // 验证码图片宽度
       height: 40, // 验证码图片高度
+      ignoreChars: '6',
     });
     // captcha.text: 验证码字符串
     // captcha.data: 验证码 SVG 图片数据
