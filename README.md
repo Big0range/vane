@@ -15,6 +15,11 @@
 
 [接口文档(最新的还未上传)](https://console-docs.apipost.cn/preview/dc179c71d30711dd/f33af9712a7ab774)
 
+[预览地址](https://www.limeichao.cn:8006) \
+admin2-admin20 密码: 111111 挑一个随机使用 \
+比如 账号: admin5 密码: 111111\
+每隔一段时间会初始化一次数据, 修改的数据会丢失, 这是正常现象
+
 ![Snipaste_2023-06-26_18-06-59.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/daa93a221e164edcacc6c0bb04a99b3d~tplv-k3u1fbpfcp-watermark.image?)
 
 ![Snipaste_2023-06-26_18-07-28.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/377d7e743b2b438cb4d5c16a3e070b1a~tplv-k3u1fbpfcp-watermark.image?)
