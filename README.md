@@ -316,3 +316,7 @@ password: `Vane888888`
 1. FormCreate使用助手 用于帮助生成可用于formcreate的JSON配置
 2. naive-ui-skills 用于帮助生成naive-ui的代码, 自动生成的不准确时可以调用此skill
 3. server 用于帮助生成服务端的代码, 尽可能的保留当前项目代码风格
+
+## 问题反馈
+
+`issues`中提交问题 或者加QQ群: `312767706`
