@@ -7,8 +7,6 @@ import { useRouters } from './hooks/useRouters.ts';
 import { authorization } from './middlewares/authorization.ts';
 import { errorHandler, errorNotFoundHandler, resultHandler } from './middlewares/index.ts';
 import redis from './utils/redis.ts';
-import { isPhoneNumber } from '@vane/utils';
-console.log('isPhoneNumber', String(isPhoneNumber('17367914262')));
 // Create Express server
 export async function useApp() {
   const app = express();
@@ -32,13 +30,8 @@ export async function useApp() {
     }),
   );
 
-  // Express configuration
-  app.set('views', path.join(import.meta.dirname, '../views'));
-
-  // useApiLogger(app, path.join(__dirname, '../logs/api/'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
-  // app.use(cookieParser());
   app.use(express.static(path.join(import.meta.dirname, '../public')));
   app.use(resultHandler);
   app.use(authorization);

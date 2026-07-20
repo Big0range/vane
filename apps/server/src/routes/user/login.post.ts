@@ -11,7 +11,6 @@ export default async function (req: Request, res: Response) {
     //   });
     // }
     const { username, password, code } = req.body;
-    console.log(username, password, code);
     // const verifyPhone = validatePhone(username);
     // if (verifyPhone) {
     //   throw new Error(verifyPhone);
