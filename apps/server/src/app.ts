@@ -1,6 +1,6 @@
 import * as path from 'path';
 import RedisStore from 'connect-redis';
-import express from 'express';
+import express, { type NextFunction } from 'express';
 import session from 'express-session';
 // Routes
 import { useRouters } from './hooks/useRouters.ts';
@@ -10,7 +10,9 @@ import redis from './utils/redis.ts';
 // Create Express server
 export async function useApp() {
   const app = express();
-  app.use((req, res, next: any) => {
+  app.use(express.static(path.join(import.meta.dirname, '../public')));
+
+  app.use((req, res, next: NextFunction) => {
     req.startTime = Date.now();
     // console.log('req.startTime', req.startTime);
     next();
@@ -26,13 +28,16 @@ export async function useApp() {
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
-      cookie: { maxAge: Number(process.env.SESSION_EXPIRE || 600000) }, // 有效期，单位是毫秒
+      cookie: {
+        maxAge: Number(process.env.SESSION_EXPIRE || 600000),
+        httpOnly: true,
+        sameSite: 'lax',
+      }, // 有效期，单位是毫秒
     }),
   );
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
-  app.use(express.static(path.join(import.meta.dirname, '../public')));
   app.use(resultHandler);
   app.use(authorization);
 
