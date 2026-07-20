@@ -261,7 +261,7 @@ class SysUserServe extends CommServe<TUser> {
    * @param id  用户id
    */
   public async redisGetById(id: string | number) {
-    const redisUserInfo = await redis.get(`userInfo:${999}`);
+    const redisUserInfo = await redis.get(`userInfo:${id}`);
     if (redisUserInfo === null) {
       const userInfo = await this.findById(id);
       await redis.set(`userInfo:${id}`, JSON.stringify(userInfo));

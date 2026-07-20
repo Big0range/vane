@@ -27,7 +27,7 @@ export default async function (req: Request, res: Response) {
     if (!code) {
       throw new Error('请输入验证码');
     }
-    if (code !== '6666') {
+    if (process.env.NODE_ENV !== 'development') {
       if (!req.session.captcha) {
         throw new Error('验证码已过期');
       }

@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import { sysUserServe } from '#/serve/index.ts';
 import Token from '#/utils/token.ts';
 import { logger } from '#/utils/useLogger.ts';
+import { md5 } from '#/utils/md5.ts';
 
 export default async function (req: Request, res: Response) {
   logger.debug(req.body);
@@ -22,7 +23,7 @@ export default async function (req: Request, res: Response) {
     }
     const createResult: any = await sysUserServe.create({
       username,
-      password: password,
+      password: md5(password),
     });
     logger.debug({
       id: createResult.id,
