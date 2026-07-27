@@ -16,7 +16,7 @@
         :single-line="false"
         v-model:page="params.page"
         v-model:pageSize="params.pageSize"
-        :page-sizes="[10, 20, 30]"
+        :page-sizes="pageSizes"
         :total="total"
         remote
         @change="getFormTemplateList()"
@@ -133,11 +133,12 @@ import {
   getFormTemplateListApi,
   deleteFormTemplateApi,
 } from '@/api/system/form-template/index.ts';
+import { pageSize, pageSizes } from '@/utils/config';
 
 const params = ref<GetFormTemplateListParams>({
   title: '',
   page: 1,
-  pageSize: 10,
+  pageSize: pageSize,
   code: '',
 });
 const total = ref(0);

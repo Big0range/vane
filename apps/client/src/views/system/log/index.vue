@@ -88,16 +88,13 @@
           :max-height="500"
           v-model:page="options.page"
           v-model:pageSize="options.pageSize"
-          :page-sizes="[10, 20, 30]"
+          :page-sizes="pageSizes"
           :total="total"
-          remote
           ref="multipleTableRef"
           @change="getList()"
           :loading="loading"
           @update:checked-row-keys="handleCheck"
           :row-key="rowKey"
-          :scroll-x="1800"
-          :virtual-scroll="true"
         >
           <nel-table-column prop="index">
             <template #default="{ index }">
@@ -119,6 +116,7 @@ import dayjs from 'dayjs';
 import { downloadFile } from '@/utils/downloadFile';
 import type { DataTableRowKey, FormInst } from 'naive-ui';
 import { getTableTemplate } from '@/utils/getTemplate.ts';
+import { pageSize, pageSizes } from '@/utils/config';
 interface IOptions extends IGetLogListParams {
   time: [any, any];
 }
@@ -141,7 +139,7 @@ const options = ref<IOptions>({
   ],
   method: '',
   page: 1, // 当前页数
-  pageSize: 20, // 每页显示多少条
+  pageSize: pageSize, // 每页显示多少条
 } as IOptions);
 const methods = ref([
   { label: '全部', value: '' },

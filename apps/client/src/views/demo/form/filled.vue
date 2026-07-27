@@ -23,7 +23,7 @@
           :data="tableData"
           :loading="loading"
           :naive-columns="columns"
-          :page-sizes="[10, 20, 30]"
+          :page-sizes="pageSizes"
           :row-key="(row: FormDataJson) => row.id"
           :single-line="false"
           :total="total"
@@ -90,6 +90,7 @@ import {
 } from '@/api/system/form-template';
 import { fetchMenuTreeApi } from '@/api/system/menu';
 import { unpackFormData } from '@/utils/formatFormData';
+import { pageSize, pageSizes } from '@/utils/config';
 
 defineOptions({
   name: 'FormFilled',
@@ -117,7 +118,7 @@ const fApi = ref<Api>();
 
 const params = reactive<GetMySubmitFormDataListParams>({
   page: 1,
-  pageSize: 10,
+  pageSize: pageSize,
   form_code: String(route.query.code || ''),
 });
 

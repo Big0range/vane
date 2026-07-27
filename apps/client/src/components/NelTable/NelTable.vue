@@ -1,3 +1,26 @@
+<template>
+  <div ref="tableWrapRef">
+    <span style="display: none">
+      <slot />
+    </span>
+    <n-data-table
+      :attrs="attrs"
+      v-bind="props"
+      :style="attrs.style"
+      :virtual-scroll="props.virtualScroll"
+      :min-height="props.minHeight"
+      :max-height="props.maxHeight"
+      :columns="columns"
+      :data="data"
+      :pagination="remote ? pageOptions : undefined"
+      :remote="remote"
+      :scroll-x="props.maxHeight ? props.scrollX || width : undefined"
+      :single-line="props.singleLine ?? false"
+      :bordered="props.bordered ?? true"
+    />
+  </div>
+</template>
+
 <script setup lang="ts">
 import {
   ref,
@@ -8,7 +31,12 @@ import {
   Ref,
   onMounted,
 } from 'vue';
-import { NDataTable, dataTableProps, type PaginationProps } from 'naive-ui';
+import {
+  NDataTable,
+  dataTableProps,
+  type PaginationProps,
+  type PaginationSizeOption,
+} from 'naive-ui';
 import _ from 'lodash';
 import { useAttrs } from 'vue';
 
@@ -19,7 +47,7 @@ const attrs = useAttrs();
  *   目前的处理方法是  不需要你手动去传 , js 计算表格宽度来解决, 但是计算完成之后会造成没有设置宽度的那一行 宽度过低, 大概只有一个字的宽度
  *   当然你也可以自己计算传入scrollX来解决
  * 2.弃用naive ui 的columns属性(避免冲突混淆), 请使用naiveColumns或naive-columns属性
- * 3.当需要分页时, 请把remote设置为true, 并且传入 :page="1"(必填) :pageSize="10"(必填) :pageSizes="[10, 20, 30, 40]"(可选)
+ * 3.当需要分页时, 传入 :page="1"(必填) :pageSize="10"(必填) 自动开启分页模式 :pageSizes="[10, 20, 30, 40]"(可选)
  */
 const props = defineProps({
   ...dataTableProps,
@@ -53,39 +81,38 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  pageSizes: {
+    type: Array as PropType<(number | PaginationSizeOption)[]>,
+    default: () => [],
+  },
 });
 const innerColumns = ref<any[]>([]);
 provide('tableColumns', innerColumns);
 
-const page = defineModel<number>('page', {
-  default: 1,
-});
-const pageSize = defineModel<number>('pageSize', {
-  default: 10,
-});
-const pageSizes = defineModel<number[] | undefined>('pageSizes');
+const page = defineModel<number>('page');
+const pageSize = defineModel<number>('pageSize');
 const total = computed(() => props.total);
 
 const emits = defineEmits<{
   (e: 'sizeChange', pageSize: number): void;
-  (e: 'pageChange', page: number): void;
+  (e: 'currentChange', page: number): void;
   (e: 'change', options: { page: number; pageSize: number }): void;
 }>();
-
+const remote = computed(() => !!(page.value && pageSize.value));
 const pageOptions = computed<PaginationProps | undefined>(() => {
-  if (!props.remote) {
+  if (!page.value || !pageSize.value) {
     return undefined;
   }
   return {
     page: page.value,
     pageSize: pageSize.value,
-    pageSizes: pageSizes.value,
-    showSizePicker: pageSizes.value !== undefined,
+    pageSizes: props.pageSizes,
+    showSizePicker: props.pageSizes !== undefined,
     itemCount: total.value,
     onChange: (pageAfter: number) => {
       page.value = pageAfter;
       nextTick(() => {
-        emits('pageChange', page.value!);
+        emits('currentChange', page.value!);
         emits('change', {
           page: page.value!,
           pageSize: pageSize.value!,
@@ -171,25 +198,8 @@ onMounted(() => {
 });
 </script>
 
-<template>
-  <div ref="tableWrapRef">
-    <span style="display: none">
-      <slot />
-    </span>
-    <n-data-table
-      :attrs="attrs"
-      v-bind="props"
-      :style="attrs.style"
-      :virtual-scroll="props.virtualScroll"
-      :min-height="props.minHeight"
-      :max-height="props.maxHeight"
-      :columns="columns"
-      :data="data"
-      :pagination="remote ? pageOptions : undefined"
-      :remote="remote"
-      :scroll-x="props.maxHeight ? props.scrollX || width : undefined"
-      :single-line="props.singleLine ?? false"
-      :bordered="props.bordered ?? true"
-    />
-  </div>
-</template>
+<style lang="scss" scoped>
+:deep(.n-data-table .n-data-table__pagination) {
+  justify-content: center;
+}
+</style>

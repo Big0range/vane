@@ -37,7 +37,16 @@
       </n-button>
       <div class="pt-16"></div>
       <!-- 数据表格 -->
-      <nel-table :naive-columns="columns" :loading="loading" :data="tableData">
+      <nel-table
+        v-model:page="options.page"
+        v-model:pageSize="options.pageSize"
+        :pageSizes="pageSizes"
+        :naive-columns="columns"
+        :loading="loading"
+        :data="tableData"
+        :total="total"
+        @change="getList"
+      >
         <nel-table-column prop="cover">
           <template #default="{ row }">
             <n-image
@@ -75,7 +84,7 @@
         </nel-table-column>
       </nel-table>
 
-      <div class="flex justify-center pt-40">
+      <!-- <div class="flex justify-center pt-40">
         <n-pagination
           v-model:currentPage="options.page"
           v-model:page-pageSize="options.pageSize"
@@ -84,7 +93,7 @@
           @current-change="getList"
           :total="total"
         />
-      </div>
+      </div> -->
 
       <add-shop
         ref="addStoreRef"
@@ -105,6 +114,7 @@ import { useForm } from '@/hooks';
 import { type FormInst, type FormRules } from 'naive-ui';
 import { CreateOutline } from '@vicons/ionicons5';
 import { getTableTemplate } from '@/utils/getTemplate.ts';
+import { pageSize, pageSizes } from '@/utils/config';
 defineOptions({
   name: 'ShopIndex',
 });
@@ -119,7 +129,7 @@ const columns = ref<TableTemplateRow[]>([]);
 (async () => {
   try {
     loading.value = true;
-    columns.value = [...(await getTableTemplate('ShopList'))];
+    columns.value = await getTableTemplate('ShopList');
     console.log('columns.value', columns.value);
   } finally {
     loading.value = false;
@@ -131,7 +141,7 @@ const defaultOptions = {
   address: undefined,
   phone: undefined,
   page: 1,
-  pageSize: 20,
+  pageSize: pageSize,
 };
 const options = ref({
   ...defaultOptions,

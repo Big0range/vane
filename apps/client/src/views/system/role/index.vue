@@ -17,9 +17,8 @@
         bordered
         v-model:page="queryParams.page"
         v-model:pageSize="queryParams.pageSize"
-        :page-sizes="[10, 20, 30]"
+        :page-sizes="pageSizes"
         :total="total"
-        remote
         @change="handleQuery"
         align="center"
         :naive-columns="cloumns"
@@ -175,6 +174,7 @@ import type { RoleFormData, RoleItem } from '@/api/system/role/types';
 import SvgIcon from '@/components/SvgIcon/index.vue';
 import { useForm } from '@/hooks';
 import { getTableTemplate } from '@/utils/getTemplate';
+import { pageSize, pageSizes } from '@/utils/config';
 const dataFormRef = ref<FormInst>();
 const formData = ref({} as RoleFormData);
 const { resetForm, verifyForm } = useForm(dataFormRef, formData);
@@ -203,7 +203,7 @@ async function submitFormData() {
 const loading = ref(true);
 const queryParams = ref<PageQueryParam>({
   page: 1,
-  pageSize: 10,
+  pageSize: pageSize,
 });
 const total = ref(0);
 const roleList = ref([] as RoleItem[]);

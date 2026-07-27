@@ -52,7 +52,7 @@
           bordered
           v-model:page="options.page"
           v-model:pageSize="options.pageSize"
-          :page-sizes="[10, 20, 30]"
+          :page-sizes="pageSizes"
           :total="total"
           remote
           @change="getList()"
@@ -101,13 +101,14 @@ import { ref } from 'vue';
 import { changeApiAuthApi, getApiListApi } from '@/api/system/white-api';
 import { useForm } from '@/hooks/useForm';
 import { type FormInst } from 'naive-ui';
+import { pageSize, pageSizes } from '@/utils/config';
 
 const total = ref(0);
 
 const options = ref<IGetApiListParams>({
   method: '',
   page: 1, // 当前页数
-  pageSize: 20, // 每页显示多少条
+  pageSize: 1 || pageSize, // 每页显示多少条
 } as IGetApiListParams);
 const methods = ref([
   { label: '全部', value: '' },

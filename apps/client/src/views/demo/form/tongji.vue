@@ -35,7 +35,7 @@
           :data="tableData"
           :loading="loading"
           :naive-columns="columns"
-          :page-sizes="[10, 20, 30]"
+          :page-sizes="pageSizes"
           :row-key="(row: FormStatRow) => `${row.form_code}-${row.version}`"
           :single-line="false"
           :total="total"
@@ -183,7 +183,7 @@
                       :data="submissionData"
                       :loading="submissionsLoading"
                       :naive-columns="submissionColumns"
-                      :page-sizes="[10, 20, 30]"
+                      :page-sizes="pageSizes"
                       :row-key="(row: FormStatSubmissionRow) => row.id"
                       :single-line="false"
                       :total="submissionTotal"
@@ -257,6 +257,7 @@ import {
 } from '@/api/system/form-template';
 import { fetchMenuTreeApi } from '@/api/system/menu';
 import { unpackFormData } from '@/utils/formatFormData';
+import { pageSize, pageSizes } from '@/utils/config';
 
 defineOptions({
   name: 'FormTongji',
@@ -297,14 +298,14 @@ const searchForm = reactive({
 
 const params = reactive<GetFormStatListParams>({
   page: 1,
-  pageSize: 10,
+  pageSize: pageSize,
   title: '',
   username: '',
 });
 
 const submissionParams = reactive<GetFormStatSubmissionsParams>({
   page: 1,
-  pageSize: 10,
+  pageSize: pageSize,
   form_code: '',
   version: 1,
   username: '',

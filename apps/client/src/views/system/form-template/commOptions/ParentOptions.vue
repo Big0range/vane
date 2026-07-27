@@ -34,7 +34,7 @@
       :row-props="rowProps"
       v-model:page="params.page"
       v-model:pageSize="params.pageSize"
-      :page-sizes="[10, 20, 30]"
+      :page-sizes="pageSizes"
       :total="total"
       remote
       min-height="calc(100vh - 330px)"
@@ -124,6 +124,7 @@ import {
   getFormCommOptionsListApi,
   updateFormCommOptionsApi,
 } from '@/api/system/form-template';
+import { pageSize, pageSizes } from '@/utils/config';
 
 type ModalMode = 'add' | 'edit';
 
@@ -140,7 +141,7 @@ const formData = ref<Record<string, any>>({});
 
 const params = reactive<GetFormCommOptionsListParams>({
   page: 1,
-  pageSize: 10,
+  pageSize: pageSize,
   name: '',
   code: '',
 });
