@@ -108,7 +108,7 @@ const total = ref(0);
 const options = ref<IGetApiListParams>({
   method: '',
   page: 1, // 当前页数
-  pageSize: 1 || pageSize, // 每页显示多少条
+  pageSize: pageSize, // 每页显示多少条
 } as IGetApiListParams);
 const methods = ref([
   { label: '全部', value: '' },
