@@ -112,8 +112,10 @@ const useUserStore = defineStore('user', {
     /**
      *  注销
      */
-    async logout() {
-      await logoutApi();
+    async logout(noApi?: boolean) {
+      if (!noApi) {
+        await logoutApi();
+      }
       localStorage.remove('token');
       this.RESET_STATE();
       resetRouter();

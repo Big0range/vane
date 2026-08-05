@@ -53,6 +53,16 @@ export const constantRoutes: RouteRecordRaw[] = [
           keepAlive: true,
         },
       },
+      {
+        path: 'profile',
+        component: () => import('@/views/profile/index.vue'),
+        name: 'Profile',
+        meta: {
+          title: '个人中心',
+          hidden: true,
+          keepAlive: true,
+        },
+      },
     ],
   },
   // 外部链接

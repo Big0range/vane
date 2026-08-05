@@ -84,12 +84,17 @@ function toggleSideBar() {
 const dialog = useDialog();
 const dropdownOptions = [
   { label: '首页', key: 'home' },
+  { label: '个人中心', key: 'center' },
   { label: '注销', key: 'logout' },
 ];
 
 function handleDropdownSelect(key: string) {
   if (key === 'home') {
     router.push('/');
+    return;
+  }
+  if (key === 'center') {
+    router.push('/profile');
     return;
   }
   if (key === 'logout') {

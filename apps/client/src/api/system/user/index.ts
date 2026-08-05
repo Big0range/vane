@@ -110,6 +110,21 @@ export function changeLockScreenApi(
 }
 
 /**
+ * 修改当前用户密码
+ */
+export function changePasswordApi(data: {
+  old_password: string;
+  new_password: string;
+  confirm_password: string;
+}): Promise<Result> {
+  return request({
+    url: '/user/changePassword',
+    method: 'put',
+    data,
+  });
+}
+
+/**
  * 退出登录
  */
 export function logoutApi() {
