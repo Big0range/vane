@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 import sequelize from 'sequelize';
 import mysql from '#/serve/db.ts';
 import { sysLogsServe } from '#/serve/index.ts';
-export default async function (req: Request, res: Response): Promise<void> {
+export default async (req: Request, res: Response): Promise<void> => {
   //   const user = await SysLosTable.findOne({
   //     where: { id: 547 },
   //     lock: sequelize.Transaction.LOCK.UPDATE,
@@ -40,4 +40,4 @@ export default async function (req: Request, res: Response): Promise<void> {
     });
     console.error('事务错误:', error.message);
   }
-}
+};

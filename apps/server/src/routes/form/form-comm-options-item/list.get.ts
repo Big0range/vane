@@ -1,7 +1,7 @@
 import { formCommOptionsItemServe, type FormCommOptionsItem } from '#/serve/index.ts';
 import type { Request, Response } from 'express';
 
-export default async function (req: Request, res: Response): Promise<void> {
+export default async (req: Request, res: Response): Promise<void> => {
   try {
     const query = req.query as any as FormCommOptionsItem & PageQueryParam;
     if (!query.comm_options_code) {
@@ -12,4 +12,4 @@ export default async function (req: Request, res: Response): Promise<void> {
   } catch (error: any) {
     res.fail(error);
   }
-}
+};

@@ -7,7 +7,7 @@ export default async (req: Request, res: Response) => {
       res.fail(new Error('需要修改的用户id不能为空'));
       return;
     }
-    sysUserServe.update(id, {
+    await sysUserServe.update(id, {
       role_id,
       avatar,
       phone,

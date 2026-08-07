@@ -96,7 +96,7 @@ export abstract class CommServe<T = any> {
     if (typeof pageOrOptions === 'number' || typeof pageOrOptions === 'string') {
       allOptions = {
         ...options,
-        offset: (pageOrOptions - 1) * pageSize,
+        offset: ((pageOrOptions < 1 ? 1 : pageOrOptions) - 1) * pageSize,
         limit: pageSize ? pageSize * 1 : 10,
       };
     } else {

@@ -133,6 +133,9 @@ class SysUserServe extends CommServe<TUser> {
   }) {
     const options = this.filterWhereAttributes(params);
     const result = await this.findAll(params.page, params.pageSize, {
+      attributes: {
+        exclude: ['password'],
+      },
       where: {
         ...options,
         username: {

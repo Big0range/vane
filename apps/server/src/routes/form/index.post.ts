@@ -5,7 +5,7 @@ type ImportFormBody = Pick<Form, 'title' | 'code' | 'desc' | 'rule' | 'option'> 
   status?: boolean;
 };
 
-export default async function (req: Request, res: Response): Promise<void> {
+export default async (req: Request, res: Response): Promise<void> => {
   try {
     const data = req.body as ImportFormBody;
     if (!data.title) {
@@ -33,4 +33,4 @@ export default async function (req: Request, res: Response): Promise<void> {
   } catch (error: any) {
     res.fail(error);
   }
-}
+};

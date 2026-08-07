@@ -1,7 +1,7 @@
 import ExcelJS from 'exceljs';
 import type { Request, Response } from 'express';
 
-export default async function (req: Request, res: Response): Promise<void> {
+export default async (req: Request, res: Response): Promise<void> => {
   const workbook = new ExcelJS.Workbook();
 
   const worksheet = workbook.addWorksheet('demo');
@@ -40,4 +40,4 @@ export default async function (req: Request, res: Response): Promise<void> {
     data: buffer,
     raw: true,
   });
-}
+};

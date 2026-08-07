@@ -2,7 +2,7 @@ import type { TableTemplate } from '#/serve/index.ts';
 import { tableTemplateServe } from '#/serve/index.ts';
 import type { Request, Response } from 'express';
 
-export default async function (req: Request, res: Response): Promise<void> {
+export default async (req: Request, res: Response): Promise<void> => {
   try {
     const query = req.query as any as TableTemplate & PageQueryParam;
 
@@ -11,4 +11,4 @@ export default async function (req: Request, res: Response): Promise<void> {
   } catch (error: any) {
     res.fail(error);
   }
-}
+};

@@ -3,7 +3,7 @@ import ExcelJS from 'exceljs';
 import type { Request, Response } from 'express';
 import { sysLogsServe } from '#/serve/index.ts';
 import { logger } from '#/utils/useLogger.ts';
-export default async function (req: Request, res: Response): Promise<void> {
+export default async (req: Request, res: Response): Promise<void> => {
   try {
     const query = req.query as Record<string, any>;
     query.pageSize = query.pageSize || 999999999;
@@ -62,4 +62,4 @@ export default async function (req: Request, res: Response): Promise<void> {
       log: '日志下载失败',
     });
   }
-}
+};

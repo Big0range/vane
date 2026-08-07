@@ -8,7 +8,7 @@ const cos = new COS({
   SecretId: process.env.COS_SECRET_ID, // 推荐使用环境变量获取；用户的 SecretId，建议使用子账号密钥，授权遵循最小权限指引，降低使用风险。子账号密钥获取可参考https://cloud.tencent.com/document/product/598/37140
   SecretKey: process.env.COS_SECRET_KEY, // 推荐使用环境变量获取；用户的 SecretKey，建议使用子账号密钥，授权遵循最小权限指引，降低使用风险。子账号密钥获取可参考https://cloud.tencent.com/document/product/598/37140
 });
-export default async function (req: Request, res: Response) {
+export default async (req: Request, res: Response) => {
   try {
     const file = req.file;
     if (!file) {
@@ -39,6 +39,6 @@ export default async function (req: Request, res: Response) {
   } catch (error: any) {
     res.fail(error);
   }
-}
+};
 
 export const middleware = [uploadImg.single('file')];

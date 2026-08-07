@@ -8,7 +8,7 @@ type SubmitFormBody = {
   data?: Record<string, any>;
 };
 
-export default async function (req: Request, res: Response): Promise<void> {
+export default async (req: Request, res: Response): Promise<void> => {
   try {
     const { form_code: formCode, version, data } = req.body as SubmitFormBody;
     if (!formCode) {
@@ -64,4 +64,4 @@ export default async function (req: Request, res: Response): Promise<void> {
   } catch (error: any) {
     res.fail(error);
   }
-}
+};
