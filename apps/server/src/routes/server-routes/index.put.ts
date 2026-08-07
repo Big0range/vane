@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import { sysRoutesServe } from '#/serve/index.ts';
-export default async function (req: Request, res: Response): Promise<void> {
+export default async (req: Request, res: Response): Promise<void> => {
   try {
     const body = req.body;
     const id = body.id;
@@ -19,4 +19,4 @@ export default async function (req: Request, res: Response): Promise<void> {
       message: error.message,
     });
   }
-}
+};

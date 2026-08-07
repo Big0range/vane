@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 import { sysUserServe } from '#/serve/index.ts';
 import { md5 } from '#/utils/md5.ts';
 import Token from '#/utils/token.ts';
-export default async function (req: Request, res: Response) {
+export default async (req: Request, res: Response) => {
   try {
     const { old_password, new_password, confirm_password } = req.body;
 
@@ -33,4 +33,4 @@ export default async function (req: Request, res: Response) {
   } catch (error: any) {
     res.fail(error);
   }
-}
+};

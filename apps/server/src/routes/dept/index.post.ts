@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import { deptServe } from '#/serve/index.ts';
-export default async function (req: Request, res: Response) {
+export default async (req: Request, res: Response) => {
   try {
     const { name, desc = null, parent_id = -1, shop_id, status, sort } = req.body;
     if (!name) {
@@ -28,4 +28,4 @@ export default async function (req: Request, res: Response) {
   } catch (error: any) {
     res.fail(error);
   }
-}
+};

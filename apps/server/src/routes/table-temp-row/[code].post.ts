@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import { tableTemplateRowServe } from '#/serve/index.ts';
 
-export default async function (req: Request, res: Response): Promise<void> {
+export default async (req: Request, res: Response): Promise<void> => {
   try {
     const code = req.params.code as string;
     const visible = req?.body?.visible as boolean;
@@ -10,4 +10,4 @@ export default async function (req: Request, res: Response): Promise<void> {
   } catch (error: any) {
     res.fail(error);
   }
-}
+};

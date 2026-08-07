@@ -1,7 +1,7 @@
 import { tableTemplateRowServe, type TableTemplateRow } from '#/serve/index.ts';
 import type { Request, Response } from 'express';
 
-export default async function (req: Request, res: Response): Promise<void> {
+export default async (req: Request, res: Response): Promise<void> => {
   try {
     const body = req.body as Omit<TableTemplateRow, 'id' | 'create_time' | 'update_time'>;
     if (!body.title || !body.key || !body.table_template_code) {
@@ -12,4 +12,4 @@ export default async function (req: Request, res: Response): Promise<void> {
   } catch (error: any) {
     res.fail(error);
   }
-}
+};

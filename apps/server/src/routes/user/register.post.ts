@@ -4,7 +4,7 @@ import Token from '#/utils/token.ts';
 import { logger } from '#/utils/useLogger.ts';
 import { md5 } from '#/utils/md5.ts';
 
-export default async function (req: Request, res: Response) {
+export default async (req: Request, res: Response) => {
   logger.debug(req.body);
   try {
     const { username, password } = req.body;
@@ -46,4 +46,4 @@ export default async function (req: Request, res: Response) {
   } catch (error: any) {
     res.fail(error);
   }
-}
+};
