@@ -12,7 +12,7 @@ export default async function (req: Request, res: Response) {
     if (!new_password) {
       throw new Error('请输入新密码');
     }
-    if (new_password.length < 5) {
+    if (new_password.length < 6) {
       throw new Error('密码至少六位');
     }
     if (new_password !== confirm_password) {

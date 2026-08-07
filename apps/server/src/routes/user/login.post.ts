@@ -21,7 +21,7 @@ export default async function (req: Request, res: Response) {
     if (!password) {
       throw new Error('请输入密码');
     }
-    if (password.length < 5) {
+    if (password.length < 6) {
       throw new Error('密码至少六位');
     }
     if (!code) {

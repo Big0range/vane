@@ -25,7 +25,7 @@ export default async (req: Request, res: Response) => {
     });
     // 之前是启用状态,改为禁用的话需要清除token,踢出用户下线
     if (user.status === 0) {
-      await sysUserServe.logout(req.body.id);
+      await sysUserServe.logout(id);
     }
     res.ok({});
   } catch (error: any) {

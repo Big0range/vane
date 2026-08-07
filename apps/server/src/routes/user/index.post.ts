@@ -1,7 +1,8 @@
-import { encryption, isPhoneNumber } from '@vane/utils';
+import { isPhoneNumber } from '@vane/utils';
 import type { Request, Response } from 'express';
 import { type TUser, sysUserServe } from '#/serve/index.ts';
 import { logger } from '#/utils/useLogger.ts';
+import { md5 } from '#/utils/md5.ts';
 export default async function (req: Request, res: Response) {
   logger.debug(req.body);
   try {
@@ -11,7 +12,7 @@ export default async function (req: Request, res: Response) {
       throw new Error('用户名至少六位');
     }
     if (!password) {
-      password = encryption(username.substring(username.length - 6));
+      password = md5(username.substring(username.length - 6));
     }
     const resultByUsername = await sysUserServe.findByUsername(username, true);
     if (resultByUsername) {
