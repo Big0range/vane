@@ -1,200 +1,47 @@
-type NodeType = 'rule' | 'option';
+import { createRedis } from './src/utils/redis.ts';
+import { Queue, Worker } from 'bullmq';
 
-interface BaseNode {
-  id?: number;
-  control?: {
-    rule?: BaseNode[];
-    [key: string]: any;
-  }[];
-  options?: BaseNode[];
-  children?: BaseNode[];
-  [key: string]: any;
-}
+async function main() {
+  try {
+    const redis = createRedis(null);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    const myQueue = new Queue('paint-queue', { connection: redis });
+    setTimeout(() => {
+      console.log('aaaaaa');
+      myQueue.add('paint-queue', {
+        color: 'red',
+        carId: 'tesla-001',
+      });
+    }, 1000);
 
-interface NodeInfo {
-  item: BaseNode;
-  type: NodeType;
-  parent?: BaseNode;
-}
+    const worker = new Worker(
+      'paint-queue',
+      async (job) => {
+        // job.data 包含 { color: 'red', carId: '...' }
+        console.log(`开始喷涂 ${job.data.carId} 为 ${job.data.color}`);
 
-/**
- * 新增
- */
-async function addItem(item: BaseNode, type: NodeType, parent?: BaseNode) {
-  // TODO
+        // 模拟耗时操作
+        await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  if (type === 'rule') {
-    console.log('新增 rule', {
-      item,
-      parent,
-      parentId: parent?.id,
+        console.log(`完成喷涂 ${job.data.carId}`);
+
+        // 返回值会存入 job.returnvalue
+        return { status: 'success', paintedAt: new Date() };
+      },
+      { connection: redis },
+    );
+
+    // 监听事件（可选）
+    worker.on('completed', (job) => {
+      console.log(`任务 ${job.id} 已完成，结果是: ${JSON.stringify(job.returnvalue)}`);
     });
-  } else {
-    console.log('新增 option', {
-      item,
-      parent,
-      parentId: parent?.id,
+
+    worker.on('failed', (job, err) => {
+      console.log(`任务 ${job!.id} 失败，原因: ${err.message}`);
     });
+  } catch (error) {
+    console.error('添加任务失败', error);
   }
 }
 
-/**
- * 删除
- */
-async function removeItem(item: BaseNode, type: NodeType, parent?: BaseNode) {
-  // TODO
-
-  if (type === 'rule') {
-    console.log('删除 rule', {
-      item,
-      parent,
-      parentId: parent?.id,
-    });
-  } else {
-    console.log('删除 option', {
-      item,
-      parent,
-      parentId: parent?.id,
-    });
-  }
-}
-
-/**
- * 异步递归遍历
- */
-async function walk(
-  list: BaseNode[] = [],
-  type: NodeType,
-  callback: (item: BaseNode, info: NodeInfo) => Promise<void>,
-  parent?: BaseNode,
-) {
-  for (const item of list) {
-    await callback(item, {
-      item,
-      type,
-      parent,
-    });
-
-    // 子 rule
-    for (const c of item.control ?? []) {
-      await walk(c.rule ?? [], 'rule', callback, item);
-    }
-
-    // options
-    await walk(item.options ?? [], 'option', callback, item);
-
-    // 树形 options
-    await walk(item.children ?? [], 'option', callback, item);
-  }
-}
-
-/**
- * 对比两份数据
- *
- * oldRules：数据库数据(A)
- * newRules：前端提交数据(B)
- */
-export async function diffRules(oldRules: BaseNode[], newRules: BaseNode[]) {
-  const oldMap = new Map<number, NodeInfo>();
-  const newIds = new Set<number>();
-
-  /**
-   * 收集旧数据
-   */
-  await walk(oldRules, 'rule', async (item, info) => {
-    if (item.id != null) {
-      oldMap.set(item.id, info);
-    }
-  });
-
-  /**
-   * 收集新数据所有 id
-   */
-  await walk(newRules, 'rule', async (item) => {
-    if (item.id != null) {
-      newIds.add(item.id);
-    }
-  });
-
-  /**
-   * 删除
-   */
-  for (const [id, info] of oldMap) {
-    if (!newIds.has(id)) {
-      await removeItem(info.item, info.type, info.parent);
-    }
-  }
-
-  /**
-   * 新增
-   */
-  await walk(newRules, 'rule', async (item, info) => {
-    if (item.id === undefined || item.id === null || item.id === 0) {
-      await addItem(item, info.type, info.parent);
-    }
-  });
-}
-const a = [
-  {
-    id: 16,
-    field: 'type',
-    options: [
-      {
-        id: 17,
-        label: '目录',
-      },
-      {
-        id: 18,
-        label: '菜单',
-      },
-    ],
-    control: [
-      {
-        value: 'MENU',
-        rule: [
-          {
-            id: 19,
-            field: 'name',
-          },
-          {
-            id: 20,
-            field: 'component',
-          },
-        ],
-      },
-    ],
-  },
-];
-
-const b = [
-  {
-    id: 16,
-    field: 'type',
-    options: [
-      {
-        id: 17,
-        label: '目录',
-      },
-      {
-        label: '按钮',
-      },
-    ],
-    control: [
-      {
-        value: 'MENU',
-        rule: [
-          {
-            id: 19,
-            field: 'name',
-          },
-          {
-            field: 'icon',
-          },
-        ],
-      },
-    ],
-  },
-];
-console.log(1);
-await diffRules(a, b);
-console.log(2);
+main();

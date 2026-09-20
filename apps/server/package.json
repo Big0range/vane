@@ -30,6 +30,7 @@
     "@types/multer": "^2.1.0",
     "@vane/utils": "workspace:*",
     "axios": "^1.16.1",
+    "bullmq": "^6.3.8",
     "connect-redis": "^7.1.1",
     "cos-nodejs-sdk-v5": "^2.15.4",
     "crypto-js": "^4.2.0",

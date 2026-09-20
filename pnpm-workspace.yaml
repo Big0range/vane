@@ -6,5 +6,6 @@ allowBuilds:
   es5-ext: true
   esbuild: true
   json-editor-vue: true
+  msgpackr-extract: true
   unrs-resolver: true
   vue-demi: true

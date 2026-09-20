@@ -1,12 +1,13 @@
 import { Redis } from 'ioredis';
 import { logger } from './useLogger.ts';
 
-function createRedis() {
+export function createRedis(maxRetriesPerRequest?: number | null) {
   const redis = new Redis({
     port: Number(process.env.REDIS_PORT), // Redis port
     host: process.env.REDIS_HOST, // Redis host
     password: process.env.REDIS_PASSWORD,
     db: Number(process.env.REDIS_DB), // Defaults to 0
+    maxRetriesPerRequest: maxRetriesPerRequest,
     retryStrategy(times) {
       return Math.min(times * 1000, 10000);
     },
