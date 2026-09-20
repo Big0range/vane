@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "MySQL": {
+      "command": "uvx",
+      "args": ["--from", "mysql-mcp-server", "mysql_mcp_server"],
+      "env": {
+        "MYSQL_HOST": "vane-mysql-master",
+        "MYSQL_PORT": "3307",
+        "MYSQL_USER": "root",
+        "MYSQL_PASSWORD": "957779",
+        "MYSQL_DATABASE": "vane"
+      },
+      "fromGalleryId": "byted-mcp-volcengine.mysql"
+    },
+    "China-weather": {
+      "url": "https://fyservice.weather.com.cn/sse",
+      "headers": {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NzM4MTUzNzUsImV4cCI6MTgwNTM4NTU5OSwiY29tcGFueSI6IueBq-WxsSIsImV4cGlyZXNBdCI6MTgwNTM4NTU5OX0.-E8L6qxEpObZw39FaGi-wWYS3F5aMCXCy_sNiM4X_PU"
+      },
+      "fromGalleryId": "byted-mcp-volcengine.China-weather"
+    }
+  }
+}
