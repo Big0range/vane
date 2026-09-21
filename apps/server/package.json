@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
     "start": "node --env-file=.env --env-file=.env.production src/server.ts",
-    "demo": "echo \"demo\" ",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "prettier": "prettier --write src/**/*.{js,jsx,ts,tsx,vue,json,css,scss,md,yaml,yml}"
@@ -30,6 +29,7 @@
     "@types/multer": "^2.1.0",
     "@vane/utils": "workspace:*",
     "axios": "^1.16.1",
+    "bullmq": "^6.3.8",
     "connect-redis": "^7.1.1",
     "cos-nodejs-sdk-v5": "^2.15.4",
     "crypto-js": "^4.2.0",

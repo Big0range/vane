@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import { useApp } from './app.ts';
+import { closeScheduledJobs, initScheduledJobs } from './queue/scheduled-job.lifecycle.ts';
 import { syncDb } from './serve/index.ts';
 import { logger } from './utils/useLogger.ts';
 logger.info(JSON.stringify({ name: 'server', status: 'starting...' }));
@@ -14,10 +15,25 @@ const port = process.env.PORT || 3000;
   try {
     await syncDb();
     logger.info('数据库同步完成');
+    await initScheduledJobs();
   } catch (error) {
-    logger.error('数据库同步失败', error);
+    logger.error('服务初始化失败', error);
     process.exit(1);
   }
+
+  const server = app.listen(port);
+  server.on('listening', onListening(server));
+  server.on('error', onError);
+
+  let closing = false;
+  const close = async () => {
+    if (closing) return;
+    closing = true;
+    await closeScheduledJobs();
+    server.close(() => process.exit(0));
+  };
+  process.on('SIGINT', close);
+  process.on('SIGTERM', close);
 
   function onListening(server: any) {
     return async () => {
@@ -30,15 +46,9 @@ const port = process.env.PORT || 3000;
       }
     };
   }
-  const server = app.listen(port);
-  server.on('listening', onListening(server));
-  server.on('error', onError);
 
   function onError(error: NodeJS.ErrnoException) {
-    if (error.syscall !== 'listen') {
-      throw error;
-    }
-
+    if (error.syscall !== 'listen') throw error;
     const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
 
     // handle specific listen errors with friendly messages

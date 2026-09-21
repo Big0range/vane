@@ -3,8 +3,10 @@ packages:
   - 'packages/*'
 allowBuilds:
   '@parcel/watcher': true
+  core-js: true
   es5-ext: true
   esbuild: true
   json-editor-vue: true
+  msgpackr-extract: true
   unrs-resolver: true
   vue-demi: true

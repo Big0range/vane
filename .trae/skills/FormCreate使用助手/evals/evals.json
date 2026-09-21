@@ -1,0 +1,71 @@
+{
+  "skill_name": "FormCreate使用助手",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Vue3 里用 form-create，要在提交前手动校验并打印表单数据，怎么写？用 v-model:api。",
+      "expected_output": "应给出 validate().then 与 formData 或 api.formData 的用法，并说明 onMounted 后使用 api。",
+      "files": ["AGENTS.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "后端返回 ruleJson 字符串，我要赋给 :rule，听说不能 JSON.parse，该怎么做？",
+      "expected_output": "应使用 formCreate.parseJson，并说明与 JSON.parse 的区别。",
+      "files": ["AGENTS.md"]
+    },
+    {
+      "id": 3,
+      "prompt": "想在 input 的 blur 里拿到 api 并给另一个字段赋值，rule 怎么写？",
+      "expected_output": "应使用 inject: true 与 on.blur(inject)，示例 inject.api.setValue。",
+      "files": ["AGENTS.md"]
+    },
+    {
+      "id": 4,
+      "prompt": "项目用 ant-design-vue，别用 el-button。给一个最小 form-create 模板和 option.onSubmit。",
+      "expected_output": "应使用 antd 按钮/表单习惯，不默认 Element 组件名。",
+      "files": ["AGENTS.md"]
+    },
+    {
+      "id": 5,
+      "prompt": "我要给所有表单统一加 extendApi 方法 request，怎么注册？",
+      "expected_output": "应给出 formCreate.extendApi 示例。",
+      "files": ["AGENTS.md"]
+    },
+    {
+      "id": 6,
+      "prompt": "子表单里的字段怎么校验？和主表 api 是同一个吗？",
+      "expected_output": "应说明 getSubForm 或子表单独立 api，父子校验需分别处理。",
+      "files": ["AGENTS.md"]
+    },
+    {
+      "id": 7,
+      "prompt": "后端把 onSubmit 函数字符串存下来了，前端怎么恢复成可执行函数？",
+      "expected_output": "应提到 formCreate.parseFn 将函数字符串恢复为 Function，并与 parseJson 区分。",
+      "files": ["AGENTS.md"]
+    },
+    {
+      "id": 8,
+      "prompt": "Naive UI 栈下写一条 select，联动另一字段的 options，rule 里 inject 和 on.change 怎么写？",
+      "expected_output": "应使用 inject: true，事件里用 inject.api.getRule 更新 options；组件 type/props 符合 Naive，不写 el-。",
+      "files": ["AGENTS.md"]
+    },
+    {
+      "id": 9,
+      "prompt": "如何在 rule 上为单个字段配置标签宽度（wrap.labelWidth）？给出示例。",
+      "expected_output": "应在对应 rule 上使用 wrap: { labelWidth: '...' }，并体现这是字段级配置（不同字段可用不同值）。",
+      "files": ["AGENTS.md"]
+    },
+    {
+      "id": 10,
+      "prompt": "自定义组件的 v-model prop 不是默认的 modelValue（例如组件用 activeKey 作为 v-model prop），规则里怎么让双向绑定生效？",
+      "expected_output": "应使用 rule.modelField 指定 v-model prop 名；并可提到 formCreate.setModelField(componentName, propName) 做全局映射。",
+      "files": ["AGENTS.md"]
+    },
+    {
+      "id": 11,
+      "prompt": "我要自定义 submitBtn/resetBtn，并在 click 回调里拿到当前表单 api 来调用 submit/resetFields，option 怎么写？",
+      "expected_output": "应给出 submitBtn: { click(api) { api.submit() } } 和 resetBtn: { click(api) { api.resetFields() } } 等等价配置，并说明 api 来自当前表单实例。",
+      "files": ["AGENTS.md"]
+    }
+  ]
+}
