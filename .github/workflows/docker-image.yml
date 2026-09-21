@@ -49,6 +49,8 @@ jobs:
           context: .
           file: Dockerfile.server
           push: true
+          provenance: false
+          sbom: false
           tags: |
             ${{ env.FULL_IMAGE_SERVER }}:${{ steps.vane.outputs.VERSION }}
             ${{ env.FULL_IMAGE_SERVER }}:latest
@@ -60,9 +62,12 @@ jobs:
           context: .
           file: Dockerfile.nginx
           push: true
+          provenance: false
+          sbom: false
           tags: |
             ${{ env.FULL_IMAGE_CLIENT }}:${{ steps.vane.outputs.VERSION }}
             ${{ env.FULL_IMAGE_CLIENT }}:latest
+
       - name: Deploy
         uses: appleboy/ssh-action@v1.2.0
         with:
