@@ -35,6 +35,14 @@ export {
   FormCommOptionsItemTable,
   type FormCommOptionsItem,
 } from './form/form_comm_options_item.serve.ts';
+export {
+  scheduledJobServe,
+  scheduledJobLogServe,
+  SysScheduledJobTable,
+  SysScheduledJobLogTable,
+  type ScheduledJob,
+  type ScheduledJobLog,
+} from './sys/scheduled_job.serve.ts';
 
 export const syncDb = async () => {
   return db.sync({ alter: process.env.MYSQL_ALERT === 'true' });

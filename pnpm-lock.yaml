@@ -561,6 +561,9 @@ importers:
       '@vitejs/plugin-vue-jsx':
         specifier: ^5.1.5
         version: 5.1.6(vite@8.1.4(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.49.0)(tsx@4.23.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+      '@vue-js-cron/naive-ui':
+        specifier: ^2.1.2
+        version: 2.1.2
       '@vueuse/core':
         specifier: ^14.3.0
         version: 14.3.0(vue@3.5.39(typescript@6.0.3))
@@ -645,6 +648,9 @@ importers:
       vue-router:
         specifier: ^5.0.7
         version: 5.1.0(@vue/compiler-sfc@3.5.39)(esbuild@0.28.1)(pinia@3.0.4(typescript@6.0.3)(vue@3.5.39(typescript@6.0.3)))(rolldown@1.1.5)(vite@8.1.4(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.49.0)(tsx@4.23.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+      vue3-cron-plus:
+        specifier: 0.1.9
+        version: 0.1.9(typescript@6.0.3)
     devDependencies:
       '@types/lodash':
         specifier: ^4.17.24
@@ -2860,6 +2866,18 @@ packages:
         integrity: sha512-Ja6yvWrbis2QtN4ClAKreeUZPVYMARDYZl9LMEv1iQ1QdepB6wn0jTRxA9MftYmYa4DQ4k/DaSZpFPUfxl8giw==,
       }
 
+  '@vue-js-cron/core@6.5.0':
+    resolution:
+      {
+        integrity: sha512-2jp4ekoyC9LhnZsIdTdxWce3G6FK5CvYhyIXscnVdxnN6S3oi3uXWpGAuqF+RGhROtfBCuF/2QLPkg5YfZIbzg==,
+      }
+
+  '@vue-js-cron/naive-ui@2.1.2':
+    resolution:
+      {
+        integrity: sha512-E9gls+a0b6erdOmtWrTL3NYFTUyp+VvvTVyygvfRwJUN2xQ6dYorx/2fXx15rmIx3rf2RyKWGteWwXuY03cFAw==,
+      }
+
   '@vue-macros/common@3.1.2':
     resolution:
       {
@@ -4167,6 +4185,12 @@ packages:
         integrity: sha512-XgZ0pFcakEUlbwQEVNg3+QAis1FyTL3Qel9FYy8pSkQqoG3PNoT0bOCQtOXcOkur21r2Eq2kI+IE+gsmAEVlYw==,
       }
     engines: { node: '>=0.10.0' }
+
+  core-js@3.50.0:
+    resolution:
+      {
+        integrity: sha512-BRWgOLKkFeCgRudR6zrs8p9XJZcE14grzKMMssoYrk6krtuEZ7MTKPIY5RzOnqsEKIR9kst7wNzphttraT+Yqw==,
+      }
 
   core-util-is@1.0.2:
     resolution:
@@ -7326,6 +7350,13 @@ packages:
       }
     engines: { node: '>= 10.16.0' }
 
+  mustache@4.2.0:
+    resolution:
+      {
+        integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==,
+      }
+    hasBin: true
+
   mute-stream@0.0.8:
     resolution:
       {
@@ -9752,6 +9783,12 @@ packages:
     peerDependencies:
       typescript: '>=5.0.0'
 
+  vue3-cron-plus@0.1.9:
+    resolution:
+      {
+        integrity: sha512-jirDV1F9q7oaGerJztzcXY7e9eGUZbkP2jzfR/Chxice1c7ywthA+iO1zERvPtpbK2WHjOfidbvoY1DUzI3YKA==,
+      }
+
   vue@3.5.39:
     resolution:
       {
@@ -11190,6 +11227,14 @@ snapshots:
       path-browserify: 1.0.1
       vscode-uri: 3.1.0
 
+  '@vue-js-cron/core@6.5.0':
+    dependencies:
+      mustache: 4.2.0
+
+  '@vue-js-cron/naive-ui@2.1.2':
+    dependencies:
+      '@vue-js-cron/core': 6.5.0
+
   '@vue-macros/common@3.1.2(vue@3.5.39(typescript@6.0.3))':
     dependencies:
       '@vue/compiler-sfc': 3.5.39
@@ -12063,6 +12108,8 @@ snapshots:
       is-what: 5.5.0
 
   copy-descriptor@0.1.1: {}
+
+  core-js@3.50.0: {}
 
   core-util-is@1.0.2: {}
 
@@ -13983,6 +14030,8 @@ snapshots:
       concat-stream: 2.0.0
       type-is: 1.6.18
 
+  mustache@4.2.0: {}
+
   mute-stream@0.0.8: {}
 
   mysql2@3.22.6(@types/node@25.9.5):
@@ -15577,6 +15626,15 @@ snapshots:
       '@volar/typescript': 2.4.28
       '@vue/language-core': 3.3.7
       typescript: 6.0.3
+
+  vue3-cron-plus@0.1.9(typescript@6.0.3):
+    dependencies:
+      '@element-plus/icons-vue': 2.3.2(vue@3.5.39(typescript@6.0.3))
+      core-js: 3.50.0
+      element-plus: 2.14.3(vue@3.5.39(typescript@6.0.3))
+      vue: 3.5.39(typescript@6.0.3)
+    transitivePeerDependencies:
+      - typescript
 
   vue@3.5.39(typescript@6.0.3):
     dependencies:

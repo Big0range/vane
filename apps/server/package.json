@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
     "start": "node --env-file=.env --env-file=.env.production src/server.ts",
-    "demo": "echo \"demo\" ",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "prettier": "prettier --write src/**/*.{js,jsx,ts,tsx,vue,json,css,scss,md,yaml,yml}"
