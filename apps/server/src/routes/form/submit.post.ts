@@ -43,21 +43,26 @@ export default async (req: Request, res: Response): Promise<void> => {
 
       for (const item of formItems.rows) {
         const valueObj = data[item.field] === undefined ? null : data[item.field];
-        if (!valueObj) {
-          continue;
+        const values = Array.isArray(valueObj) ? valueObj : [valueObj];
+
+        for (const currentValue of values) {
+          if (currentValue === null || currentValue === undefined || currentValue === '') {
+            continue;
+          }
+
+          await formDataServe.create(
+            {
+              form_code: formCode,
+              form_json_id: formDataJsonResult.dataValues.id,
+              version: submitVersion,
+              user_id: userId,
+              item_id: item.id,
+              value: currentValue.value ?? currentValue,
+              label: currentValue.label || null,
+            },
+            { transaction },
+          );
         }
-        await formDataServe.create(
-          {
-            form_code: formCode,
-            form_json_id: formDataJsonResult.dataValues.id,
-            version: submitVersion,
-            user_id: userId,
-            item_id: item.id,
-            value: valueObj.value ?? valueObj,
-            label: valueObj.label || null,
-          },
-          { transaction },
-        );
       }
     });
     res.ok();

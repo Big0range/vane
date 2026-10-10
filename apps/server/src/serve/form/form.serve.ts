@@ -308,17 +308,17 @@ class FormServe extends CommServe<Form> {
 export const formServe = new FormServe(FormTable);
 
 /**测试用例  不要删除 */
-import demoForm from './demo.ts';
-const { code, desc, title, rule, option } = demoForm;
-formServe
-  .create({
-    title,
-    code,
-    desc,
-    rule,
-    option,
-    status: true,
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// import demoForm from './demo.ts';
+// const { code, desc, title, rule, option } = demoForm;
+// formServe
+//   .create({
+//     title,
+//     code,
+//     desc,
+//     rule,
+//     option,
+//     status: true,
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });

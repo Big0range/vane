@@ -183,6 +183,19 @@ export function packFormData(payload: FormatFormDataPayload) {
       return value;
     }
 
+    if (Array.isArray(value)) {
+      return value.map(currentValue => {
+        const label = resolveLabelByValue(
+          currentRule,
+          currentValue,
+          payload.fApi,
+        );
+        return label === undefined
+          ? currentValue
+          : { label, value: currentValue };
+      });
+    }
+
     const label = resolveLabelByValue(currentRule, value, payload.fApi);
     if (label === undefined) {
       return value;
@@ -195,6 +208,13 @@ export function packFormData(payload: FormatFormDataPayload) {
 export function unpackFormData(formData: FormDataValue) {
   return Object.entries(formData).reduce<FormDataValue>(
     (result, [field, value]) => {
+      if (Array.isArray(value)) {
+        result[field] = value.map(currentValue =>
+          isPackedFieldValue(currentValue) ? currentValue.value : currentValue,
+        );
+        return result;
+      }
+
       if (isPackedFieldValue(value)) {
         result[field] = value.value;
         return result;
